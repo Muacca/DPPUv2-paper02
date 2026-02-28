@@ -1,0 +1,205 @@
+%==============================================================================
+% Section 4: Weyl Extension
+%==============================================================================
+\section{Weyl Extension: Squashed Ansatz}
+\label{sec:weyl}
+
+In this section we derive the closed-form expression for the Weyl scalar
+$C^2(r,\varepsilon)$ under the squashed ansatz of \S\ref{sec:squashed}
+and elucidate the structure of the effective potential.
+
+\subsection{Computation of the Weyl Tensor}
+\label{sec:weyl-computation}
+
+The Weyl tensor is computed from the Levi-Civita connection via the
+following standard procedure:
+
+\begin{enumerate}
+  \item \textbf{Levi-Civita connection} in the orthonormal frame
+    (generalised Koszul formula):
+    \begin{equation}
+      \Gamma^{a}{}_{bc}
+      = \tfrac{1}{2}\bigl(C^{a}{}_{bc} + C^{c}{}_{ba}
+      - C^{b}{}_{ac}\bigr)\,.
+    \end{equation}
+
+  \item \textbf{Riemann tensor} in the frame basis:
+    \begin{equation}
+      R^{a}{}_{bcd}
+      = \Gamma^{a}{}_{ec}\,\Gamma^{e}{}_{bd}
+      - \Gamma^{a}{}_{ed}\,\Gamma^{e}{}_{bc}
+      + \Gamma^{a}{}_{be}\,C^{e}{}_{cd}\,.
+    \end{equation}
+
+  \item \textbf{Ricci tensor and scalar}:
+    $R_{bd} = R^a{}_{bad}$, $\;R = R^a{}_a$.
+
+  \item \textbf{Weyl tensor} (4-dimensional definition):
+    \begin{equation}
+      C_{abcd} = R_{abcd}
+      - \tfrac{1}{2}\bigl(g_{ac}R_{bd} - g_{ad}R_{bc}
+      - g_{bc}R_{ad} + g_{bd}R_{ac}\bigr)
+      + \tfrac{R}{6}\bigl(g_{ac}g_{bd} - g_{ad}g_{bc}\bigr)\,.
+      \label{eq:weyl-def}
+    \end{equation}
+
+  \item \textbf{Weyl scalar}:
+    $C^2 = C_{abcd}\,C^{abcd}$ (with $g^{ab}=\delta^{ab}$ in the
+    orthonormal frame).
+\end{enumerate}
+
+\subsection{Lemma~1: Closed-Form Weyl Scalar}
+\label{sec:lemma1}
+
+\begin{lemma}
+\label{lem:weyl-scalar}
+The four-dimensional Weyl scalar of the squashed $\Sthree\times\Sone$
+metric, computed from the Levi-Civita connection, is
+\begin{equation}
+  C^2(r,\varepsilon)
+  = \frac{1024\,\varepsilon^2(\varepsilon{+}2)^2}
+         {3\,r^4\,(1{+}\varepsilon)^{16/3}}\,.
+  \label{eq:C2}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By symbolic algebraic computation following the procedure of
+\S\ref{sec:weyl-computation}, with the squashed structure
+constants~\eqref{eq:squashed-structure} as input. All components of the
+Weyl tensor are computed, and the sum of squares is simplified and
+factored to yield~\eqref{eq:C2}. Full details are given in
+Appendix~\ref{app:symbolic}.
+\end{proof}
+
+\subsection{Key Properties of Lemma~1}
+\label{sec:C2-properties}
+
+\paragraph{(i) Vanishing at the isotropic point: $C^2(r,0)=0$.}
+The factor $\varepsilon^2$ in the numerator ensures $C^2=0$ at
+$\varepsilon=0$. Physically, the round $\Sthree$ is a space of
+constant curvature and hence conformally flat; the product metric
+$\Sthree\times\Sone$ is therefore conformally flat in four dimensions,
+with identically vanishing Weyl tensor.
+
+\paragraph{(ii) Non-negativity: $C^2(r,\varepsilon)\ge 0$
+  $(\varepsilon>-1)$.}
+As a sum of squares in the orthonormal frame, $C^2\ge 0$ by
+definition. The only zero (for $\varepsilon>-1$) is $\varepsilon=0$;
+the other root $\varepsilon=-2$ lies beyond the singularity at
+$\varepsilon=-1$.
+
+\paragraph{(iii) Quadratic behaviour at the isotropic point.}
+\begin{equation}
+  \frac{\partial C^2}{\partial\varepsilon}\bigg|_{\varepsilon=0}=0,
+  \qquad
+  \frac{\partial^2 C^2}{\partial\varepsilon^2}\bigg|_{\varepsilon=0}
+  = \frac{8192}{3r^4} > 0\,.
+\end{equation}
+Hence $C^2$ has a quadratic minimum at the isotropic point:
+\begin{equation}
+  C^2(r,\varepsilon)
+  \approx \frac{8192}{3r^4}\,\varepsilon^2
+  \qquad (|\varepsilon|\ll 1)\,.
+\end{equation}
+
+\paragraph{(iv) Divergence as $r\to 0$.}
+For fixed $\varepsilon\neq 0$, $C^2\sim 1/r^4$. The product with the
+volume~\eqref{eq:volume} gives
+\begin{equation}
+  C^2\cdot\Vol
+  = \frac{2048\pi^2 L\,\varepsilon^2(\varepsilon{+}2)^2}
+         {3\,r\,(1{+}\varepsilon)^{16/3}}
+  \sim \frac{1}{r}
+  \qquad (r\to 0)\,.
+  \label{eq:C2Vol}
+\end{equation}
+This unboundedness is the key to the instability proof in
+\S\ref{sec:instability}.
+
+\subsection{Structure of Non-Vanishing Weyl Components}
+\label{sec:weyl-components}
+
+For general $\varepsilon$, there are 24 non-vanishing Weyl-tensor
+components, all sharing the common factor
+\begin{equation}
+  C_{abcd} \propto
+  \frac{\varepsilon(\varepsilon{+}2)}{r^2\,(1{+}\varepsilon)^{8/3}}\,.
+\end{equation}
+Representative independent components:
+
+\begin{table}[ht]
+\centering
+\caption{Representative non-vanishing Weyl-tensor components.}
+\label{tab:weyl-components}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Component & Value \\
+\midrule
+$C_{0101}$
+  & $+\dfrac{16\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
+$C_{0202}$, $C_{0303}$
+  & $-\dfrac{8\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
+$C_{2323}$
+  & $+\dfrac{16\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
+$C_{1212}$, $C_{1313}$
+  & $-\dfrac{8\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All components contain $\varepsilon(\varepsilon{+}2)$ as a factor and
+vanish at $\varepsilon=0$. A complete listing is provided in
+Appendix~\ref{app:symbolic}.
+
+\subsection{Effective Potential with Explicit Weyl Contribution}
+\label{sec:Veff-explicit}
+
+Substituting the result of Lemma~1 into the
+separation~\eqref{eq:Veff-separation} yields
+\begin{equation}
+  \Veff(r,\varepsilon;\alpha)
+  = \VEC(r,\varepsilon)
+  - \alpha\cdot
+    \frac{2048\pi^2 L\,\varepsilon^2(\varepsilon{+}2)^2}
+         {3\,r\,(1{+}\varepsilon)^{16/3}}\,.
+  \label{eq:Veff-explicit}
+\end{equation}
+
+The effect of the Weyl term depends on the sign of~$\alpha$:
+
+\begin{table}[ht]
+\centering
+\caption{Effect of the Weyl term $-\alpha\,C^2\cdot\Vol$ on
+  $\varepsilon\neq 0$ configurations.}
+\label{tab:alpha-sign}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Sign of $\alpha$ & Weyl contribution $-\alpha\,C^2\cdot\Vol$
+  & Effect on $\varepsilon\neq 0$ \\
+\midrule
+$\alpha=0$ & $0$ & None (paper~I recovered) \\
+$\alpha<0$ & $+|\alpha|\,C^2\cdot\Vol > 0$ & Positive penalty (stabilises isotropy) \\
+$\alpha>0$ & $-\alpha\,C^2\cdot\Vol < 0$ & Negative reward (promotes anisotropy) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Effective Potential Contour Maps}
+\label{sec:contour}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{figures/fig02_landscape.png}
+\caption{Contour maps of $\Veff$ in the $(r,\varepsilon)$ plane for
+  $\Sthree$ at $\alpha=-10$, $0$, and $+10$. For $\alpha\le 0$ the
+  isotropic vacuum ($\varepsilon=0$) forms a stable valley, while for
+  $\alpha>0$ the valley is destroyed and the potential landscape
+  collapses. The analytic foundations of this qualitative change are
+  established in \S\ref{sec:stability} and \S\ref{sec:instability}.}
+\label{fig:landscape}
+\end{figure}

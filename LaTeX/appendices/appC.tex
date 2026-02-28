@@ -1,0 +1,216 @@
+%==============================================================================
+% Appendix C: Symbolic Computation Details
+%==============================================================================
+\section{Symbolic Computation Details}
+\label{app:symbolic}
+
+This appendix documents the SymPy-based derivation of the Weyl scalar
+$C^2(r,\varepsilon)$ and the isotropic effective potential
+$\VEC(r,0)$.
+
+\subsection{Derivation of \texorpdfstring{$C^2(r,\varepsilon)$}{C²(r,ε)}}
+\label{sec:app-C2}
+
+\subsubsection{Input: squashed structure constants}
+
+The squashed $\Sthree$ structure constants (\S\ref{sec:squashed}):
+\begin{equation}
+  C^i{}_{jk}(\varepsilon)
+  = \frac{4}{r}\,\varepsilon_{ijk}\times f_i(\varepsilon)\,,
+\end{equation}
+with
+\begin{equation}
+  f_0 = f_1 = (1{+}\varepsilon)^{1/3}\times(1{+}\varepsilon)^{1/3}
+            = (1{+}\varepsilon)^{2/3}\,,\qquad
+  f_2 = (1{+}\varepsilon)^{-2/3}\times(1{+}\varepsilon)^{-2/3}
+      = (1{+}\varepsilon)^{-4/3}\,.
+\end{equation}
+Here each factor $f_i$ originates from the squashing of the
+orthonormal coframe $e^a = r\,\lambda_a(\varepsilon)\,\sigma^a$ (no
+sum), where $\lambda_0=\lambda_1=(1{+}\varepsilon)^{1/3}$ and
+$\lambda_2=(1{+}\varepsilon)^{-2/3}$. The product form of $f_i$
+reflects the two coframe factors that appear in the left-hand sides of
+the Cartan structure equations for the corresponding index.
+
+\subsubsection{Step~1: Levi-Civita connection}
+
+Koszul formula:
+\begin{equation}
+  \Gamma^a{}_{bc}
+  = \tfrac{1}{2}\bigl(C^a{}_{bc}+C^c{}_{ba}-C^b{}_{ac}\bigr)\,.
+\end{equation}
+Non-vanishing components are enumerated symbolically. At $\varepsilon=0$
+these reduce to the paper~I results (Appendix~A.2.1 of~\cite{paper1}).
+
+\subsubsection{Step~2: Riemann tensor}
+
+Frame-basis curvature tensor:
+\begin{equation}
+  R^a{}_{bcd}
+  = \Gamma^a{}_{ec}\,\Gamma^e{}_{bd}
+  - \Gamma^a{}_{ed}\,\Gamma^e{}_{bc}
+  + \Gamma^a{}_{be}\,C^e{}_{cd}\,.
+\end{equation}
+The third term is specific to frame bases (analogous to the
+$\partial\Gamma$ term in coordinate bases). All $4^4=256$ components
+are computed and the antisymmetries $R_{abcd}=-R_{abdc}$,
+$R_{abcd}=-R_{bacd}$ are verified automatically.
+
+\subsubsection{Step~3: Ricci tensor and scalar}
+
+\begin{equation}
+  R_{bd} = R^a{}_{bad}\,,\qquad R = R^a{}_a = R_{bb}\,.
+\end{equation}
+The Levi-Civita Ricci scalar:
+\begin{equation}
+  R_{\LC}(r,\varepsilon)
+  = \frac{8\bigl(4(1{+}\varepsilon)^2-1\bigr)}
+         {r^2\,(1{+}\varepsilon)^{8/3}}\,.
+\end{equation}
+At the isotropic point: $R_{\LC}(r,0)=24/r^2$, matching the standard
+value for~$\Sthree$.
+
+\subsubsection{Step~4: Weyl tensor}
+
+The four-dimensional Weyl tensor:
+\begin{equation}
+  C_{abcd} = R_{abcd}
+  - \tfrac{1}{2}\bigl(g_{ac}R_{bd}-g_{ad}R_{bc}
+  -g_{bc}R_{ad}+g_{bd}R_{ac}\bigr)
+  + \tfrac{R}{6}\bigl(g_{ac}g_{bd}-g_{ad}g_{bc}\bigr)\,.
+\end{equation}
+Computed in the orthonormal frame ($g_{ab}=\delta_{ab}$). All
+$\binom{4}{2}^2=36$ independent components are evaluated symbolically.
+
+\subsubsection{Step~5: Weyl scalar}
+
+\begin{equation}
+  C^2 = C_{abcd}\,C^{abcd}
+  = \sum_{a,b,c,d}C_{abcd}^2\,.
+\end{equation}
+After applying SymPy's \texttt{simplify} and \texttt{factor}:
+\begin{equation}
+  \boxed{C^2(r,\varepsilon)
+  = \frac{1024\,\varepsilon^2(\varepsilon{+}2)^2}
+         {3\,r^4\,(1{+}\varepsilon)^{16/3}}\,.}
+\end{equation}
+
+\subsection{Complete List of Non-Vanishing Weyl Components}
+\label{sec:app-weyl-list}
+
+All 24 non-vanishing components share the common factor
+$\varepsilon(\varepsilon{+}2)/[r^2(1{+}\varepsilon)^{8/3}]$.
+
+\paragraph{Diagonal type ($C_{abab}$).}
+
+\begin{table}[ht]
+\centering
+\caption{Independent diagonal Weyl-tensor components.}
+\label{tab:weyl-diag}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Component & Value \\
+\midrule
+$C_{0101}$
+  & $+\dfrac{16\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
+$C_{0202}$
+  & $-\dfrac{8\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
+$C_{0303}$
+  & $-\dfrac{8\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
+$C_{1212}$
+  & $-\dfrac{8\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
+$C_{1313}$
+  & $-\dfrac{8\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
+$C_{2323}$
+  & $+\dfrac{16\,\varepsilon(\varepsilon{+}2)}
+            {3r^2(1{+}\varepsilon)^{8/3}}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Cross-type components.}
+The Weyl-tensor symmetries $C_{abcd}=C_{cdab}$,
+$C_{abcd}=-C_{abdc}=-C_{bacd}$ generate the remaining 18 non-vanishing
+components from the 6 independent diagonal components listed above.
+
+\paragraph{Tracelessness verification.}
+\begin{equation}
+  C^a{}_{bac} = 0\qquad (\forall\,b,c)\,,
+\end{equation}
+confirmed by SymPy for all index combinations.
+
+\subsection{Complete Symbolic Expression for
+  \texorpdfstring{$\VEC(r,0)$}{V\_EC(r,0)}}
+\label{sec:app-VEC}
+
+The EC engine (\texttt{S3S1Engine}, MX mode, FULL variant) yields the
+isotropic effective potential:
+\begin{equation}
+  \VEC(r,0)
+  = \frac{2\pi^2 Lr}{3\kappa^2}
+    \bigl(V^2 r^2
+    + 6V\eta\kappa^2 r\,\theta_{\NY}
+    + 9\eta^2 - 36\bigr)\,.
+  \label{eq:VEC-symbolic}
+\end{equation}
+Substituting the reference parameters
+$(V{=}4,\,\eta{=}{-}2,\,\theta_{\NY}{=}1,\,\kappa{=}1,\,L{=}1)$:
+\begin{equation}
+  \VEC(r,0) = \frac{32\pi^2}{3}\,r^2(r-3)\,.
+\end{equation}
+This cubic (in~$r$) has a minimum at:
+\begin{equation}
+  \frac{\dd\VEC}{\dd r}
+  = \frac{32\pi^2}{3}\cdot 3r(r-2) = 0
+  \quad\Rightarrow\quad r^*=2\,,
+\end{equation}
+with value
+\begin{equation}
+  \VEC(2,0) = \frac{32\pi^2}{3}\cdot 4\cdot(2-3)
+  = -\frac{128\pi^2}{3} \approx -421.1\,.
+\end{equation}
+
+\subsection{Closed-Form Expression for
+  \texorpdfstring{$C^2\cdot\Vol$}{C²·Vol}}
+\label{sec:app-C2Vol}
+
+The product of the Weyl scalar and the four-volume:
+\begin{equation}
+  C^2(r,\varepsilon)\cdot\Vol(r)
+  = \frac{1024\,\varepsilon^2(\varepsilon{+}2)^2}
+         {3\,r^4\,(1{+}\varepsilon)^{16/3}}
+    \times 2\pi^2 Lr^3
+  = \frac{2048\pi^2 L\,\varepsilon^2(\varepsilon{+}2)^2}
+         {3\,r\,(1{+}\varepsilon)^{16/3}}\,.
+\end{equation}
+Asymptotic scalings:
+\begin{itemize}
+  \item $r\to 0$: $C^2\cdot\Vol\sim 1/r$ (diverges).
+  \item $\varepsilon\to -1$ ($\delta=1{+}\varepsilon\to 0^+$):
+    $C^2\cdot\Vol\sim 1/\delta^{16/3}$ (diverges).
+\end{itemize}
+This two-directional unboundedness is the mathematical basis of
+Theorem~\ref{thm:instability}(a).
+
+\subsection{Verification Script}
+\label{sec:app-script}
+
+All computations above are reproduced by the script
+\texttt{scripts/proofs/analytical\_proof.py}, which automatically executes:
+\begin{enumerate}
+  \item Setup of squashed structure constants.
+  \item Levi-Civita connection computation.
+  \item Riemann tensor computation with antisymmetry verification.
+  \item Ricci tensor and scalar computation.
+  \item Weyl tensor computation with tracelessness verification.
+  \item $C^2$ simplification and factoring.
+  \item Confirmation of $C^2=0$ at $\varepsilon=0$.
+  \item First and second $\varepsilon$-derivatives at the isotropic
+    point.
+  \item $R_{\LC}$ computation and comparison with known values.
+\end{enumerate}

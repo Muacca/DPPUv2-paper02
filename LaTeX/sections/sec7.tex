@@ -1,0 +1,154 @@
+%==============================================================================
+% Section 7: Universality across paper I Parameters
+%==============================================================================
+\section{Universality across Paper~I Parameters}
+\label{sec:universality}
+
+We show that the stability boundary $\alpha=0$ is independent of the
+paper~I parameters $(V,\eta,\theta_{\NY})$ and verify this numerically.
+
+\subsection{Theorem~3 (Parameter Independence of the Stability
+  Boundary)}
+\label{sec:thm3}
+
+\begin{theorem}[Parameter independence]
+\label{thm:universality}
+For any paper~I parameters $(V,\eta,\theta_{\NY})$ for which $\VEC$ is
+bounded below, $\alpha=0$ is the stability boundary:
+\begin{itemize}
+  \item $\alpha>0$: $\inf\Veff = -\infty$ (unbounded below);
+  \item $\alpha\le 0$: $\inf\Veff > -\infty$ (bounded below).
+\end{itemize}
+This boundary does not depend on the values of
+$(V,\eta,\theta_{\NY})$.
+\end{theorem}
+
+\subsection{Proof: Geometric Decoupling}
+\label{sec:proof-thm3}
+
+Theorem~3 is a structural corollary of the proof of Theorem~2. The
+argument rests on two key properties:
+
+\paragraph{(i) Geometric decoupling.}
+The Weyl scalar $C^2(r,\varepsilon)$ is computed entirely from the
+Levi-Civita connection and is a purely geometric quantity independent
+of the paper~I parameters $(V,\eta,\theta_{\NY})$:
+\begin{equation}
+  C^2(r,\varepsilon)
+  = \frac{1024\,\varepsilon^2(\varepsilon{+}2)^2}
+         {3\,r^4\,(1{+}\varepsilon)^{16/3}}\,.
+\end{equation}
+No torsion amplitude $\eta$, $V$, no Nieh--Yan coupling
+$\theta_{\NY}$, and no gravitational coupling $\kappa$ appears. $C^2$
+is a function of $(r,\varepsilon)$ alone.
+
+\paragraph{(ii) Asymptotic dominance.}
+The $r\to 0$ scaling comparison:
+\begin{itemize}
+  \item $\VEC(r,\varepsilon)\sim r$ ($r\to 0$, $\varepsilon$ fixed):
+    the coefficient depends on paper~I parameters, but the leading
+    power is uniformly $r^1$.
+  \item $\VWeyl = -\alpha\,C^2\cdot\Vol \sim -\alpha/r$
+    ($r\to 0$, $\varepsilon\neq 0$ fixed): independent of paper~I
+    parameters.
+\end{itemize}
+The dominance ratio $|\VWeyl|/|\VEC|\sim 1/r^2\to\infty$ diverges
+regardless of the values of $(V,\eta,\theta_{\NY})$.
+
+\paragraph{Completion of the proof.}
+The proof of Theorem~\ref{thm:instability}(a) does not depend on the
+specific form of $\VEC$ (i.e.\ on the paper~I parameters). The
+divergence $C^2\cdot\Vol\sim 1/r$ is geometrically guaranteed, so for
+any $\alpha>0$, $\Veff\to -\infty$. Part~(b) requires only that
+$\VEC$ be bounded below, without reference to its specific lower
+bound.
+
+Therefore, under the condition that $\VEC$ admits a stable vacuum
+(Type~I or Type~II in the paper~I classification), the stability
+boundary $\alpha=0$ holds irrespective of the paper~I parameters.
+\qed
+
+\subsection{Numerical Verification}
+\label{sec:thm3-numerics}
+
+The parameter independence is verified at four representative points
+spanning the paper~I parameter space. In all cases $V=4$,
+$\theta_{\NY}=1$, $\kappa=1$, $L=1$ are fixed, and $\eta$ is varied
+to traverse different paper~I phases.
+
+\begin{table}[ht]
+\centering
+\caption{Numerical verification of Theorem~3 across paper~I parameter
+  space.}
+\label{tab:thm3-verification}
+\begin{tabular}{@{}lllrrl@{}}
+\toprule
+Parameter set & $\eta$ & Paper~I class & $V_{\min}$ ($\alpha\le 0$) & $r^*$
+  & $\alpha=0$ boundary \\
+\midrule
+Type~I centre  & $-3.0$ & Type~I          & $-583$  & $2.65$ & Sharp \\
+I/II boundary  & $-2.0$ & I/II boundary   & $-421$  & $2.00$ & Sharp \\
+Type~II centre & $\phantom{-}0.0$ & Type~II & $-137$  & $0.87$ & Sharp \\
+II/III boundary & $+2.0$ & II/III boundary & $+0.03$ & $0.01$ & Sharp \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Type~I ($\eta=-3.0$)}
+A deep stable vacuum at $V_{\min}\approx -583$, $r^*\approx 2.65$.
+Immediate destabilisation upon $\alpha>0$. Even the most stable vacuum
+in the paper~I landscape is susceptible to the Weyl instability for
+$\alpha>0$.
+
+\subsubsection{I/II boundary ($\eta=-2.0$)}
+The reference parameter set, consistent with the detailed analysis of
+\S\ref{sec:stability}--\ref{sec:instability}.
+
+\subsubsection{Type~II ($\eta=0.0$)}
+A clear stable vacuum at $r^*\approx 0.866$,
+$V_{\min}\approx -137$, with a sharp stability boundary at
+$\alpha=0$. Note that $\eta=0$ corresponds to zero axial torsion;
+stability is maintained by vector torsion~$V$ and the Nieh--Yan
+coupling~$\theta_{\NY}$ alone.
+
+\subsubsection{II/III boundary ($\eta=2.0$)}
+$V_{\min}\approx +0.03$ (positive), with $r^*$ at the search boundary.
+This lies near the paper~I Type~III transition, where the premise
+``$\VEC$ is bounded below with a stable vacuum'' barely holds.
+Nevertheless, the sharp transition at $\alpha=0$ is observed.
+
+\subsection{Visual Evidence of Parameter Independence}
+\label{sec:facet-plot}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{figures/fig06_gamma2_facet.png}
+\caption{$V_{\min}(\alpha)$ for four paper~I parameter sets spanning
+  the full range from Type~I centre to II/III boundary. In all cases
+  $\alpha=0$ acts as the bifurcation point, providing direct visual
+  evidence for Theorem~3.}
+\label{fig:facet-plot}
+\end{figure}
+
+\subsection{Physical Interpretation of Parameter Independence}
+\label{sec:param-indep-interp}
+
+The parameter independence of the $\alpha=0$ boundary originates from
+three structural facts:
+\begin{enumerate}
+  \item \textbf{Weyl tensor as a ``shape'' quantity.}
+    $C^2$ depends only on the conformal structure $(r,\varepsilon)$ and
+    is independent of the torsion amplitudes and the NY coupling
+    $(V,\eta,\theta_{\NY})$.
+
+  \item \textbf{Exact $\alpha$-linearity.}
+    $\Veff = \VEC - \alpha\,C^2\cdot\Vol$ is strictly linear in
+    $\alpha$; the critical value of $\alpha$ is determined solely by
+    the bounded/unbounded character of $\VEC$ and $C^2\cdot\Vol$.
+
+  \item \textbf{Unboundedness of $C^2\cdot\Vol$.}
+    The divergence $C^2\cdot\Vol\sim 1/r$ as $r\to 0$ is a geometric
+    property independent of the paper~I parameters.
+\end{enumerate}
+Together, these ensure that the stability boundary $\alpha=0$ cannot be
+shifted by tuning the paper~I parameters.

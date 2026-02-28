@@ -1,0 +1,166 @@
+%==============================================================================
+% Appendix A: DPPUv2 Engine v4 Specification
+%==============================================================================
+\section{DPPUv2 Engine v4 Specification}
+\label{app:engine}
+
+This appendix documents the specification of the DPPUv2 computation
+engine~v4 and its reliability verification.
+
+\subsection{Engine Overview}
+\label{sec:app-overview}
+
+The DPPUv2 Engine~v4 is a symbolic--numerical computation engine that
+performs minisuperspace reduction of the EC+NY+Weyl theory. Building on
+the EC+NY implementation of paper~I, the following extensions have been
+made for the present work:
+
+\begin{enumerate}
+  \item \textbf{Squashed ansatz}: introduction of the anisotropy
+    parameter~$\varepsilon$ and implementation of the two-variable
+    $(r,\varepsilon)$ effective-potential computation.
+
+  \item \textbf{Weyl tensor from Levi-Civita connection}: symbolic
+    computation of all Weyl-tensor components and the scalar~$C^2$
+    from the Levi-Civita connection.
+
+  \item \textbf{Modular architecture with automated consistency
+    checks}: separation into Levi-Civita, EC-connection, Weyl-tensor,
+    and effective-potential layers, with independent verification at
+    each level (\S\ref{sec:app-checks}).
+\end{enumerate}
+
+\subsection{Computation Flow}
+\label{sec:app-flow}
+
+\paragraph{Theory construction (symbolic computation).}
+
+\begin{enumerate}
+  \item \textbf{Geometric setup}: topology-dependent structure constants
+    $C^i{}_{jk}$.
+  \item \textbf{Levi-Civita connection}: Koszul formula
+    $\Gamma^a{}_{bc}=\tfrac{1}{2}(C^a{}_{bc}+C^c{}_{ba}-C^b{}_{ac})$.
+  \item \textbf{Contortion}: from the torsion ansatz,
+    $K_{abc}=\tfrac{1}{2}(T_{abc}+T_{bca}-T_{cab})$.
+  \item \textbf{EC connection}:
+    $\Gamma^a_{\EC,bc}=\Gamma^a_{\LC,bc}+K^a{}_{bc}$.
+  \item \textbf{Scalar quantities}: $R_{\EC}$, $T_{abc}\,T^{abc}$,
+    $N_{\TT}$, $N_{\REE}$, $N_{\FULL}$.
+  \item \textbf{Weyl tensor}: from the Levi-Civita connection,
+    $R^a{}_{bcd}\to R_{bd}\to R\to C_{abcd}\to C^2$.
+  \item \textbf{Effective potential}: assembly via
+    $\Veff = -\mathcal{L}\times\Vol$.
+\end{enumerate}
+
+\paragraph{Numerical exploration.}
+
+\begin{enumerate}
+  \item \textbf{Parameter scan}: $\alpha\in[-1,1]$ (201 points),
+    $(r,\varepsilon)$ 2D grid.
+  \item \textbf{Optimisation}: \texttt{scipy.optimize.brute} (Ns\,=\,20)
+    grid search + multi-start L-BFGS-B.
+  \item \textbf{Classification}: stability determination based on
+    optimisation results (convergence flag, boundary-attachment
+    detection).
+\end{enumerate}
+
+\subsection{Automated Consistency Checks}
+\label{sec:app-checks}
+
+The engine automatically performs the following checks at each
+computation step:
+
+\paragraph{Level~1: Metric compatibility.}
+\begin{equation}
+  \nabla_c\,g_{ab} = 0\,.
+\end{equation}
+Verification that the EC connection is compatible with the frame metric
+$\eta_{ab}=\delta_{ab}$.
+
+\paragraph{Level~2: Riemann-tensor symmetries.}
+\begin{equation}
+  R_{abcd} = -R_{abdc} = -R_{bacd} = R_{cdab}\,.
+\end{equation}
+All components are checked against the three symmetry conditions.
+
+\paragraph{Level~3: Comparison with known analytic values.}
+\begin{itemize}
+  \item $\Sthree$: $R_{\LC}(r,0)=24/r^2$.
+  \item $\Tthree$: $R_{\LC}=0$, $C^2=0$.
+  \item $\Sthree$: $C^2(r,0)=0$ (conformal flatness at the isotropic
+    point).
+\end{itemize}
+
+\subsection{\texorpdfstring{$\Tthree$}{T³} Null Test: Engine Sanity
+  Check}
+\label{sec:app-null}
+
+Since $\Tthree$ has $C^2=0$, the effective potential should exhibit no
+$\alpha$-dependence. Numerical confirmation at all 201 points
+($\alpha\in[-1,1]$) with machine-precision agreement
+(\S\ref{sec:null-test}) validates:
+\begin{enumerate}
+  \item Correct implementation of the $\alpha\,C^2$ term.
+  \item Zero residual Weyl contribution for $C^2=0$ topologies.
+  \item Maintenance of machine-level numerical precision.
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{License}
+\label{app:license}
+
+The code and data are released under the MIT License:
+
+\begin{quote}
+\small
+MIT License
+
+Copyright (c) 2026 Muacca
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the ``Software''), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED ``AS IS'', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+\end{quote}
+
+%------------------------------------------------------------------------------
+\subsection{Citation}
+\label{app:citation}
+
+If you use this code or data in your research, please cite:
+
+\begin{quote}
+\small
+Muacca, ``Structural Robustness of Isotropic $\Sthree$ Vacua\\
+in Einstein--Cartan Minisuperspace\\
+via Chiral Equilibrium and Weyl Stability,'' 
+\end{quote}
+
+The Zenodo DOI for the code repository is:
+\begin{center}
+\texttt{10.5281/zenodo.XXXXXXXXXX}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection{Contact}
+\label{app:contact}
+
+For questions, bug reports, or collaboration inquiries:
+
+\begin{itemize}
+  \item Email: \texttt{muacca@dmwp.jp}
+  \item GitHub Issues: \texttt{https://github.com/Muacca/DPPUv2-paper02/issues}
+\end{itemize}

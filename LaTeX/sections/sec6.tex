@@ -1,0 +1,230 @@
+%==============================================================================
+% Section 6: Instability (alpha > 0)
+%==============================================================================
+\section{Instability for \texorpdfstring{$\alpha>0$}{α>0}}
+\label{sec:instability}
+
+We now prove that the effective potential is unbounded below for
+$\alpha>0$ and establish that $\alpha=0$ is the sharp stability
+boundary.
+
+\subsection{Theorem~2 (Unbounded Instability)}
+\label{sec:thm2}
+
+\begin{theorem}[Unbounded instability]
+\label{thm:instability}
+For the EC+NY+Weyl effective potential on $\Sthree\times\Sone$:
+
+\begin{enumerate}[label=(\alph*)]
+  \item If $\alpha>0$, then $\Veff$ is unbounded below:
+    \begin{equation}
+      \inf_{r>0,\;\varepsilon>-1}\Veff(r,\varepsilon;\alpha) = -\infty\,.
+    \end{equation}
+
+  \item If $\alpha\le 0$ and $\VEC$ is bounded below, then $\Veff$ is
+    also bounded below:
+    \begin{equation}
+      \inf_{r>0,\;\varepsilon>-1}\Veff(r,\varepsilon;\alpha) > -\infty\,.
+    \end{equation}
+\end{enumerate}
+
+Hence $\alpha=0$ is the \emph{sharp boundary} between stability and
+instability.
+\end{theorem}
+
+\subsection{Proof}
+\label{sec:proof-thm2}
+
+\paragraph{Part (a): Unboundedness for $\alpha>0$.}
+Let $\alpha>0$ and fix any $\varepsilon_0\neq 0$ (e.g.\
+$\varepsilon_0=-1/2$). The effective potential reads
+\begin{equation}
+  \Veff(r,\varepsilon_0;\alpha)
+  = \VEC(r,\varepsilon_0)
+  - \alpha\cdot
+    \frac{2048\pi^2 L\,\varepsilon_0^2(\varepsilon_0{+}2)^2}
+         {3\,r\,(1{+}\varepsilon_0)^{16/3}}\,.
+\end{equation}
+The asymptotic behaviour as $r\to 0^+$:
+\begin{itemize}
+  \item EC part: $\VEC(r,\varepsilon_0)\sim r \to 0$.
+  \item Weyl part:
+    $-\alpha\times\text{const}/r \to -\infty$.
+\end{itemize}
+Therefore
+\begin{equation}
+  \lim_{r\to 0^+}\Veff(r,\varepsilon_0;\alpha) = -\infty\,.
+  \qquad\qed
+\end{equation}
+
+\paragraph{Part (b): Boundedness for $\alpha\le 0$.}
+For $\alpha\le 0$:
+\begin{equation}
+  \Veff(r,\varepsilon;\alpha)
+  = \VEC(r,\varepsilon) + |\alpha|\,C^2\cdot\Vol
+  \ge \VEC(r,\varepsilon)\,.
+\end{equation}
+If $\VEC$ is bounded below ($\inf\VEC>-\infty$), then
+\begin{equation}
+  \inf\Veff \ge \inf\VEC > -\infty\,.
+  \qquad\qed
+\end{equation}
+
+\subsection{Analytic Confirmation of the \texorpdfstring{$\VEC$}{V\_EC}
+  Asymptotics}
+\label{sec:VEC-asymptotics}
+
+The key asymptotic estimate ``$\VEC\sim r$ as $r\to 0$'' used in part~(a)
+is confirmed from the exact symbolic expression at the isotropic point
+(paper~I, \S3.1.3):
+\begin{equation}
+  \VEC(r,0)
+  = \frac{2\pi^2 Lr}{3\kappa^2}
+    \bigl(V^2 r^2 + 6V\eta\kappa^2 r\,\theta_{\NY}
+    + 9\eta^2 - 36\bigr)\,.
+  \label{eq:VEC-exact}
+\end{equation}
+The individual $r$-scalings are:
+
+\begin{table}[ht]
+\centering
+\caption{$r$-scaling of each term in $\VEC(r,0)$.}
+\label{tab:r-scaling}
+\begin{tabular}{@{}llc@{}}
+\toprule
+Term & Origin & Power of $r$ \\
+\midrule
+$V^2 r^2$ & Vector-torsion self-interaction & $r^3$ \\
+$6V\eta\kappa^2 r\,\theta_{\NY}$ & Nieh--Yan cross term & $r^2$ \\
+$9\eta^2-36$ & Curvature + axial torsion & $r^1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The lowest power is $r^1$, so $\VEC\to 0$ as $r\to 0$ (bounded below).
+The Weyl contribution scales as
+\begin{equation}
+  \VWeyl = -\alpha\,C^2\cdot\Vol \sim -\frac{\alpha}{r}
+  \qquad (r\to 0)\,,
+\end{equation}
+giving a dominance ratio
+\begin{equation}
+  \frac{|\VWeyl|}{|\VEC|}
+  \sim \frac{1/r}{r} = \frac{1}{r^2} \to \infty
+  \qquad (r\to 0)\,.
+\end{equation}
+The Weyl term asymptotically dominates the EC part, and the
+two-order gap in $r$-scaling is not reversed within the present
+parameterisation.
+
+\subsection{Analytic Linear Coefficient and Numerical Agreement}
+\label{sec:linear-coeff}
+
+The numerically observed linear behaviour $V_{\min}(\alpha)\approx
+-K\times\alpha$ for $\alpha>0$ has its coefficient~$K$ predicted
+analytically. Numerical optimisation converges to the search boundary
+$(r_{\min},\varepsilon_{\min})=(0.01,-0.95)$, at which
+\begin{equation}
+  K(0.01,-0.95)
+  = C^2(0.01,-0.95)\times\Vol(0.01)
+  = 5.823\times 10^{12}\,.
+\end{equation}
+
+\begin{table}[ht]
+\centering
+\caption{Analytic prediction versus numerical result for the linear
+  coefficient~$K$.}
+\label{tab:linear-coeff}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Quantity & Analytic prediction & Numerical result \\
+\midrule
+$K$ & $5.823\times 10^{12}$ & $5.82\times 10^{12}$ (0.05\% accuracy) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Important caveat.} This linear coefficient $K$ is not a
+physical quantity; it depends on the search boundary and is an
+artefact of the finite scan range. The true physical conclusion is
+$\inf\Veff=-\infty$ for $\alpha>0$; the finite $V_{\min}$ is merely
+the minimum within the explored region.
+
+\subsection{Direction of Instability}
+\label{sec:instability-direction}
+
+For $\alpha>0$, the instability drives the system simultaneously in two
+directions:
+
+\begin{table}[ht]
+\centering
+\caption{Instability directions for $\alpha>0$.}
+\label{tab:instability-dir}
+\begin{tabularx}{\textwidth}{@{}llXX@{}}
+\toprule
+Direction & Scaling & Geometric meaning & Physical meaning \\
+\midrule
+$r\to 0$
+  & $C^2\cdot\Vol\sim 1/r$
+  & Volume collapse of $\Sthree$
+  & Contraction / singularity \\
+$\varepsilon\to -1$
+  & $C^2\cdot\Vol\sim 1/\delta^{16/3}$
+  & Extreme uniaxial 
+  & Complete breakdown \\
+  \quad & \quad & \quad deformation & \quad of 3d isotropy \\[4pt]
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent
+Here $\delta=1+\varepsilon\to 0^+$. Both directions proceed
+simultaneously, and no lower bound on $\Veff$ exists.
+
+\subsection{Why \texorpdfstring{$\alpha=0$}{α=0} Is the Sharp Boundary}
+\label{sec:sharp-boundary}
+
+The mathematical reason that $\alpha=0$ is \emph{exactly} the boundary
+is the \emph{unboundedness} of $C^2\cdot\Vol$.
+
+If $C^2\cdot\Vol$ were bounded ($\sup C^2\cdot\Vol = M<\infty$), there
+would be room for stability up to some critical $\alpha_c>0$
+(satisfying $\alpha_c M\lesssim|\inf\VEC|$). However, since
+$C^2\cdot\Vol\sim 1/r$ diverges as $r\to 0$, any $\alpha>0$---no
+matter how small---is sufficient to make $\Veff\to -\infty$. The
+transition therefore occurs precisely and sharply at $\alpha=0$.
+
+\subsection{Relation to Ghost Instability of Weyl Gravity}
+\label{sec:ghost}
+
+The $\alpha>0$ instability is the minisuperspace manifestation of the
+well-known ghost instability of conformal (Weyl) gravity. The generic
+Weyl-gravity action
+\begin{equation}
+  S_{\text{Weyl}}
+  = \int\dd^4 x\,\sqrt{g}\;\alpha\,C_{\mu\nu\rho\sigma}\,
+    C^{\mu\nu\rho\sigma}
+\end{equation}
+yields fourth-order equations of motion, which by Ostrogradsky's
+theorem~\cite{Woodard2015} generically lead to an energy unbounded
+below (ghost instability).
+
+In our minisuperspace calculation, this instability manifests concretely
+as collapse towards $r\to 0$ and maximal anisotropy $\varepsilon\to -1$.
+The condition $\alpha\le 0$ for stability is the minisuperspace
+counterpart of the ghost-avoidance condition in Weyl gravity.
+
+\subsection{Three-Topology Comparison:
+  \texorpdfstring{$V_{\min}(\alpha)$}{Vmin(α)}}
+\label{sec:Vmin-comparison}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig05_topology_comparison.png}
+\caption{$V_{\min}(\alpha)$ for the three topologies $\Sthree$, $\Tthree$,
+  and $\Nilthree$. The stability transition at $\alpha=0$ is most
+  dramatic for $\Sthree$, while $\Tthree$ provides a null test.
+  The topology comparison is discussed in detail in
+  \S\ref{sec:topology}.}
+\label{fig:topology-comparison}
+\end{figure}

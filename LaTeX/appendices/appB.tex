@@ -1,0 +1,249 @@
+%==============================================================================
+% Appendix B: Numerical Verification Log & Nil³ Analysis
+%==============================================================================
+\section{Numerical Verification Log and \texorpdfstring{$\Nilthree$}{Nil³}
+  Analysis}
+\label{app:numerical}
+
+This appendix provides the search parameters, numerical verification
+details, and additional analysis of the $\Nilthree$ flat-limit
+asymptotics and the universality of the $\alpha=0$ stability boundary.
+
+\subsection{Search Parameter Summary}
+\label{sec:app-search}
+
+\subsubsection{Search ranges}
+
+\begin{table}[ht]
+\centering
+\caption{Search parameter ranges.}
+\label{tab:search-ranges}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Parameter & Range & Resolution \\
+\midrule
+$r$ & $[0.01,\,10]$ & brute: 30 points; L-BFGS-B: continuous \\
+$\varepsilon$ & $[-0.95,\,5.0]$ & brute: 30 points; L-BFGS-B: continuous \\
+$\alpha$ & $[-1,\,1]$ & 201 points (step 0.01) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The upper bound $\varepsilon=5$ was chosen because: (i)~$\varepsilon^*$
+remains at the boundary with $V_{\min}>0$ even at $\varepsilon=5$; and
+(ii)~for larger~$\varepsilon$, the squashing factor
+$(1{+}\varepsilon)^{-2/3}\ll 1$ challenges the interpretation of the
+minisuperspace ansatz.
+
+\subsubsection{Optimisation method}
+
+\begin{enumerate}
+  \item \textbf{Coarse search}: \texttt{scipy.optimize.brute} (Ns\,=\,30)
+    over the 2D $(r,\varepsilon)$ grid.
+  \item \textbf{Refinement}: multi-start L-BFGS-B from the top $n=8$
+    grid candidates.
+  \item \textbf{Convergence}: determined by the L-BFGS-B convergence
+    flag; boundary attachment is reported as
+    \texttt{converged\,=\,False}.
+\end{enumerate}
+
+\subsubsection{Paper~I reference parameters}
+
+\begin{table}[ht]
+\centering
+\caption{Paper~I reference parameters.}
+\label{tab:ref-params}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Parameter & Value \\
+\midrule
+$V$ & 4.0 \\
+$\eta$ & $-2.0$, $-3.0$, $0.0$, $2.0$ \\
+$\theta_{\NY}$ & 1.0 \\
+$\kappa$ & 1.0 \\
+$L$ & 1.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Output File Summary}
+\label{sec:app-files}
+
+Filenames follow the convention \texttt{\{script\}\_\{YYYYMMDD\_HHMMSS\}.csv};
+\texttt{*} below denotes the timestamp.
+All scripts reside under \texttt{scripts/}.
+
+\begin{table}[ht]
+\centering
+\caption{Principal output files.}
+\label{tab:output-files}
+\begin{tabularx}{\textwidth}{@{}ll@{}}
+\toprule
+File pattern & Content \\
+/ Script & / Section \\
+\midrule
+\texttt{potential\_landscape\_mapping\_*.csv}
+  & $\Sthree$ $\Veff$ on $(r,\varepsilon)$ grid \\
+\texttt{/ potential\_landscape\_mapping.py}
+  & / \S\ref{sec:contour} (Fig.~\ref{fig:landscape}) \\
+\quad\ \\[4pt]
+
+\texttt{critical\_analysis\_*.csv}
+  & $\Sthree$ $\alpha$-scan ($r^*,\varepsilon^*,V_{\min}$) \\
+\texttt{/ critical\_analysis.py}
+  & / \S\ref{sec:bifurcation} (Figs.~\ref{fig:bifurcation}, \ref{fig:size-stability}) \\
+\quad\texttt{{-}{-}topology S3} \\[4pt]
+
+\texttt{critical\_analysis\_*.csv}
+  & $\Sthree$ fine scan ($\alpha\in[-0.1,0.1]$) \\
+\texttt{/ critical\_analysis.py}
+  & / \S\ref{sec:bifurcation} (inset) \\
+\quad\texttt{{-}{-}topology S3 {-}{-}fine} \\[4pt]
+
+\texttt{critical\_analysis\_*.csv} 
+  & $\Tthree$ $\alpha$-scan \\
+\texttt{/ critical\_analysis.py}
+  & / \S\ref{sec:null-test} (Fig.~\ref{fig:null-test}) \\
+\quad\texttt{{-}{-}topology T3} \\[4pt]
+
+\texttt{topology\_comparison\_*.csv}
+  & 3-topology $V_{\min}(\alpha)$ comparison \\
+\texttt{/ topology\_comparison.py}
+  & / \S\ref{sec:Vmin-comparison} (Fig.~\ref{fig:topology-comparison}) \\
+\quad \\[4pt]
+
+\texttt{run\_alpha\_boundary\_scan\_*.csv}
+  & Parameter-dependence scans (4 sets) \\
+\texttt{/ run\_alpha\_boundary\_scan.py}
+  & / \S\ref{sec:facet-plot} (Fig.~\ref{fig:facet-plot}) \\
+\quad ($\times4$ param.\ sets) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Numerical Reliability}
+\label{sec:app-reliability}
+
+\subsubsection{Grid-resolution verification}
+
+\begin{table}[ht]
+\centering
+\caption{Comparison of grid and optimisation results.}
+\label{tab:grid-vs-opt}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Quantity & Grid minimum & Optimisation & Source of discrepancy \\
+\midrule
+$V_{\min}$ ($\Sthree$, $\alpha=0$) & $-415.5$ & $-421.103$
+  & Grid resolution \\
+$r^*$ & $\approx 2.13$ & $2.000$ & Grid resolution \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The coarse grid provides an overview of the potential landscape, while
+L-BFGS-B identifies the precise minimum. The discrepancy is consistent
+with grid-resolution limitations.
+
+\subsubsection{Convergence flags for $\alpha>0$}
+
+In the $\alpha>0$ region, \texttt{converged\,=\,False} is consistently
+reported, with the optimum converging to the search boundary
+$(r^*,\varepsilon^*)=(0.01,-0.95)$. This is \emph{not} an optimisation
+failure but the correct report that the potential is unbounded below
+within the search range. The true minimum lies along
+$(r,\varepsilon)\to(0,-1)$, inaccessible due to search bounds.
+
+\subsection{\texorpdfstring{$\Nilthree$}{Nil³} Behaviour: Flat-Limit
+  Asymptotics}
+\label{app:nil3}
+
+\subsubsection{Numerical search and results}
+
+An extended search over $\varepsilon\in[-0.95,5.0]$ (grid Ns\,=\,30,
+multi-start $n=8$) yields:
+
+\begin{table}[ht]
+\centering
+\caption{$\Nilthree$ search results ($\varepsilon_{\max}=5.0$).}
+\label{tab:nil3}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Quantity & Result \\
+\midrule
+$r^*$ & $\approx 1.500$ \\
+$\varepsilon^*$ & $5.0$ (upper-bound attachment) \\
+$V_{\min}$ ($\alpha=-1$) & $5.0$ \\
+$V_{\min}$ ($\alpha=-0.01$) & $4.9$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The attachment of $\varepsilon^*$ to the upper search bound indicates
+that $\Veff$ is monotonically decreasing in $\varepsilon$ with no
+interior minimum at finite~$\varepsilon$. The asymptotic value
+$V_{\min}\approx 4.9$ is weakly $\alpha$-dependent.
+
+\subsubsection{Physical interpretation: flat-limit asymptotics}
+
+The $\Nilthree$ structure constants contain the factor
+$(1{+}\varepsilon)^{-4/3}$:
+\begin{equation}
+  C^2{}_{01} = -\frac{(1{+}\varepsilon)^{-4/3}}{r}\,,\qquad
+  C^2{}_{10} = +\frac{(1{+}\varepsilon)^{-4/3}}{r}\,.
+\end{equation}
+As $\varepsilon\to\infty$, $(1{+}\varepsilon)^{-4/3}\to 0$ and the
+structure constants vanish, so $\Nilthree$ approaches the flat limit
+($\Tthree$-like behaviour). At $\varepsilon=5$,
+$(1{+}5)^{-4/3}\approx 0.11$, already suppressing the structure
+constants to below 11\%.
+
+Physically, the $\Nilthree$ effective potential minimises the curvature
+cost ($C^2>0$) from the Heisenberg group structure by driving the
+structure constants to zero ($\varepsilon\to\infty$): $\Nilthree$
+``collapses'' towards a flat configuration.
+
+\subsubsection{Impact on conclusions}
+
+The $\Nilthree$ flat-limit asymptotics do not affect the main
+conclusions:
+\begin{enumerate}
+  \item $\Nilthree$ has $V_{\min}\approx 5>0$, energetically
+    unfavourable relative to $\Sthree$ ($V_{\min}=-421$). The ordering
+    $V_{\min}(\Sthree)<0<V_{\min}(\Tthree)\approx 0
+    <V_{\min}(\Nilthree)$ is preserved.
+  \item The $\Sthree$ results ($\varepsilon^*=0$) are analytically
+    established (Theorem~\ref{thm:stability}) and do not depend on the
+    search range.
+  \item The flat-limit approach is consistent with the paper's central
+    theme: conformally flat configurations ($C^2=0$) are energetically
+    favoured.
+\end{enumerate}
+
+\subsection{\texorpdfstring{$\alpha=0$}{α=0} Stability Boundary for
+  \texorpdfstring{$\Nilthree$}{Nil³}: Additional Confirmation}
+\label{app:nil3-alpha}
+
+A high-resolution scan at $\alpha\in[-0.05,0.05]$ (step~0.001) with
+$\varepsilon\in[-0.95,5.0]$ confirms:
+
+\begin{table}[ht]
+\centering
+\caption{$\Nilthree$ stability-boundary confirmation.}
+\label{tab:nil3-boundary}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Quantity & Value \\
+\midrule
+Transition location & $\alpha=0.000\to +0.001$ \\
+Status at $\alpha=0$ & \texttt{converged\,=\,True}
+  ($V_{\min}\approx 4.9$) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The stability transition occurs at $\alpha=0\to +0.001$, with
+$\alpha=0$ itself classified as stable. This provides additional
+numerical evidence that the $\alpha=0$ stability boundary holds
+universally across all three topologies ($\Sthree$, $\Tthree$,
+$\Nilthree$).

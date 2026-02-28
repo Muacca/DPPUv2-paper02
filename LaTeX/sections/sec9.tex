@@ -1,0 +1,197 @@
+%==============================================================================
+% Section 9: Discussion
+%==============================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Robustness of Paper~I Results}
+\label{sec:robustness}
+
+This paper has examined two independent threats to the
+$\Sthree\times\Sone$ isotropic vacuum discovered in paper~I and
+demonstrated its robustness against both.
+
+\paragraph{Topological threat (self-dual instantons).}
+Proposition~\ref{prop:chiral} establishes that the Pontryagin density
+$P=\innerprod{R}{*R}=0$ vanishes identically under the
+$M^3\times\Sone$ minisuperspace ansatz with EC connection. This
+precludes self-dual instanton solutions within this framework and
+eliminates vacuum decay via instanton-mediated quantum tunnelling.
+
+\paragraph{Dynamical threat (higher-curvature corrections).}
+Theorems~\ref{thm:stability}--\ref{thm:universality} show that the
+$\alpha\le 0$ Weyl extension leaves the paper~I phase diagram
+unaffected, under the stated assumptions. The conformal flatness
+$C^2=0$ of $\Sthree\times\Sone$ causes the Weyl contribution to
+vanish at the isotropic vacuum, leaving $V_{\min}$, $r^*$, and
+$\varepsilon^*=0$ invariant throughout $\alpha\le 0$.
+
+These two protection mechanisms are mutually independent, resting on
+distinct mathematical structures (topological orthogonality and
+conformal flatness). Their combination provides strong evidence for the
+physical robustness of the $\Sthree\times\Sone$ isotropic vacuum.
+
+\subsection{Repulsive Core (Regularisation) from
+  \texorpdfstring{$\alpha<0$}{α<0}}
+\label{sec:repulsive-core}
+
+Beyond stabilising isotropy (\S\ref{sec:weyl-penalty}), the $\alpha<0$
+Weyl term generates a second important physical effect: a
+\emph{repulsive core} at $r\to 0$.
+
+For $\alpha<0$ and $\varepsilon\neq 0$:
+\begin{equation}
+  \Veff(r,\varepsilon;\alpha)
+  = \VEC(r,\varepsilon)
+  + |\alpha|\cdot
+    \frac{2048\pi^2 L\,\varepsilon^2(\varepsilon{+}2)^2}
+         {3\,r\,(1{+}\varepsilon)^{16/3}}\,.
+\end{equation}
+As $r\to 0$, the Weyl penalty $|\alpha|\,C^2\cdot\Vol\sim |\alpha|/r
+\to +\infty$, forming an \emph{infinite barrier} against
+volume collapse in anisotropic configurations.
+
+This barrier carries the following physical implications:
+\begin{enumerate}
+  \item \textbf{Singularity avoidance}: it prevents collapse to $r=0$,
+    potentially regularising the initial singularity of the early
+    universe.
+
+  \item \textbf{Physical motivation for $\alpha\le 0$}: $\alpha>0$
+    triggers ghost instability (Theorem~\ref{thm:instability}), while
+    $\alpha<0$ provides singularity regularisation---offering a
+    physical rationale for Nature to select $\alpha\le 0$.
+
+  \item \textbf{Natural extension of EC+NY theory}: adding a Weyl term
+    with $\alpha\le 0$ may be viewed as a ``natural'' UV improvement
+    of the theory.
+\end{enumerate}
+
+However, at the isotropic point ($\varepsilon=0$), $C^2=0$ and the
+repulsive core is absent. Avoiding an isotropic singularity would
+require a different mechanism (e.g.\ quantum effects, non-perturbative
+corrections).
+
+\subsection{Sign Constraint on \texorpdfstring{$\alpha$}{α}}
+\label{sec:alpha-constraint}
+
+Combining Theorems~\ref{thm:instability} and~\ref{thm:universality},
+the consistency of the EC+NY+Weyl theory requires $\alpha\le 0$:
+
+\begin{table}[ht]
+\centering
+\caption{Physical interpretation of the sign of $\alpha$.}
+\label{tab:alpha-sign-physics}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+Sign of $\alpha$ & Potential structure & Physical interpretation \\
+\midrule
+$\alpha>0$ & Unbounded below (ghost) & Unstable---Weyl ghost \\
+$\alpha=0$ & Paper~I recovered & Standard EC+NY theory \\
+$\alpha<0$ & Isotropic vacuum stabilised + repulsive core
+  & Conformal-curvature penalty + regularisation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+This constraint is the minisuperspace counterpart of Ostrogradsky's
+theorem and is consistent with known ghost-avoidance conditions in
+higher-curvature gravity.
+
+\subsection{Outlook for Future Extensions}
+\label{sec:outlook}
+
+An important corollary of Theorem~\ref{thm:stability} is that under
+the constraint $\alpha\le 0$, the Weyl term vanishes at the isotropic
+vacuum, and the effective potential reduces to $\VEC$. This motivates
+the following strategy for future extensions involving shear degrees
+of freedom:
+
+\begin{enumerate}
+  \item \textbf{Paper~I ansatz as baseline}: for $\alpha\le 0$ the
+    isotropic vacuum is unaffected, so the paper~I starting point
+    $(r,\varepsilon=0)$ remains a valid foundation.
+
+  \item \textbf{Size--shape decoupling}: the coupling between $r$
+    (size) and $\varepsilon$ (shape) occurs only through the Weyl term;
+    at $\alpha=0$ they decouple, enabling independent introduction of
+    shear degrees of freedom.
+
+  \item \textbf{Weyl penalty on shear}: for general deformations beyond
+    squashing (shear modes), $C^2$ will generically be non-zero, and
+    the $\alpha<0$ Weyl penalty is expected to stabilise the vacuum
+    against shear perturbations as well.
+\end{enumerate}
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+\subsubsection{Minisuperspace approximation}
+\label{sec:limit-minisuperspace}
+
+All results are based on the $M^3\times\Sone$ product structure and
+spatial homogeneity of the minisuperspace reduction. The following
+effects are not captured:
+\begin{itemize}
+  \item Inhomogeneous modes (gravitational waves, density perturbations),
+  \item Local defects (cosmic strings, domain walls),
+  \item Degrees of freedom beyond the minisuperspace variables
+    $(r,\varepsilon)$.
+\end{itemize}
+Analysis of Weyl stability in the full field theory, starting from the
+minisuperspace results, is a natural next step.
+
+\subsubsection{Lorentzian-signature extension}
+\label{sec:limit-lorentz}
+
+The present computation uses Euclidean signature $(+,+,+,+)$. Wick
+rotation to Lorentzian signature $(-,+,+,+)$ and interpretation in
+real-time cosmology is an important open problem. In particular:
+\begin{itemize}
+  \item The eigenspace structure of the Hodge dual changes, so the
+    proof of $P=0$ (\S\ref{sec:chiral}) does not directly carry over.
+  \item The stability structure of the Weyl term may also be
+    signature-dependent.
+\end{itemize}
+
+\subsubsection{Relation to the full field theory}
+\label{sec:limit-full}
+
+The extent to which minisuperspace results generalise to the full
+theory is a non-trivial question:
+\begin{itemize}
+  \item $P=0$ is a consequence of the $M^3\times\Sone$ product
+    structure and the minisuperspace ansatz; it does not hold for
+    generic four-dimensional manifolds.
+  \item Weyl stability relies on the conformal flatness of
+    isotropic~$\Sthree$; more general backgrounds require additional
+    analysis.
+\end{itemize}
+
+\subsubsection{Rigorous proof of global minimality of
+  \texorpdfstring{$\VEC$}{V\_EC}}
+\label{sec:limit-global}
+
+This paper combines an analytic proof of local stability (Theorem~1)
+with extensive numerical exploration to provide evidence that the
+$\Sthree\times\Sone$ isotropic vacuum is the \emph{de facto} global
+minimum. A complete analytic proof of global minimality of $\VEC$
+remains open due to the highly non-linear dependence of the effective
+potential on $(r,\varepsilon)$.
+
+\subsubsection{Vacuum structure and the ghost problem: geometric
+  observations}
+\label{sec:limit-ghost}
+
+The stability established in \S\ref{sec:stability} for the homogeneous
+vacuum does not automatically resolve the ghost problem in the full
+theory including inhomogeneous fluctuations. Nevertheless, the present
+model simultaneously possesses three geometric structures---conformal
+flatness of the isotropic vacuum, chiral torsion background, and
+positive background curvature---each of which may have non-trivial
+implications for ghost avoidance.
+
+Whether these structures provide an effective ghost-avoidance mechanism
+requires second-order perturbation theory around the isotropic
+$\Sthree$ vacuum in the $\alpha\le 0$ EC+NY+Weyl theory, which lies
+beyond the scope of the present minisuperspace analysis.

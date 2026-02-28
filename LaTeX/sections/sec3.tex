@@ -1,0 +1,220 @@
+%==============================================================================
+% Section 3: Chiral Equilibrium
+%==============================================================================
+\section{Chiral Equilibrium: \texorpdfstring{$P=0$}{P=0}}
+\label{sec:chiral}
+
+In this section we prove that the Pontryagin density
+$P=\innerprod{R}{*R}$ vanishes identically under the
+$M^3\times\Sone$ minisuperspace ansatz with EC connection. This
+eliminates the topological threat of vacuum decay through self-dual
+instanton tunnelling within the present framework.
+
+\subsection{Pontryagin Density and Self-Duality}
+\label{sec:pontryagin}
+
+On a four-dimensional Euclidean manifold, the Pontryagin density is
+defined as the inner product of the curvature 2-form $R^{ab}$ with its
+Hodge dual~$*R^{ab}$:
+\begin{equation}
+  P = \innerprod{R}{*R}
+  = \tfrac{1}{4}\,\varepsilon^{abcd}\,R_{abef}\,R_{cd}{}^{ef}\,.
+  \label{eq:pontryagin}
+\end{equation}
+$P$ is the density of the Pontryagin class and is related to
+self-duality as follows:
+\begin{itemize}
+  \item $R=*R$ (self-dual) $\;\Leftrightarrow\;$ $P = E > 0$,
+  \item $R=-*R$ (anti-self-dual) $\;\Leftrightarrow\;$ $P = -E < 0$,
+\end{itemize}
+where $E = \innerprod{R}{R} = R_{abcd}\,R^{abcd}$ is the scalar
+related to the Euler (Gauss--Bonnet) density.
+
+When (anti-)self-dual instanton solutions exist, they furnish
+finite-action extrema that can mediate vacuum decay via quantum
+tunnelling. Since $P\neq 0$ is a necessary condition for self-duality,
+the identity $P=0$ excludes such solutions.
+
+\subsection{Proposition~1 (Chiral Equilibrium)}
+\label{sec:prop1}
+
+\begin{proposition}[Chiral equilibrium]
+\label{prop:chiral}
+Under the $M^3\times\Sone$ minisuperspace ansatz with Einstein--Cartan
+connection, the Pontryagin density vanishes identically:
+\begin{equation}
+  P = \innerprod{R}{*R} = 0\,.
+  \label{eq:P-zero}
+\end{equation}
+This holds as an algebraic identity for:
+\begin{itemize}
+  \item all choices of $M^3$ ($\Sthree$, $\Tthree$, $\Nilthree$),
+  \item all torsion modes (MX, AX, VT),
+  \item all Nieh--Yan variants (FULL, TT, REE),
+  \item all parameter values $(r,L,\eta,V,\kappa,\theta_{\NY})$.
+\end{itemize}
+\end{proposition}
+
+\subsection{Proof}
+\label{sec:proof-prop1}
+
+\paragraph{Step~1: Orthogonal decomposition of 2-forms.}
+Let $(x^0,x^1,x^2,\tau)$ denote coordinates on
+$M^4 = M^3\times\Sone$. The space of 2-forms decomposes into two
+mutually orthogonal blocks:
+\begin{equation}
+  \Lambda^2(M^4)
+  = \underbrace{\Lambda^2(M^3)}_{\text{Spatial (S)}}
+  \;\oplus\;
+  \underbrace{\Lambda^1(M^3)\wedge\dd\tau}_{\text{Mixed (M)}}\,.
+  \label{eq:2form-decomp}
+\end{equation}
+Explicitly, the spatial block~(S) consists of 2-forms with index pairs
+$\{(01),(02),(12)\}$, and the mixed block~(M) of
+$\{(03),(13),(23)\}$.
+
+\paragraph{Step~2: The Hodge dual exchanges blocks.}
+The four-dimensional Hodge dual (with $\varepsilon_{0123}=+1$) acts as
+\begin{equation}
+\begin{aligned}
+  *(01) &= +(23), & *(03) &= +(12), \\
+  *(02) &= -(13), & *(13) &= -(02), \\
+  *(12) &= +(03), & *(23) &= +(01).
+\end{aligned}
+\label{eq:hodge-exchange}
+\end{equation}
+That is, the Hodge dual maps $\Lambda^2(M^3)$ to
+$\Lambda^1(M^3)\wedge\dd\tau$ and vice versa.
+
+\paragraph{Step~3: Curvature lies in the spatial block.}
+Under the minisuperspace ansatz, the $\Sone$ direction~$\tau$ is a
+Killing direction and the connection is spatially homogeneous. As a
+consequence, the curvature 2-form $R^{ab}{}_{cd}$ has non-vanishing
+lower-index pairs $(c,d)$ only in the spatial block:
+$(c,d)\in\{(01),(02),(12)\}$. Components with $(c,d)$ in the mixed
+block vanish identically.
+
+This property has been verified by symbolic computation for all three
+topologies (see \S\ref{sec:symbolic-verification} and
+Appendix~\ref{app:symbolic}).
+
+\paragraph{Step~4: Orthogonality implies $P=0$.}
+Since $R$ has lower indices in the spatial block only, $*R$ has lower
+indices in the mixed block only (Step~2). The two blocks are orthogonal,
+hence
+\begin{equation}
+  \innerprod{R}{*R} = 0\,.
+  \qquad\qed
+\end{equation}
+
+\subsection{One-Line Summary}
+\label{sec:one-line}
+
+The proof may be condensed to a single chain of implications:
+\begin{equation}
+  R \in \Lambda^2(M^3)
+  \;\Rightarrow\;
+  *R \in \Lambda^1(M^3)\wedge\dd\tau
+  \;\Rightarrow\;
+  \innerprod{R}{*R} = 0\,.
+\end{equation}
+
+\subsection{Symbolic Verification}
+\label{sec:symbolic-verification}
+
+Algebraic verification using symbolic computation software confirms
+$P=0$ for all three topologies (full details in
+Appendix~\ref{app:symbolic}):
+
+\begin{table}[ht]
+\centering
+\caption{Symbolic verification of $P=0$ across topologies.}
+\label{tab:P-zero}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Topology & Spatial components & Mixed components
+  & $P=\innerprod{R}{*R}$ & Status \\
+\midrule
+$\Sthree\times\Sone$ & 6 & 0 & $\mathbf{0}$ & $\checkmark$ \\
+$\Tthree\times\Sone$  & 6 & 0 & $\mathbf{0}$ & $\checkmark$ \\
+$\Nilthree\times\Sone$ & 6 & 0 & $\mathbf{0}$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Representative non-vanishing curvature components for
+$\Sthree\times\Sone$:
+\begin{equation}
+  R^{01}{}_{01}
+  = \frac{-V^2 r^2/9 - \eta^2 - 8\eta - 12}{r^2}\,,
+  \qquad
+  R^{03}{}_{12}
+  = \frac{-2V(\eta+4)}{3r}\,.
+  \label{eq:curvature-examples}
+\end{equation}
+All non-vanishing lower-index pairs $(c,d)$ belong to the spatial block
+$\{01,02,12\}$, with no mixed-block components.
+
+\subsection{Physical Interpretation}
+\label{sec:chiral-interpretation}
+
+\subsubsection{Chiral equilibrium}
+
+The identity $P=0$ means that the self-dual and anti-self-dual
+components of the curvature are balanced in norm. Decomposing
+\begin{equation}
+  R = R^+ + R^-\,,\qquad
+  R^{\pm} = \tfrac{1}{2}(R \pm *R)\,,
+\end{equation}
+one finds
+$P = \innerprod{R}{*R} = \|R^+\|^2 - \|R^-\|^2$, so that $P=0$
+implies
+\begin{equation}
+  \|R^+\| = \|R^-\|\,.
+  \label{eq:chiral-balance}
+\end{equation}
+Both chiralities are present in precisely equal measure; we call this
+\emph{chiral equilibrium}.
+
+\subsubsection{Structural prohibition of self-dual instantons}
+
+Self-duality $R=*R$ requires $R^-=0$, i.e.\ $\|R^-\|=0$. By chiral
+equilibrium, $\|R^-\|=0$ forces $\|R^+\|=0$ simultaneously, hence
+$R=0$. Therefore, \emph{as long as the curvature is non-vanishing},
+neither self-dual nor anti-self-dual solutions can exist on
+$M^3\times\Sone$ within the minisuperspace ansatz.
+
+The $\Sthree\times\Sone$ isotropic vacuum is thus protected from
+instanton-mediated tunnelling decay. This protection is a
+\emph{geometric consequence} of the product structure
+$M^3\times\Sone$ and the minisuperspace ansatz, independent of
+specific parameter values or torsion configurations.
+
+\subsection{Conditions for Breakdown of \texorpdfstring{$P=0$}{P=0}}
+\label{sec:P-breakdown}
+
+Achieving $P\neq 0$ and thereby admitting self-dual solutions requires
+extending beyond the present geometric setting:
+
+\begin{table}[ht]
+\centering
+\caption{Extensions that can break $P=0$.}
+\label{tab:P-breakdown}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+Direction of extension & Modification & Why $P=0$ breaks \\
+\midrule
+Inhomogeneous torsion & Position-dependent $T^a(x)$
+  & Breaks homogeneity; mixed-block curvature appears \\
+Non-product manifold & Beyond $M^3\times\Sone$
+  & Product structure underlies the block restriction \\
+Lorentzian signature & $(-,+,+,+)$
+  & Eigenspace structure of Hodge $*$ changes \\
+Non-compact $M^3$ & Inhomogeneous geometry
+  & Curvature structure may differ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+These extensions are discussed as future directions in
+\S\ref{sec:discussion}.

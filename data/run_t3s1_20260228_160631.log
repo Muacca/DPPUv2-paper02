@@ -1,0 +1,91 @@
+======================================================================
+DPPU Engine Log
+======================================================================
+Started: 2026-02-28 16:06:31
+
+  Mode: MX, NY Variant: FULL
+[16:06:31] STEP E4.1: Setup parameters for T³×S¹.
+  Topology: T³×S¹ (Flat)
+  [SUCCESS] Setup complete
+  Duration: 0.00s
+[16:06:31] STEP E4.2: Define metric, volume, structure constants for T³×S¹.
+  [SUCCESS] Flat torus metric defined
+  Duration: 0.00s
+[16:06:31] STEP E4.3: Compute LC connection via Koszul formula.
+  Computing Frame Connection Γ^a_bc via general Koszul formula...
+  [SUCCESS] Frame Connection computed
+  Verifying metric compatibility (Γ_abc + Γ_bac = 0)...
+  [SUCCESS] Metric compatibility: PASSED
+  Duration: 0.00s
+[16:06:31] STEP E4.3a: Compute Riemann/Ricci tensors for Levi-Civita connection.
+  Computing LC Riemann Tensor...
+  Verifying Riemann antisymmetry (STRICT 3-level mode)...
+  [SUCCESS] Riemann antisymmetry: PASSED (all PROVED_ZERO)
+  Computing Ricci Tensor R_bd = R^a_bad...
+    Ricci tensor symmetric: True
+  [SUCCESS] Ricci Tensor computed
+  Computing Ricci Scalar R = R^a_bab...
+    Ricci Scalar R = 0
+  Duration: 0.02s
+[16:06:31] STEP E4.3b: Compute Weyl tensor and scalar.
+  Computing Weyl Tensor C_abcd...
+  [SUCCESS] Weyl Tensor computed
+  Computing Weyl Scalar C^2...
+  Duration: 0.01s
+[16:06:31] STEP E4.4: Construct torsion tensor.
+  Constructing Torsion T_abc (Mode: MX)...
+    Adding T1 (Axial/Antisymmetric)...
+    Adding T2 (Vector Trace)...
+    Non-zero torsion components: 12
+  [SUCCESS] Torsion constructed
+  Duration: 0.01s
+[16:06:31] STEP E4.5: Compute contortion from torsion.
+  Computing Contortion K_abc from Torsion...
+    Non-zero contortion components: 12
+  [SUCCESS] Contortion computed
+  Duration: 0.06s
+[16:06:31] STEP E4.6: Compute EC connection = LC + contortion.
+  Computing EC Connection ω^a_bc = Γ^a_bc + K^a_bc...
+    LC components: 0, EC components: 12
+  [SUCCESS] EC Connection computed
+  Duration: 0.00s
+[16:06:31] STEP E4.7: Compute Riemann tensor with antisymmetry verification.
+  Computing EC Riemann Tensor...
+  Verifying Riemann antisymmetry (STRICT 3-level mode)...
+  [SUCCESS] Riemann antisymmetry: PASSED (all PROVED_ZERO)
+  [SUCCESS] Riemann Tensor computed and verified
+  Duration: 0.09s
+[16:06:31] STEP E4.8: Compute Ricci scalar.
+  Computing Ricci Scalar R = R^a_bab...
+    Ricci Scalar R = -2*V**2/3 - 6*eta**2/r**2
+  Duration: 0.01s
+[16:06:31] STEP E4.9: Compute torsion scalar.
+  Computing Torsion Scalar T = T_abc T^abc...
+    Torsion Scalar T = 2*V**2/3 + 24*eta**2/r**2
+  Duration: 0.01s
+[16:06:31] STEP E4.10: Compute Nieh-Yan density (all variants).
+  Computing Nieh-Yan (variant: FULL)...
+  [SUCCESS] Nieh-Yan: FULL
+  Duration: 0.01s
+[16:06:31] STEP E4.11: Construct Lagrangian.
+  Constructing Lagrangian L = R/(2κ²) + θ_NY×N + αC²...
+    L = -V**2/(3*kappa**2) - 2*V*eta*theta_NY/r - 3*eta**2/(kappa**2*r**2)
+  Duration: 0.29s
+[16:06:31] STEP E4.12: Integrate action.
+  Computing Action S = L × Vol...
+    S = -16*pi**4*L*r*(V**2*r**2 + 6*V*eta*kappa**2*r*theta_NY + 9*eta**2)/(3*kappa**2)
+  Duration: 0.00s
+[16:06:31] STEP E4.13: Extract effective potential.
+  Computing Effective Potential V(r) = -S...
+    V(r) = 16*pi**4*L*r*(V**2*r**2 + 6*V*eta*kappa**2*r*theta_NY + 9*eta**2)/(3*kappa**2)
+  Duration: 0.02s
+[16:06:31] STEP E4.14: Analyze stability.
+  Stability Analysis...
+    dV/dr = 16*pi**4*L*(V**2*r**2 + 4*V*eta*kappa**2*r*theta_NY + 3*eta**2)/kappa**2
+  Duration: 0.01s
+[16:06:31] STEP E4.15: Summary.
+  Computation complete.
+  Duration: 0.00s
+
+Completed: 2026-02-28 16:06:31
+Total runtime: 0.5s (0.0 min)

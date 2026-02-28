@@ -1,0 +1,142 @@
+%==============================================================================
+% Section 1: Introduction
+%==============================================================================
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Background: Results of Paper~I and Two Open Questions}
+\label{sec:intro-background}
+
+In paper~I~\cite{paper1}, we analysed the Einstein--Cartan (EC) gravity
+supplemented with the Nieh--Yan (NY) term~\cite{NiehYan1982} in a Euclidean-signature
+minisuperspace framework and established a systematic phase classification of
+the effective potential $\Veff(r)$. In particular, by comparing three spatial
+topologies---$\Sthree$ (SU(2)), $\Tthree$ (flat), and $\Nilthree$
+(Heisenberg group)---within a unified reduction procedure, we showed that the
+$\Sthree\times\Sone$ configuration forms the energetically most favourable
+stable vacuum over a wide region of parameter space: the
+\emph{topology-selection principle}.
+
+Two natural questions regarding the physical robustness of these results were
+left open:
+
+\begin{enumerate}
+  \item \textbf{Topological stability.}
+    Could self-dual instanton solutions exist on $\Sthree\times\Sone$,
+    mediating vacuum decay via quantum tunnelling~\cite{Chandia1997}?
+
+  \item \textbf{Dynamical stability.}
+    Is the stability of the isotropic vacuum preserved under
+    higher-curvature corrections to general relativity, notably the
+    Weyl-squared term $\alpha\,C^2$?
+\end{enumerate}
+
+\subsection{Approach of the Present Work}
+\label{sec:intro-approach}
+
+In this paper we address both questions through independent analyses and
+provide a comprehensive demonstration of the robustness of the
+$\Sthree\times\Sone$ isotropic vacuum.
+
+\paragraph{Topological stability.}
+We show that the Pontryagin density
+$P = \innerprod{R}{*R}$ vanishes identically under the
+$M^3\times\Sone$ minisuperspace ansatz with EC connection. This
+algebraic identity---reflecting what we call \emph{chiral equilibrium}
+between self-dual and anti-self-dual curvature components---implies that
+self-dual instanton solutions are forbidden within this framework.
+
+\paragraph{Dynamical stability.}
+We extend the EC+NY Lagrangian by a Weyl-squared term $\alpha\,C^2$ and
+introduce a volume-preserving squashed ansatz with anisotropy
+parameter~$\varepsilon$, constructing the two-variable effective potential
+$\Veff(r,\varepsilon;\alpha)$. The stability structure is classified by the
+sign of~$\alpha$:
+
+\begin{itemize}
+  \item \textbf{$\alpha \le 0$}: The conformal flatness $C^2=0$ of isotropic
+    $\Sthree$ shields the vacuum from the Weyl term. For $\alpha<0$ the Weyl
+    penalty on $\varepsilon\neq 0$ directions further stabilises isotropy.
+
+  \item \textbf{$\alpha > 0$}: The Weyl term asymptotically dominates
+    $\VEC$ as $r\to 0$, rendering the effective potential unbounded below
+    ($\Veff\to -\infty$). This is the minisuperspace manifestation of the
+    Ostrogradsky ghost instability of Weyl gravity.
+\end{itemize}
+
+\subsection{Main Results: Four Theoretical Pillars}
+\label{sec:intro-results}
+
+The principal results of this paper are summarised by the following
+four statements:
+
+\begin{enumerate}
+  \item \textbf{Proposition~1 (Chiral equilibrium, $P=0$).}
+    Under the $M^3\times\Sone$ minisuperspace ansatz with EC connection,
+    the Pontryagin density satisfies
+    $P = \innerprod{R}{*R} = 0$
+    identically. Self-dual instanton decay paths are closed within this
+    ansatz.
+
+  \item \textbf{Theorem~1 (Weyl stability of the isotropic vacuum).}
+    For $\alpha\le 0$, the isotropic vacuum of $\Sthree\times\Sone$ is
+    shielded from the Weyl term by conformal flatness, and the global
+    minimum of $\VEC$ is analytically protected.
+
+  \item \textbf{Theorem~2 (Unbounded instability for $\alpha>0$).}
+    For $\alpha>0$, $\Veff$ is unbounded below
+    ($\inf\Veff = -\infty$); for $\alpha\le 0$ and bounded $\VEC$, $\Veff$
+    is bounded below. Hence $\alpha=0$ is the sharp stability boundary.
+
+  \item \textbf{Theorem~3 (Parameter independence of the stability boundary).}
+    The stability boundary $\alpha=0$ is independent of the paper~I
+    parameters $(V,\eta,\theta_{\NY})$, owing to the geometric decoupling
+    of~$C^2$ from torsion.
+\end{enumerate}
+
+\subsection{Logical Flow}
+\label{sec:intro-flow}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig01_argument_flow.png}
+\caption{Logical flow of the paper. Starting from the EC+NY isotropic
+  $\Sthree\times\Sone$ vacuum (paper~I), the topological threat
+  (Question~1) is addressed by Proposition~1 (\S\ref{sec:chiral}), while
+  the dynamical threat (Question~2) is resolved by Theorems~1--3
+  (\S\ref{sec:stability}--\S\ref{sec:universality}). The topology
+  comparison (\S\ref{sec:topology}) confirms preservation of the
+  $\Sthree$ dominance.}
+\label{fig:argument-flow}
+\end{figure}
+
+\subsection{Organisation of the Paper}
+\label{sec:intro-outline}
+
+The remainder of this paper is organised as follows.
+
+\begin{itemize}
+  \item \textbf{\S\ref{sec:framework} (Framework)}: EC+NY+Weyl Lagrangian
+    and the squashed ansatz.
+  \item \textbf{\S\ref{sec:chiral} (Chiral Equilibrium)}: Analytic proof of
+    $P=0$ (Proposition~1).
+  \item \textbf{\S\ref{sec:weyl} (Weyl Extension)}: Closed-form Weyl scalar
+    $C^2(r,\varepsilon)$ and effective potential structure.
+  \item \textbf{\S\ref{sec:stability} (Stability, $\alpha\le 0$)}: Proof of
+    Theorem~1.
+  \item \textbf{\S\ref{sec:instability} (Instability, $\alpha>0$)}: Proof of
+    Theorem~2.
+  \item \textbf{\S\ref{sec:universality} (Universality)}: Proof of
+    Theorem~3.
+  \item \textbf{\S\ref{sec:topology} (Topology Comparison)}: Robustness of
+    the topology-selection principle under Weyl extension.
+  \item \textbf{\S\ref{sec:discussion} (Discussion)}: Repulsive core
+    ($\alpha<0$), Lorentzian extension, limitations.
+  \item \textbf{\S\ref{sec:conclusion} (Conclusion)}: Summary.
+\end{itemize}
+
+\noindent
+The DPPUv2 computation engine v4 specification is given in
+Appendix~\ref{app:engine}, numerical verification details in
+Appendix~\ref{app:numerical}, and symbolic computation details in
+Appendix~\ref{app:symbolic}.

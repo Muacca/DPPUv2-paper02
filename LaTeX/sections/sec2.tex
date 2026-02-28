@@ -1,0 +1,204 @@
+%==============================================================================
+% Section 2: Framework
+%==============================================================================
+\section{Framework}
+\label{sec:framework}
+
+This section formulates the extended Lagrangian obtained by adding a
+Weyl-squared term to the EC+NY theory of paper~I, and introduces the
+volume-preserving squashed ansatz.
+
+\subsection{EC+NY+Weyl Lagrangian}
+\label{sec:lagrangian}
+
+The extended Lagrangian studied in this paper is
+\begin{equation}
+  \mathcal{L}
+  = \frac{R_{\EC}}{2\kappa^2}
+  + \theta_{\NY}\,N
+  + \alpha\,C^2\,,
+  \label{eq:lagrangian}
+\end{equation}
+where each term is defined as follows:
+
+\begin{itemize}
+  \item $R_{\EC}/(2\kappa^2)$: the Ricci scalar computed from the
+    Einstein--Cartan connection (including torsion), with gravitational
+    coupling constant~$\kappa$.
+
+  \item $\theta_{\NY}\,N$: the Nieh--Yan term, where
+    $N = \dd(e^a\wedge T_a)$ is the Nieh--Yan density (a 4-form)
+    and $\theta_{\NY}$ its coupling constant, following the notation
+    of paper~I~\cite{paper1}.
+
+  \item $\alpha\,C^2$: the Weyl-squared term, where
+    $C^2 = C_{abcd}\,C^{abcd}$ is the Kretschner-type Weyl scalar
+    computed from the Levi-Civita connection, and $\alpha$ is a
+    dimensionless coupling constant.
+\end{itemize}
+
+The Weyl tensor is defined with respect to the Levi-Civita connection.
+This choice avoids torsion contamination that would generically break
+conformal invariance if the EC connection were used instead.
+The quantities $R_{\EC}$ and $N$ are computed from the EC connection.
+
+\paragraph{Sign conventions.}
+We adopt the same conventions as paper~I:
+\begin{itemize}
+  \item Frame metric:
+    $\eta_{ab}=\mathrm{diag}(+1,+1,+1,+1)$ (Euclidean signature).
+  \item Riemann tensor:
+    $R^{a}{}_{bcd} = \partial_c\Gamma^{a}{}_{bd}
+    - \partial_d\Gamma^{a}{}_{bc}
+    + \Gamma^{a}{}_{ec}\Gamma^{e}{}_{bd}
+    - \Gamma^{a}{}_{ed}\Gamma^{e}{}_{bc}$.
+  \item Contortion:
+    $K_{abc} = \tfrac{1}{2}(T_{abc}+T_{bca}-T_{cab})$
+    (Hehl et al.~\cite{Hehl1976}).
+  \item Levi-Civita symbol: $\varepsilon_{0123}=+1$.
+\end{itemize}
+
+\subsection{Review of the $M^3\times\Sone$ Minisuperspace Ansatz}
+\label{sec:ansatz-review}
+
+Following paper~I, we decompose the four-dimensional Euclidean manifold as
+$\mathcal{M}_4 = \mathcal{M}_3\times\Sone$, where $\mathcal{M}_3$ is a
+compact quotient of a three-dimensional Lie group admitting a left-invariant
+coframe $\{\sigma^i\}$ ($i=0,1,2$), and $\Sone$ has circumference~$L$.
+
+In paper~I the isotropic coframe $e^a = r\,\sigma^a$ ($a=0,1,2$),
+$e^3 = L\,\dd\tau$ was employed, with the scale variable~$r$ serving as
+the principal argument of the effective potential $\Veff(r)$.
+
+\subsection{Squashed Ansatz}
+\label{sec:squashed}
+
+To diagnose the effect of the Weyl term, a deformation parameter away
+from isotropy is required. We introduce an axisymmetric,
+volume-preserving squashing on~$\Sthree$:
+\begin{equation}
+  e^0 = r\,(1{+}\varepsilon)^{1/3}\,\sigma^0,\quad
+  e^1 = r\,(1{+}\varepsilon)^{1/3}\,\sigma^1,\quad
+  e^2 = r\,(1{+}\varepsilon)^{-2/3}\,\sigma^2,\quad
+  e^3 = L\,\dd\tau\,,
+  \label{eq:squashed-coframe}
+\end{equation}
+where
+\begin{itemize}
+  \item $r>0$ is the scale variable (identical to paper~I),
+  \item $\varepsilon$ is the anisotropy parameter; $\varepsilon=0$ is the
+    isotropic point and $\varepsilon>-1$ is required for physical
+    significance:
+    \begin{itemize}
+      \item $\varepsilon>0$: oblate deformation ($e^0,e^1$ directions
+        expand, $e^2$ contracts),
+      \item $\varepsilon<0$: prolate deformation ($e^2$ expands, $e^0,e^1$
+        contract),
+      \item $\varepsilon=-1$: singular point (complete collapse of one
+        direction).
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Volume preservation.}
+The squashing factors satisfy
+$(1{+}\varepsilon)^{1/3}\times(1{+}\varepsilon)^{1/3}
+\times(1{+}\varepsilon)^{-2/3}=1$,
+so that the four-volume is $\varepsilon$-independent:
+\begin{equation}
+  \Vol(\mathcal{M}_4) = 2\pi^2 L\,r^3
+  \qquad (\text{independent of }\varepsilon).
+  \label{eq:volume}
+\end{equation}
+This ensures that $\varepsilon$ modifies the \emph{shape} without
+changing the \emph{size}~($r$).
+
+\paragraph{Squashed structure constants.}
+The squashing modifies the $\Sthree$ structure constants to
+\begin{equation}
+  C^i{}_{jk}(\varepsilon)
+  = \frac{4}{r}\,\varepsilon_{ijk}\times f_i(\varepsilon),
+  \label{eq:squashed-structure}
+\end{equation}
+with
+\begin{equation}
+  f_0(\varepsilon) = f_1(\varepsilon) = (1{+}\varepsilon)^{2/3},
+  \qquad
+  f_2(\varepsilon) = (1{+}\varepsilon)^{-4/3}.
+  \label{eq:squash-factors}
+\end{equation}
+At the isotropic point $\varepsilon=0$, $f_0=f_1=f_2=1$ and one
+recovers the paper~I structure constants.
+
+\subsection{Notation Summary}
+\label{sec:notation}
+
+Table~\ref{tab:notation} collects the principal symbols used throughout
+the paper.
+
+\begin{table}[ht]
+\centering
+\caption{Principal symbols and their numerical scan ranges.}
+\label{tab:notation}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Symbol & Meaning & Scan range \\
+\midrule
+$r$ & Scale variable & $[0.01,\,10]$ \\
+$\varepsilon$ & Anisotropy parameter & $[-0.95,\,5.0]$ \\
+$\alpha$ & Weyl coupling constant & $[-1,\,1]$ \\
+$V$ & Vector-torsion amplitude & Fixed ($V=4$) \\
+$\eta$ & Axial-torsion amplitude & Fixed ($\eta=-2$, varied in \S\ref{sec:universality}) \\
+$\theta_{\NY}$ & Nieh--Yan coupling & Fixed ($\theta_{\NY}=1$) \\
+$\kappa$ & Gravitational coupling & Fixed ($\kappa=1$) \\
+$L$ & $\Sone$ circumference & Fixed ($L=1$) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The paper~I parameters $(V,\eta,\theta_{\NY})$ are scanned in
+\S\ref{sec:universality}; \S\ref{sec:weyl}--\ref{sec:instability} use
+the reference values listed above.
+
+\subsection{Separation of the Effective Potential}
+\label{sec:separation}
+
+Under the squashed ansatz, the effective potential separates
+\emph{exactly linearly} in~$\alpha$:
+\begin{equation}
+  \Veff(r,\varepsilon;\alpha)
+  = \VEC(r,\varepsilon)
+  - \alpha\,C^2(r,\varepsilon)\cdot\Vol(r)\,.
+  \label{eq:Veff-separation}
+\end{equation}
+
+Note the sign: since the Euclidean effective potential is defined as
+$\Veff = -\mathcal{L}\times\Vol$ (see Appendix~\ref{app:engine},
+\S\ref{sec:app-flow}), the $+\alpha\,C^2$ term in the
+Lagrangian~\eqref{eq:lagrangian} enters as $-\alpha\,C^2\cdot\Vol$ in
+the effective potential.
+
+The two constituents are:
+\begin{itemize}
+  \item $\VEC(r,\varepsilon)$: the EC+NY effective potential, independent
+    of~$\alpha$.
+    \begin{equation}
+      \VEC = -\biggl(\frac{R_{\EC}}{2\kappa^2}
+      + \theta_{\NY}\,N\biggr)\times\Vol\,.
+    \end{equation}
+
+  \item $C^2(r,\varepsilon)\cdot\Vol(r)$: a purely geometric quantity,
+    independent of the paper~I parameters $(V,\eta,\theta_{\NY})$.
+\end{itemize}
+
+This separation is the foundation of our analysis:
+\begin{enumerate}
+  \item $\VEC$ inherits the full content of paper~I.
+  \item $C^2\cdot\Vol$ is a geometric invariant decoupled from the
+    torsion parameters.
+  \item The stability classification reduces to the sign of~$\alpha$.
+\end{enumerate}
+
+The computational engine (DPPUv2 Engine~v4)---including the derivation of
+the Levi-Civita connection, construction of the EC connection, and
+evaluation of the Weyl tensor---is documented in
+Appendix~\ref{app:engine}.

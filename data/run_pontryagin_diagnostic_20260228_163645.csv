@@ -1,0 +1,4 @@
+topology,max_p,max_sd_delta,max_asd_delta,pattern
+S3xS1,0.0,0.0,0.0,A (physical)
+T3xS1,0.0,0.0,0.0,A (physical)
+Nil3xS1,0.0,8.881784197001252e-16,8.881784197001252e-16,A (physical)

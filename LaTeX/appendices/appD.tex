@@ -1,0 +1,232 @@
+%==============================================================================
+% Appendix D: Phase Atlas
+%==============================================================================
+\section{Phase Atlas: Effective Potential and Phase Diagram
+  in the \texorpdfstring{$(\alpha_W,\varepsilon)$}{(αW,ε)} Parameter Space}
+\label{app:phase-atlas}
+
+This appendix systematically illustrates how the effective potential
+$\Veff(r)$ and the $\Sthree\times\Sone$ phase diagram vary across five
+representative cases in the $(\alpha_W,\varepsilon)$ parameter space
+(Figs.~\ref{fig:potential-a0e0}--\ref{fig:potential-a+e-}).
+These figures provide the visual support for Theorems~1, 2, and~3 in
+the main text.
+
+Each figure shows: (left panel) the phase diagram in the $(V,\eta)$
+plane at fixed $\theta_{\NY}=1.00$, MX/FULL mode; (right panel) the
+effective potential $\Veff(r)$ at three representative points.
+The representative points are selected at fixed $V=4.0$ with varying
+$\eta$, one per phase region ($\circ$: Stable Well; $\square$:
+Intermediate; $\triangle$: No Well).
+
+%------------------------------------------------------------------------------
+\subsection{Baseline: \texorpdfstring{$\alpha_W=0$, $\varepsilon=0$}{αW=0, ε=0}}
+\label{sec:appD-baseline}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig08_potential_a0e0}
+  \caption{Effective potential and phase diagram for
+    $\alpha_W=0$, $\varepsilon=0$ (isotropic $\Sthree$, Weyl term
+    inactive). This reference case reproduces the three-phase structure
+    of paper~I~\cite{paper1} and confirms the backward compatibility of
+    engine~v4.}
+  \label{fig:potential-a0e0}
+\end{figure}
+
+The case $\alpha_W=0$ (Weyl term inactive) and $\varepsilon=0$
+(isotropic $\Sthree$) reproduces the three-phase structure of paper~I
+exactly.  It serves as the reference case for verifying the backward
+compatibility of engine~v4.
+
+\paragraph{Phase diagram.}
+\begin{itemize}
+  \item \textbf{Type~I (Stable Well, green):} $\eta\lesssim -2.5$.
+    The effective potential has a globally stable minimum.
+  \item \textbf{Type~II (Rolling, yellow):} $-2.5\lesssim\eta\lesssim 2.3$.
+    No barrier near $r\to 0$; the potential ``rolls'' without a true well.
+  \item \textbf{Type~III (No Well, grey):} $\eta\gtrsim 2.3$.
+    No well structure in the effective potential.
+\end{itemize}
+
+\paragraph{Effective potential.}
+\begin{itemize}
+  \item \textbf{Point~1} ($\eta=-4$, Type~I): well-type; deep global
+    minimum near $r\approx 3$, high barrier as $r\to 0$, divergence
+    as $r\to\infty$.  Typical isotropic $\Sthree$ vacuum profile.
+  \item \textbf{Point~2} ($\eta=0$, Type~II): local minimum survives
+    near $r\approx 1$, but the $r\to 0$ barrier disappears.
+  \item \textbf{Point~3} ($\eta=3$, Type~III): monotonically
+    increasing; no well formed at any~$r$.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection{Weyl Stable Region: \texorpdfstring{$\alpha_W<0$}{αW<0}}
+\label{sec:appD-weyl-stable}
+
+For $\alpha_W<0$, Theorem~1 guarantees that the Weyl term acts as a
+penalty in the anisotropy direction, protecting the isotropic vacuum
+$(\varepsilon=0)$.  In this regime, Types~I and~II are further
+subdivided into \textbf{Type~I-W} (Double Well) and \textbf{Type~II-W}
+(Single Well), which are specific to $\alpha_W<0$.
+
+The two cases below show how the sign of~$\varepsilon$ shifts the
+phase boundary.
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsubsection{\texorpdfstring{$\alpha_W=-0.100$, $\varepsilon=+0.150$}{αW=-0.100, ε=+0.150}}
+\label{sec:appD-a-e+}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig09_potential_a-e+}
+  \caption{Effective potential and phase diagram for
+    $\alpha_W<0$, $\varepsilon>0$.  The combination produces the widest
+    Type~I-W (Double Well) region and strongly supports the stable
+    vacuum.}
+  \label{fig:potential-a-e+}
+\end{figure}
+
+\paragraph{Phase diagram.}
+\begin{itemize}
+  \item \textbf{Type~I-W (Double Well, blue):} wide stable region at
+    $\eta\lesssim -2.5$.  The effective potential has a local maximum
+    near the repulsive core and a deep global minimum further out.
+  \item \textbf{Type~II-W (Single Well, orange):} upper region
+    ($\eta\gtrsim -2.5$); single-well potential profile.
+\end{itemize}
+
+\paragraph{Effective potential.}
+\begin{itemize}
+  \item \textbf{Point~1} ($\eta=-4$, Type~I-W): double-well type;
+    local maximum near $r\to 0$ (potential barrier), local minimum
+    between the barrier and the repulsive core, and a deep global
+    minimum near $r\approx 3$.  The Weyl correction acts as a barrier
+    against collapse toward $r=0$.
+  \item \textbf{Point~2} ($\eta=0$, Type~II-W): single-well type;
+    the $r\to 0$ barrier disappears, leaving one clear minimum near
+    $r\approx 1$.
+  \item \textbf{Point~3} ($\eta=3$, Type~II-W): also single-well;
+    formerly Type~III at $\varepsilon=0$, now acquiring a minimum at
+    the repulsive-core edge.
+\end{itemize}
+
+The combination $\alpha_W<0$ and $\varepsilon>0$ produces the widest
+Type~I-W region and most strongly supports the stable vacuum.
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsubsection{\texorpdfstring{$\alpha_W=-0.100$, $\varepsilon=-0.150$}{αW=-0.100, ε=-0.150}}
+\label{sec:appD-a-e-}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig10_potential_a-e-}
+  \caption{Effective potential and phase diagram for
+    $\alpha_W<0$, $\varepsilon<0$.  Compared with Fig.~\ref{fig:potential-a-e+},
+    the Type~I-W region contracts and the phase boundary shifts to
+    smaller~$\eta$, reflecting the asymmetric $\varepsilon$-dependence of
+    the Weyl scalar.}
+  \label{fig:potential-a-e-}
+\end{figure}
+
+\paragraph{Phase diagram.}
+The same two-phase structure (Type~I-W blue, Type~II-W orange) as
+Fig.~\ref{fig:potential-a-e+}, but the Type~I-W (double-well) region
+contracts and the phase boundary shifts toward smaller~$\eta$ compared
+with the $\varepsilon>0$ case.
+
+\paragraph{Effective potential.}
+All three representative points fall in Type~II-W (single-well).
+The potential barrier seen at Point~1 in Fig.~\ref{fig:potential-a-e+}
+disappears, and the potential descends smoothly to a single minimum.
+
+The asymmetric reduction of the Type~I-W region when $\varepsilon$
+changes sign corresponds to the fact that the Weyl scalar
+$C^2\propto\varepsilon^2(\varepsilon{+}2)^2/r^4$ is not symmetric
+under $\varepsilon\leftrightarrow-\varepsilon$.
+
+%------------------------------------------------------------------------------
+\subsection{Weyl Unstable Region: \texorpdfstring{$\alpha_W>0$}{αW>0}}
+\label{sec:appD-weyl-unstable}
+
+For $\alpha_W>0$, Theorem~2 guarantees
+$\Veff(r,\varepsilon;\alpha_W)\to-\infty$ as $r\to 0^+$, so no global
+stable minimum exists.  We define the phase exhibiting this behaviour
+as \textbf{Type~G} (Ghost / Metastable).  Type~G may possess a
+metastable local minimum at finite~$r$, but the true global minimum is
+absent.
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsubsection{\texorpdfstring{$\alpha_W=+0.100$, $\varepsilon=+0.150$}{αW=+0.100, ε=+0.150}}
+\label{sec:appD-a+e+}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig11_potential_a+e+}
+  \caption{Effective potential and phase diagram for
+    $\alpha_W>0$, $\varepsilon>0$.  All stable-well phases
+    (Types~I, II, I-W, II-W) are absent; $\alpha_W>0$ fundamentally
+    destroys the stable vacuum.}
+  \label{fig:potential-a+e+}
+\end{figure}
+
+\paragraph{Phase diagram.}
+\begin{itemize}
+  \item \textbf{Type~G (Metastable, red):} occupies the region
+    $\eta\lesssim 2$.  No globally stable minimum exists.
+  \item \textbf{Type~III-G (No Well, grey):} upper region
+    ($\eta\gtrsim 2$).
+\end{itemize}
+Stable-well phases (Types~I, II, I-W, II-W) are entirely absent,
+confirming visually that $\alpha_W>0$ fundamentally destroys the stable
+vacuum.
+
+\paragraph{Effective potential.}
+\begin{itemize}
+  \item \textbf{Point~1} ($\eta=-4$, Type~G): $\Veff\to-\infty$ as
+    $r\to 0^+$.  A remnant of a metastable local minimum is visible at
+    finite~$r$, but the true global minimum descends toward $r=0$
+    without bound.  This is a direct numerical confirmation of
+    Theorem~2.
+  \item \textbf{Point~2} ($\eta=0$, Type~G): also $\Veff\to-\infty$
+    as $r\to 0^+$.
+  \item \textbf{Point~3} ($\eta=3$, Type~III-G): monotonically
+    increasing in~$r$, but with $\Veff\to-\infty$ as $r\to 0^+$.
+\end{itemize}
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsubsection{\texorpdfstring{$\alpha_W=+0.100$, $\varepsilon=-0.150$}{αW=+0.100, ε=-0.150}}
+\label{sec:appD-a+e-}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig12_potential_a+e-}
+  \caption{Effective potential and phase diagram for
+    $\alpha_W>0$, $\varepsilon<0$.  The two-phase structure
+    (Type~G + Type~III-G) is essentially identical to
+    Fig.~\ref{fig:potential-a+e+}; the sign of~$\varepsilon$ does not
+    alter the destabilisation caused by $\alpha_W>0$.}
+  \label{fig:potential-a+e-}
+\end{figure}
+
+\paragraph{Phase diagram.}
+Essentially the same two-phase structure as
+Fig.~\ref{fig:potential-a+e+} (Type~G + Type~III-G).  Although the
+phase boundary shifts slightly relative to Fig.~\ref{fig:potential-a+e+},
+the dominance of Type~G is maintained regardless of the sign
+of~$\varepsilon$.
+
+\paragraph{Effective potential.}
+\begin{itemize}
+  \item \textbf{Point~1} ($\eta=-4$, Type~G): $\Veff\to-\infty$ as
+    $r\to 0^+$; same collapse behaviour as Fig.~\ref{fig:potential-a+e+}.
+  \item \textbf{Point~2} ($\eta=0$, Type~III-G): classified as Type~G
+    in Fig.~\ref{fig:potential-a+e+}, but transitions to Type~III-G
+    under $\varepsilon<0$.
+  \item \textbf{Point~3} ($\eta=3$, Type~III-G): monotonically
+    increasing.
+\end{itemize}
+
+The uniform destabilisation by $\alpha_W>0$ regardless of the sign
+of~$\varepsilon$ is consistent with Theorem~3 (universality of the
+$\alpha=0$ stability boundary).

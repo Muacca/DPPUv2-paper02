@@ -1,0 +1,183 @@
+%==============================================================================
+% Section 5: Stability (alpha <= 0)
+%==============================================================================
+\section{Stability of the Isotropic Vacuum (\texorpdfstring{$\alpha\le 0$}{α≤0})}
+\label{sec:stability}
+
+We now prove that for $\alpha\le 0$ the isotropic vacuum of
+$\Sthree\times\Sone$ is analytically protected from the Weyl extension.
+
+\subsection{Theorem~1 (Weyl Stability of the Isotropic Vacuum)}
+\label{sec:thm1}
+
+\begin{theorem}[Weyl stability]
+\label{thm:stability}
+Under the EC+NY+Weyl Lagrangian~\eqref{eq:lagrangian} on
+$\Sthree\times\Sone$, the isotropic vacuum ($\varepsilon=0$) satisfies:
+
+\begin{enumerate}[label=(\alph*)]
+  \item The Weyl scalar vanishes identically at the isotropic point:
+    \begin{equation}
+      C^2(r,\varepsilon{=}0) = 0
+      \qquad (\forall\,r>0)\,.
+    \end{equation}
+
+  \item For $\alpha\le 0$, the Weyl term reinforces (or leaves
+    unaffected) the isotropic minimum of the effective potential:
+    \begin{equation}
+      \Veff(r,\varepsilon;\alpha)
+      = \VEC(r,\varepsilon)
+      + |\alpha|\,C^2(r,\varepsilon)\cdot\Vol(r)\,,
+    \end{equation}
+    where $|\alpha|\,C^2\cdot\Vol\ge 0$, with equality if and only if
+    $\varepsilon=0$.
+
+  \item As a corollary, if $\VEC$ attains a global minimum at
+    $(r_0,0)$, then $\Veff$ also attains its global minimum at
+    $(r_0,0)$ with the same minimum value $\VEC(r_0,0)$, for all
+    $\alpha\le 0$.
+\end{enumerate}
+\end{theorem}
+
+\subsection{Proof}
+\label{sec:proof-thm1}
+
+\paragraph{Part (a).}
+Setting $\varepsilon=0$ in Lemma~\ref{lem:weyl-scalar}, the factor
+$\varepsilon^2$ in the numerator of~\eqref{eq:C2} gives
+$C^2(r,0)=0$. \qed
+
+\paragraph{Part (b).}
+For $\alpha\le 0$, write $-\alpha=|\alpha|\ge 0$. Then
+\begin{equation}
+  \Veff(r,\varepsilon;\alpha)
+  = \VEC(r,\varepsilon) + |\alpha|\,C^2(r,\varepsilon)\cdot\Vol(r)\,.
+\end{equation}
+By Lemma~\ref{lem:weyl-scalar}~(ii), $C^2\ge 0$. Since
+$\Vol(r)=2\pi^2 Lr^3>0$, it follows that
+$|\alpha|\,C^2\cdot\Vol\ge 0$, with equality if and only if $C^2=0$,
+i.e.\ $\varepsilon=0$. Hence:
+\begin{itemize}
+  \item $\Veff(r,\varepsilon;\alpha)\ge \VEC(r,\varepsilon)$
+    for all $r,\varepsilon$;
+  \item $\Veff(r,0;\alpha) = \VEC(r,0)$ for all $r$.
+\end{itemize}
+The Weyl term adds a positive penalty only in the $\varepsilon\neq 0$
+directions and leaves the isotropic slice unchanged. \qed
+
+\paragraph{Part (c).}
+Suppose $\VEC$ has a global minimum at $(r_0,0)$:
+\begin{equation}
+  \VEC(r_0,0) \le \VEC(r,\varepsilon)
+  \qquad \forall\,r,\varepsilon\,.
+\end{equation}
+For any $(r,\varepsilon)$:
+\begin{equation}
+  \Veff(r,\varepsilon;\alpha)
+  = \VEC(r,\varepsilon) + |\alpha|\,C^2\cdot\Vol
+  \ge \VEC(r,\varepsilon)
+  \ge \VEC(r_0,0)\,.
+\end{equation}
+On the other hand:
+\begin{equation}
+  \Veff(r_0,0;\alpha)
+  = \VEC(r_0,0) + |\alpha|\cdot 0\cdot\Vol
+  = \VEC(r_0,0)\,.
+\end{equation}
+Hence $(r_0,0)$ is a global minimum of $\Veff$ with value
+$\VEC(r_0,0)$.
+
+Moreover, if the minimum of $\VEC$ is strict (attained only at
+$(r_0,0)$), the Weyl penalty $|\alpha|\,C^2\cdot\Vol>0$ for
+$\varepsilon\neq 0$ makes the minimum of $\Veff$ \emph{even more}
+strictly isolated. \qed
+
+\subsection{Assumptions of Theorem~1}
+\label{sec:thm1-assumptions}
+
+The conclusion of part~(c) relies on the premise that $\VEC$ has a
+global minimum at $\varepsilon=0$. This premise is:
+\begin{itemize}
+  \item \textbf{Numerically verified}: the Stage~2D optimisation with
+    reference parameters $(V{=}4,\,\eta{=}{-}2,\,\theta_{\NY}{=}1,\,
+    \kappa{=}1,\,L{=}1)$ yields a minimum at $(r_0,\varepsilon) =
+    (2.000,\,0)$ with $V_{\min}=-421.103$.
+  \item \textbf{Partially supported analytically}: the positive
+    definiteness of the $\varepsilon$-direction Hessian of $\VEC$ at
+    the isotropic point provides a local-minimum proof. A complete
+    analytic proof of global minimality remains an open problem.
+\end{itemize}
+
+\subsection{Numerical Verification}
+\label{sec:thm1-numerics}
+
+The predictions of Theorem~1 are compared with Stage~2D numerical
+results:
+
+\begin{table}[ht]
+\centering
+\caption{Theorem~1 predictions versus numerical results.}
+\label{tab:thm1-verification}
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+Prediction (from Theorem~1) & Numerical result & Agreement \\
+\midrule
+$V_{\min}$ constant for $\alpha\le 0$
+  & $-421.103$ at all 201 points ($\alpha\in[-1,1]$), 11-digit match
+  & $\checkmark$ \\
+$r^*$ independent of $\alpha$
+  & $r^*=2.000\pm 10^{-7}$ for all $\alpha\le 0$
+  & $\checkmark$ \\
+$\varepsilon^*$ independent of $\alpha$
+  & $\varepsilon^*\approx 0$ ($10^{-8}$ precision) for all $\alpha\le 0$
+  & $\checkmark$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The 11-digit agreement provides strong numerical evidence for the
+correctness of the theorem.
+
+\subsection{Bifurcation Diagrams}
+\label{sec:bifurcation}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig03_bifurcation.png}
+\caption{Bifurcation diagram $\varepsilon^*(\alpha)$ for $\Sthree$.
+  For $\alpha\le 0$ the optimal anisotropy remains at
+  $\varepsilon^*=0$; for $\alpha>0$ a bifurcation to
+  $\varepsilon^*\neq 0$ occurs.}
+\label{fig:bifurcation}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig04_size_stability.png}
+\caption{Optimal scale $r^*(\alpha)$ for $\Sthree$. For $\alpha\le 0$,
+  $r^*$ remains constant at $r^*=2.000$; for $\alpha>0$, $r^*$
+  collapses to the search boundary.}
+\label{fig:size-stability}
+\end{figure}
+
+\subsection{Physical Interpretation: Weyl Penalty Stabilises Isotropy}
+\label{sec:weyl-penalty}
+
+For $\alpha<0$, the Weyl term $|\alpha|\,C^2\cdot\Vol$ acts as a
+\emph{penalty} on anisotropy ($\varepsilon\neq 0$). Near the isotropic
+point, the Taylor expansion of \S\ref{sec:C2-properties}~(iii) gives
+\begin{equation}
+  \Delta\Veff
+  \approx \frac{16384\pi^2\,|\alpha|\,L}{3r}\,\varepsilon^2\,.
+\end{equation}
+At $r=r^*=2$, $L=1$:
+\begin{equation}
+  \Delta\Veff \approx 26947\,|\alpha|\,\varepsilon^2\,.
+\end{equation}
+Even for $|\alpha|=1$ and a small anisotropy $\varepsilon=0.01$,
+the penalty is $\Delta V\approx 2.7$. Larger $|\alpha|$ deepens the
+isotropic valley and more strongly suppresses anisotropic fluctuations.
+
+This stabilisation mechanism provides a clear physical picture: the
+$\alpha<0$ Weyl term penalises conformal curvature ($C^2$), thereby
+dynamically protecting spatial isotropy.

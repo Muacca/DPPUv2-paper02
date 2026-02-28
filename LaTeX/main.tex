@@ -1,0 +1,246 @@
+%==============================================================================
+% Structural Robustness of Isotropic S³ Vacua in Einstein–Cartan
+% Minisuperspace via Chiral Equilibrium and Weyl Stability
+%==============================================================================
+\documentclass[12pt,a4paper]{article}
+
+%------------------------------------------------------------------------------
+% Packages
+%------------------------------------------------------------------------------
+
+% Fonts / encoding (helps text extraction)
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage[final]{microtype}
+
+% Math
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+% Graphics and figures
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+
+% TikZ for diagrams
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
+
+% Layout and formatting
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% Misc (xcolor should come before hyperref)
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+% References and links
+\definecolor{linkblue}{RGB}{0,0,180}
+\usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue]{hyperref}
+\usepackage{cleveref}
+
+% Code listings (for appendices)
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  language=Python
+}
+
+% section break
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+%------------------------------------------------------------------------------
+% Theorem environments
+%------------------------------------------------------------------------------
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+%------------------------------------------------------------------------------
+% Custom commands
+%------------------------------------------------------------------------------
+% Math shortcuts
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\Veff}{V_{\mathrm{eff}}}
+\newcommand{\VEC}{V_{\mathrm{EC}}}
+\newcommand{\VWeyl}{V_{\mathrm{Weyl}}}
+\newcommand{\Ric}{R}
+\newcommand{\LC}{\mathrm{LC}}
+\newcommand{\EC}{\mathrm{EC}}
+\newcommand{\NY}{\mathrm{NY}}
+\newcommand{\TT}{\mathrm{TT}}
+\newcommand{\REE}{\mathrm{REE}}
+\newcommand{\FULL}{\mathrm{FULL}}
+\newcommand{\Vol}{\mathrm{Vol}}
+
+% Topology notation
+\newcommand{\Sthree}{S^3}
+\newcommand{\Tthree}{T^3}
+\newcommand{\Nilthree}{\mathrm{Nil}^3}
+\newcommand{\Sone}{S^1}
+
+% Differential forms
+\newcommand{\wedgep}{\wedge}
+
+% Inner product notation
+\newcommand{\innerprod}[2]{\langle #1,\, #2 \rangle}
+
+%------------------------------------------------------------------------------
+% Title and authors
+%------------------------------------------------------------------------------
+\title{Structural Robustness of Isotropic $\Sthree$ Vacua\\
+in Einstein--Cartan Minisuperspace\\
+via Chiral Equilibrium and Weyl Stability}
+
+\author{Muacca}
+
+\date{}
+
+%==============================================================================
+\begin{document}
+%==============================================================================
+
+\maketitle
+\begin{center}
+Version: v1\\
+First release: 2026-02-28\\
+\end{center}
+%------------------------------------------------------------------------------
+% Abstract
+%------------------------------------------------------------------------------
+\begin{abstract}
+We examine the robustness of the isotropic $\Sthree\times\Sone$ vacuum
+established in our preceding work (paper~I) within the Einstein--Cartan +
+Nieh--Yan (EC+NY) Euclidean minisuperspace framework. Two independent
+extensions are analysed: a topological one (self-dual instanton decay
+paths) and a dynamical one (higher-curvature Weyl-squared corrections).
+
+First, we prove that the Pontryagin density $P=\innerprod{R}{*R}$
+vanishes identically under the $M^3\times\Sone$ minisuperspace ansatz
+with EC connection---a property we term \emph{chiral equilibrium}---thereby
+closing the self-dual instanton decay channel within this framework
+(Proposition~1).
+
+Second, we introduce a Weyl-squared term $\alpha\,C^2$ and a
+volume-preserving squashed ansatz parameterised by an anisotropy
+variable~$\varepsilon$. For $\alpha\le 0$ the conformal flatness
+$C^2=0$ of isotropic $\Sthree\times\Sone$ renders the Weyl term inert,
+analytically protecting the global minimum of paper~I (Theorem~1). For
+$\alpha>0$ the effective potential becomes unbounded below
+(Theorem~2). The stability boundary $\alpha=0$ is sharp and independent
+of the paper~I matter parameters $(V,\eta,\theta_{\NY})$, a consequence
+of the geometric decoupling of the Weyl scalar from torsion
+(Theorem~3).
+
+A systematic comparison of three topologies ($\Sthree$, $\Tthree$,
+$\Nilthree$) confirms that the topology-selection principle---the
+energetic dominance of $\Sthree$---is preserved under the Weyl
+extension.
+\end{abstract}
+
+%------------------------------------------------------------------------------
+% Main text
+%------------------------------------------------------------------------------
+\input{sections/sec1}   % Introduction
+\input{sections/sec2}   % Framework
+\input{sections/sec3}   % Chiral Equilibrium
+\input{sections/sec4}   % Weyl Extension
+\input{sections/sec5}   % Stability (alpha <= 0)
+\input{sections/sec6}   % Instability (alpha > 0)
+\input{sections/sec7}   % Universality
+\input{sections/sec8}   % Topology Comparison
+\input{sections/sec9}   % Discussion
+\input{sections/sec10}  % Conclusion
+
+%------------------------------------------------------------------------------
+% Acknowledgments
+%------------------------------------------------------------------------------
+\section*{Acknowledgments}
+
+The author acknowledges the use of the following AI tools during manuscript
+preparation: Claude Opus 4.6 (Anthropic; accessed 2026-02),
+Gemini 3.1 Pro (Google; accessed 2026-02),
+Grok 4.2 Beta (xAI; accessed 2026-02), and
+GPT-5.2 Thinking via ChatGPT (OpenAI; accessed 2025-12).
+These tools were used for language editing (including Japanese--English
+translation), outlining and improving exposition, drafting and reviewing
+auxiliary code (scripts and pseudocode) that was subsequently tested and
+validated by the author, and proposing candidate consistency checks and
+alternative derivations to be independently verified by the author. They were
+additionally used for literature discovery support (keyword generation and
+preliminary summaries of candidate papers); all references and factual claims
+were verified by the author using primary sources.
+
+The AI tools did not determine the scientific claims of this work and were not
+used to generate or modify research data or evidentiary figures. The author
+takes full responsibility for the content and for any remaining errors.
+
+This work was developed within the informal collaborative project
+\textbf{DPPU} (\textbf{D}onut-like topology, \textbf{P}lanck-scale
+compactness, \textbf{P}recession dynamics, \textbf{U}niverse).
+
+%------------------------------------------------------------------------------
+% Appendices
+%------------------------------------------------------------------------------
+\appendix
+\input{appendices/appA}  % DPPUv2 Engine v4 Specification
+\input{appendices/appB}  % Numerical Verification Log & Nil³ Analysis
+\input{appendices/appC}  % Symbolic Computation Details
+\input{appendices/appD}  % Phase Atlas
+
+%------------------------------------------------------------------------------
+% References
+%------------------------------------------------------------------------------
+\bibliographystyle{unsrt}
+
+\begin{thebibliography}{99}
+
+\bibitem{paper1}
+Muacca,
+``Topology-Dependent Phase Classification of Effective Potentials
+in Einstein--Cartan + Nieh--Yan Minisuperspace,''
+Zenodo.\ \texttt{10.5281/zenodo.18213677} (2026).
+
+\bibitem{Hehl1976}
+F.~W.~Hehl, P.~von der Heyde, G.~D.~Kerlick, and J.~M.~Nester,
+``General relativity with spin and torsion: Foundations and prospects,''
+Rev.\ Mod.\ Phys.\ \textbf{48}, 393 (1976).
+
+\bibitem{Chandia1997}
+O.~Chandia and J.~Zanelli,
+``Topological invariants, instantons, and the chiral anomaly on spaces
+with torsion,''
+Phys.\ Rev.\ D \textbf{55}, 7580 (1997).
+
+\bibitem{NiehYan1982}
+H.~T.~Nieh and M.~L.~Yan,
+``An identity in Riemann--Cartan geometry,''
+J.\ Math.\ Phys.\ \textbf{23}, 373 (1982).
+
+\bibitem{Woodard2015}
+R.~P.~Woodard,
+``Ostrogradsky's theorem on Hamiltonian instability,''
+Scholarpedia \textbf{10}(8), 32243 (2015).
+
+\end{thebibliography}
+
+%==============================================================================
+\end{document}
+%==============================================================================
