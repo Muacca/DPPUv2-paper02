@@ -10,7 +10,7 @@ This document fixes the **geometric, index, and sign conventions** shared betwee
 * All quantities treated here are expressed as components on a **Frame (Orthonormal Basis)**.
 * `metric_frame` is the frame metric $(g_{ab})$, which defaults to $(g_{ab}=\delta_{ab})$ (`Matrix.eye(dim)`).
 * The curvature component calculation in the DPPUv2 engine currently assumes a situation where **frame directional derivatives are unnecessary**.
-  Specifically, the runner must adopt a setting where structure constants $(C^a{}_{bc})$ and connection coefficients $(\Gamma^a{}_{bc})$ are treated as "constants with respect to the frame" (e.g., left-invariant frames).
+  Specifically, the runner must adopt a setting where structure constants $(C^{a}{}\_{bc})$ and connection coefficients $(\Gamma^{a}{}\_{bc})$ are treated as "constants with respect to the frame" (e.g., left-invariant frames).
   * **Note:** This design is **rational and efficient** for handling homogeneous spaces like $S^3 \times S^1$ (Lie groups) or Nil manifolds. However, note that this assumption may become a bottleneck if handling general curved spacetimes with low symmetry in the future.
 
 ## 2. Indices and Array Index Order
@@ -25,7 +25,7 @@ Meaning of indices:
 
 * $(a)$: Output (superscript) component
 * $(b,c,d)$: Input (subscript) components
-  In particular, $(\Gamma^a{}_{bc})$ corresponds to $(\nabla_{E_c} E_b = \Gamma^a{}_{bc} E_a)$ (the last index $(c)$ is the "direction of differentiation").
+  In particular, $(\Gamma^{a}{}\_{bc})$ corresponds to $(\nabla\_{E_c} E_b = \Gamma^{a}{}\_{bc} E_a)$ (the last index $(c)$ is the "direction of differentiation").
 
 ## 3. Definitions of Frame, Coframe, and Structure Constants (Most Important)
 
@@ -41,12 +41,13 @@ $$
 ### 3.2 Commutation Relations of Dual Frame (Equivalent)
 
 The above definition is equivalent to:
+
 $$
-[E_b, E_c] = - C^a{}_{bc} E_a.
+[E_b, E_c] = - C^{a}{}_{bc} E_a.
 $$
 
-> Note: Many textbooks adopt $([E_b,E_c]=+f^a{}_{bc}E_a)$.
-> This project adopts the convention **$(C^a{}_{bc}=-f^a{}_{bc})$ relative to that $(f^a{}_{bc})$**.
+> Note: Many textbooks adopt $([E_b,E_c]=+f^{a}{}\_{bc}E_a)$.
+> This project adopts the convention **$(C^{a}{}\_{bc}=-f^{a}{}\_{bc})$ relative to that $(f^{a}{}\_{bc})$**.
 
 ### 3.3 Runner Implementation Rules (Recommended)
 
@@ -56,19 +57,22 @@ $$
 ## 4. Connection (Spin Connection) and Metric Compatibility
 
 Define the connection 1-form as:
+
 $$
-\omega^a{}_b = \Gamma^a{}_{bc} e^c
+\omega^{a}{}\_b = \Gamma^{a}{}\_{bc} e^c
 $$
 
 Metric compatibility (Lorentz connection / Orthogonal connection) is fixed as a specification:
+
 $$
 \omega_{ab} = -\omega_{ba}
 \quad(\Leftrightarrow\quad
 \Gamma_{abc} = -\Gamma_{bac})
 $$
+
 where $(\Gamma_{abc} = g_{ad}\Gamma^d{}_{bc})$.
 
-## 5. Levi-Civita Connection (General Koszul Implementation in v3 Engine)
+## 5. Levi-Civita Connection (General Koszul Implementation in DPPUv2 Engine)
 
 When the frame is orthonormal and the above structure constant conventions are adopted, the Levi-Civita connection is calculated in the DPPUv2 engine using the following **General Koszul Formula**:
 
@@ -95,17 +99,19 @@ $$
 ## 6. Torsion and Curvature
 
 Torsion 2-form:
+
 $$
-T^a = de^a + \omega^a{}_b \wedge e^b,
+T^a = de^a + \omega^{a}{}\_b \wedge e^b,
 \qquad
-T^a = \frac12 T^a{}_{bc} e^b\wedge e^c.
+T^a = \frac12 T^{a}{}\_{bc} e^b\wedge e^c.
 $$
 
 Curvature 2-form:
+
 $$
-R^a{}_b = d\omega^a{}_b + \omega^a{}_c\wedge \omega^c{}_b,
+R^{a}{}\_b = d\omega^a{}_b + \omega^a{}_c\wedge \omega^c{}_b,
 \qquad
-R^a{}_b = \frac12 R^a{}_{bcd} e^c\wedge e^d.
+R^{a}{}\_b = \frac12 R^{a}{}\_{bcd} e^c\wedge e^d.
 $$
 
 ## 7. Curvature Component Formula (Form used by Engine)
@@ -113,15 +119,11 @@ $$
 The DPPUv2 engine currently uses the following form for $R^a_{bcd}$:
 
 $$
-R^a{}_{bcd}
-=
-\Gamma^a{}_{ec}\Gamma^e{}_{bd}
--\Gamma^a{}_{ed}\Gamma^e{}_{bc}
-+\Gamma^a{}_{be} C^e{}_{cd}.
+R^{a}{}\_{bcd} = \Gamma^{a}{}\_{ec}\Gamma^{e}{}\_{bd}-\Gamma^{a}{}\_{ed}\Gamma^{e}{}\_{bc}+\Gamma^{a}{}\_{be} C^{e}{}\_{cd}.
 $$
 
 > Important: Generally, a frame directional derivative term
-> $(E_c(\Gamma^a{}_{bd}) - E_d(\Gamma^a{}_{bc}))$
+> $(E_c(\Gamma^{a}{}\_{bd}) - E_d(\Gamma^{a}{}\_{bc}))$
 > appears here, but the DPPUv2 engine does not explicitly handle it.
 > Therefore, the runner must adopt a setting where **$(\Gamma)$ is treated as constant in the frame direction**, such as with left-invariant frames.
 
@@ -130,20 +132,23 @@ $$
 The runner must satisfy the following (failure implies definition inconsistency with the engine):
 
 1. Antisymmetry of Structure Constants:
-   $$
-   C^a{}_{bc} + C^a{}_{cb} = 0.
-   $$
+
+$$
+C^{a}{}\_{bc} + C^{a}{}\_{cb} = 0.
+$$
 
 2. Metric Compatibility (Orthogonal Connection):
-   $$
-   \omega_{ab} + \omega_{ba} = 0.
-   $$
+
+$$
+\omega_{ab} + \omega_{ba} = 0.
+$$
 
 3. Antisymmetry of Riemann (Target of engine's strict check):
-   $$
-   R_{ab cd} = -R_{ba cd},\qquad
-   R_{ab cd} = -R_{ab dc}.
-   $$
+
+$$
+R_{ab cd} = -R_{ba cd},\qquad
+R_{ab cd} = -R_{ab dc}.
+$$
 
 ---
 
@@ -152,9 +157,7 @@ The runner must satisfy the following (failure implies definition inconsistency 
 ### 9.1 Weyl Tensor Definition (4D)
 
 $$
-C_{abcd} = R_{abcd}
-- \frac{1}{2}(g_{ac}R_{bd} - g_{ad}R_{bc} - g_{bc}R_{ad} + g_{bd}R_{ac})
-+ \frac{R}{6}(g_{ac}g_{bd} - g_{ad}g_{bc}).
+C_{abcd} = R_{abcd} - \frac{1}{2}(g_{ac}R_{bd} - g_{ad}R_{bc} - g_{bc}R_{ad} + g_{bd}R_{ac}) + \frac{R}{6}(g_{ac}g_{bd} - g_{ad}g_{bc}).
 $$
 
 Key properties:

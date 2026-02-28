@@ -30,7 +30,7 @@ SymPyを用いた積分計算における「処理時間爆発（2時間以上�
 
 ### Rule 1.2: 積分後の中間簡約の抑制
 
-多重積分（例：$\phi$ 積分 → $\theta$ 積分）の際、中間結果に対して過度な `simplify` を行わない。`cancel` 程度に留め、最終的な積分直前で再度 `expand` する方が高速である。
+多重積分（例： $\phi$ 積分 → $\theta$ 積分）の際、中間結果に対して過度な `simplify` を行わない。`cancel` 程度に留め、最終的な積分直前で再度 `expand` する方が高速である。
 
 -----
 
@@ -54,7 +54,7 @@ SymPyを用いた積分計算における「処理時間爆発（2時間以上�
 
 #### 正規直交フレーム基底での最適化
 
-正規直交フレーム基底においては、計量が単位行列（$g_{ab} = \eta_{ab} = \text{diag}(1,1,1,1)$ または $\text{diag}(-1,1,1,1)$）であるため、添字の上げ下げ計算を省略し、直接成分計算を行うことで高速化する。
+正規直交フレーム基底においては、計量が単位行列（ $g_{ab} = \eta_{ab} = \text{diag}(1,1,1,1)$ または $\text{diag}(-1,1,1,1)$）であるため、添字の上げ下げ計算を省略し、直接成分計算を行うことで高速化する。
 
 ただし、物理的定義（Hehl 1976）の符号パターン $(+1, +1, -1)$ は厳守すること。
 
@@ -102,7 +102,7 @@ assert mismatch == 0
 
 捩れテンソル $T^\lambda_{\ \mu\nu}$ の定義：
 $$T^\lambda_{\ \mu\nu} \equiv \Gamma^\lambda_{\ \mu\nu} - \Gamma^\lambda_{\ \nu\mu}$$
-（注：本エンジンのフレーム基底での捩れ成分は、CONVENTIONS の第6節で定義された捩れ2-form $T^a = de^a + \omega^a{}_b\wedge e^b$ から $T^a = \frac{1}{2}T^a{}_{bc}\,e^b\wedge e^c$ の係数比較により抽出される）
+（注：本エンジンのフレーム基底での捩れ成分は、CONVENTIONS の第6節で定義された捩れ2-form $T^a = de^a + \omega^{a}{}\_b\wedge e^b$ から $T^a = \frac{1}{2}T^{a}{}\_{bc}\,e^b\wedge e^c$ の係数比較により抽出される）
 
 ### 3.2 Contortion Formula
 
@@ -137,7 +137,7 @@ $M^3 \times S^1$ ミニスーパースペース・アンサーツでの捩れテ
 ### 4.2 物理的対応
 
 - **T1（軸対称成分）**: 軸性ベクトル $S^\mu = (\eta/r)(0,0,0,1)$ の双対。空間添字 $a,b,c \in \{0,1,2\}$ に対して $T_{abc} = (2\eta/r)\,\varepsilon_{abc}$。
-- **T2（ベクトル跡部分）**: ベクトル $V_\mu = V\,\delta^3_\mu$（$\tau$ 成分のみ）の双対。$T_{abc} = \frac{1}{3}(\delta_{ac}V_b - \delta_{ab}V_c)$。
+- **T2（ベクトル跡部分）**: ベクトル $V_\mu = V\,\delta^3_\mu$（$\tau$ 成分のみ）の双対。 $T_{abc} = \frac{1}{3}(\delta_{ac}V_b - \delta_{ab}V_c)$。
 
 ### 4.3 実装ルール
 
@@ -152,8 +152,7 @@ $T_{abc}$ を手打ちで構築してはならない。
 
 完全な Nieh-Yan 密度：
 $$N = N_{\mathrm{TT}} - N_{\mathrm{Ree}},$$
-$$N_{\mathrm{TT}} = \frac{1}{4}\varepsilon^{abcd}T^e{}_{ab}T_{ecd},\qquad
-N_{\mathrm{Ree}} = \frac{1}{4}\varepsilon^{abcd}R_{abcd}.$$
+$$N_{\mathrm{TT}} = \frac{1}{4}\varepsilon^{abcd}T^{e}{}\_{ab}T_{ecd},\qquad N_{\mathrm{Ree}} = \frac{1}{4}\varepsilon^{abcd}R_{abcd}.$$
 
 ### 5.2 バリアント選択
 
@@ -182,7 +181,7 @@ L = \frac{R}{2\kappa^2} + \theta_{\mathrm{NY}}\times N + \alpha\times C^2.$$
 | $\theta_{\mathrm{NY}}$ | Nieh-Yan 結合定数（トポロジカル） |
 | $\alpha$ | Weyl 結合定数（共形不変項） |
 
-$\alpha \leq 0$ では定理1により安定真空が保護される。$\alpha > 0$ では定理2により有効ポテンシャルが非有界となる。
+$\alpha \leq 0$ では定理1により安定真空が保護される。 $\alpha > 0$ では定理2により有効ポテンシャルが非有界となる。
 
 ### 6.2 有効ポテンシャルの取得
 
@@ -215,7 +214,7 @@ Stage 1 の上位 $N$ 候補を初期点として `scipy.optimize.minimize`（L-
 
 ### 7.2 安定性分類
 
-$(r^*, \varepsilon^*)$ の最小値発見後、以下に分類する：
+$(r^\*, \varepsilon^\*)$ の最小値発見後、以下に分類する：
 
 | 分類 | 条件 | 物理的意味 |
 |---|---|---|
@@ -249,7 +248,7 @@ P = \langle R, *R\rangle = R_{abcd}(*R)^{abcd}.$$
 |---|---|
 | SD 残差 $< \varepsilon_{\rm SD}$ かつ $\|R\| > \varepsilon_R$ | Self-dual |
 | ASD 残差 $< \varepsilon_{\rm SD}$ かつ $\|R\| > \varepsilon_R$ | Anti-self-dual |
-| $P = 0$（命題1） | Chiral equilibrium（$M^3 \times S^1$ 上で代数的に成立） |
+| $P = 0$（命題1） | Chiral equilibrium（ $M^3 \times S^1$ 上で代数的に成立） |
 
 ### 8.3 使用方法
 

@@ -55,7 +55,7 @@ In environments with non-diagonal metrics or where $g_{\mu\nu} \neq 1$, swapping
 
 #### Optimization for Orthonormal Frame Basis
 
-In an **Orthonormal Frame Basis**, since the metric is the identity matrix ($g_{ab} = \eta_{ab} = \text{diag}(1,1,1,1)$ or $\text{diag}(-1,1,1,1)$), the computational overhead of raising and lowering indices should be omitted. Direct component calculation should be used for speed.
+In an **Orthonormal Frame Basis**, since the metric is the identity matrix ( $g_{ab} = \eta_{ab} = \text{diag}(1,1,1,1)$ or $\text{diag}(-1,1,1,1)$ ), the computational overhead of raising and lowering indices should be omitted. Direct component calculation should be used for speed.
 
 However, the sign pattern $(+1, +1, -1)$ defined by the physical definition (Hehl 1976) must be strictly observed.
 
@@ -103,7 +103,7 @@ To prevent confusion during paper writing, adhere to the **Hehl (1976) Standard*
 
 Definition of the Torsion Tensor $T^\lambda_{\ \mu\nu}$:
 $$T^\lambda_{\ \mu\nu} \equiv \Gamma^\lambda_{\ \mu\nu} - \Gamma^\lambda_{\ \nu\mu}$$
-(Note: In the frame basis of this engine, torsion components are extracted from the torsion 2-form $T^a = de^a + \omega^a{}_b\wedge e^b$ defined in Section 6 of CONVENTIONS, via the coefficient comparison $T^a = \frac{1}{2}T^a{}_{bc}\,e^b\wedge e^c$.)
+(Note: In the frame basis of this engine, torsion components are extracted from the torsion 2-form $T^a = de^a + \omega^{a}{}\_b\wedge e^b$ defined in Section 6 of CONVENTIONS, via the coefficient comparison $T^a = \frac{1}{2}T^{a}{}\_{bc}\,e^b\wedge e^c$.)
 
 ### 3.2 Contortion Formula
 
@@ -152,9 +152,8 @@ Do **not** construct $T_{abc}$ by hand.
 ### 5.1 Nieh-Yan Decomposition
 
 The full Nieh-Yan density:
-$$N = N_{\mathrm{TT}} - N_{\mathrm{Ree}},$$
-$$N_{\mathrm{TT}} = \frac{1}{4}\varepsilon^{abcd}T^e{}_{ab}T_{ecd},\qquad
-N_{\mathrm{Ree}} = \frac{1}{4}\varepsilon^{abcd}R_{abcd}.$$
+$N = N_{\mathrm{TT}} - N_{\mathrm{Ree}},$
+$N_{\mathrm{TT}} = \frac{1}{4}\varepsilon^{abcd}T^{e}{}\_{ab}T_{ecd},\qquad N_{\mathrm{Ree}} = \frac{1}{4}\varepsilon^{abcd}R_{abcd}.$
 
 ### 5.2 Variant Selection
 
@@ -212,11 +211,11 @@ See `compute_lagrangian()` in `dppu/action/lagrangian.py` and `dppu/action/poten
 
 **Stage 2: Multi-start L-BFGS-B refinement**
 
-Top-$N$ candidates from Stage 1 are used as starting points for `scipy.optimize.minimize` (L-BFGS-B, `ftol=1e-8`) to obtain a high-precision minimum.
+Top- $N$ candidates from Stage 1 are used as starting points for `scipy.optimize.minimize` (L-BFGS-B, `ftol=1e-8`) to obtain a high-precision minimum.
 
 ### 7.2 Stability Classification
 
-After locating the minimum at $(r^*, \varepsilon^*)$, classify as follows:
+After locating the minimum at $(r^\*, \varepsilon^\*)$ , classify as follows:
 
 | Class | Condition | Physical meaning |
 |---|---|---|
