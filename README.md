@@ -1,5 +1,7 @@
 # DPPUv2 paper02: Structural Robustness of Isotropic S³ Vacua in Einstein-Cartan Minisuperspace via Chiral Equilibrium and Weyl Stability
 
+[10.5281/zenodo.18815498](https://doi.org/10.5281/zenodo.18815498)
+
 [日本語 README](README_ja.md)
 
 ![Potential landscape example](LaTeX/figures/fig02_landscape.png "Potential landscape example")

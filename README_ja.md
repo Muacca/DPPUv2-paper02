@@ -1,5 +1,7 @@
 # DPPUv2 paper02: Structural Robustness of Isotropic S³ Vacua in Einstein-Cartan Minisuperspace via Chiral Equilibrium and Weyl Stability（カイラル平衡とワイル安定性によるアインシュタイン-カルタンMinisuperspaceにおける等方性S³真空の構造的堅牢性）
 
+[10.5281/zenodo.18815498](https://doi.org/10.5281/zenodo.18815498)
+
 [English README](README.md)
 
 ![相図の例](LaTeX/figures/fig02_landscape.png "相図の例")
