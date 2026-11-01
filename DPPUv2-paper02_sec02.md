@@ -62,7 +62,7 @@ $$
 $$
 \begin{aligned}
 e^{0}&=r s^{1/3}\sigma^{0},&e^{1}&=r s^{1/3}\sigma^{1},\\
-e^{2}&=r s^{-2/3}\sigma^{2},&e^{3}&=L\,du,\\
+e^{2}&=r s^{-2/3}\sigma^{2},&e^{3}&=L\thinspace du,\\
 s&=1+\varepsilon>0,&x&=s^{-2/3}>0.
 \end{aligned}
 $$

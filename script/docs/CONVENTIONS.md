@@ -265,11 +265,11 @@ With orientation epsilon0123=+1 and Euclidean metric, dualize the last, form-ind
 
 $$
 \begin{aligned}
-(*R)_{abcd}&=\frac12\varepsilon_{cdef}R_{abef},\\
+(\ast R)_{abcd}&=\frac12\varepsilon_{cdef}R_{abef},\\
 \mathcal P\thinspace\mathrm{vol}_{4}&=\sum_{a,b}R_{ab}\wedge R_{ab},\qquad
 \mathcal P=\frac14\varepsilon^{cdef}R_{abcd}R_{abef},\\
 E_{\mathrm{all}}&=\sum_{a,b,c,d}R_{abcd}^2,\qquad
-P_{\mathrm{all}}=\sum_{a,b,c,d}R_{abcd}(*R)_{abcd}=2\mathcal P.
+P_{\mathrm{all}}=\sum_{a,b,c,d}R_{abcd}(\ast R)_{abcd}=2\mathcal P.
 \end{aligned}
 $$
 

@@ -266,11 +266,11 @@ LC-Weylは等方球面と全トーラスで零、有限形状のNilでは非零�
 
 $$
 \begin{aligned}
-(*R)_{abcd}&=\frac12\varepsilon_{cdef}R_{abef},\\
+(\ast R)_{abcd}&=\frac12\varepsilon_{cdef}R_{abef},\\
 \mathcal P\thinspace\mathrm{vol}_{4}&=\sum_{a,b}R_{ab}\wedge R_{ab},\qquad
 \mathcal P=\frac14\varepsilon^{cdef}R_{abcd}R_{abef},\\
 E_{\mathrm{all}}&=\sum_{a,b,c,d}R_{abcd}^2,\qquad
-P_{\mathrm{all}}=\sum_{a,b,c,d}R_{abcd}(*R)_{abcd}=2\mathcal P.
+P_{\mathrm{all}}=\sum_{a,b,c,d}R_{abcd}(\ast R)_{abcd}=2\mathcal P.
 \end{aligned}
 $$
 

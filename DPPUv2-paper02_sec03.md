@@ -20,11 +20,11 @@ $$
 
 $$
 \begin{aligned}
-\mathcal P\,\mathrm{vol}_{4}&=\sum_{a,b}R_{ab}\wedge R_{ab},
+\mathcal P\thinspace \mathrm{vol}_{4}&=\sum_{a,b}R_{ab}\wedge R_{ab},
 &\mathcal P&=\frac14\epsilon^{cdef}R_{abcd}R_{abef},\\
-E_{\mathrm{all}}&=\sum_{a,b,c,d}R_{abcd}^{\,2},
-&P_{\mathrm{all}}&=\sum_{a,b,c,d}R_{abcd}(*R)_{abcd}=2\mathcal P,\\
-(*R)_{abcd}&=\frac12\epsilon_{cdef}R_{abef}.
+E_{\mathrm{all}}&=\sum_{a,b,c,d}R_{abcd}^{\thinspace 2},
+&P_{\mathrm{all}}&=\sum_{a,b,c,d}R_{abcd}(\ast R)_{abcd}=2\mathcal P,\\
+(\ast R)_{abcd}&=\frac12\epsilon_{cdef}R_{abef}.
 \end{aligned}
 $$
 

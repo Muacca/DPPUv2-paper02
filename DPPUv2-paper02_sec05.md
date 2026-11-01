@@ -25,9 +25,9 @@ $$
 \begin{aligned}
 b&=9\eta^{2}-36,\qquad
 U_{S^{3}}(r,1)=\frac{c_{S^{3}}L}{3\kappa^{2}}(V^{2}r^{3}+br),\\
-r_{*}&=\frac{\sqrt{12-3\eta^{2}}}{\lvert V\rvert},
+r_{\ast}&=\frac{\sqrt{12-3\eta^{2}}}{\lvert V\rvert},
 \qquad
-U_{*}=-\frac{2c_{S^{3}}L V^{2}r_{*}^{3}}{3\kappa^{2}}
+U_{\ast}=-\frac{2c_{S^{3}}L V^{2}r_{\ast}^{3}}{3\kappa^{2}}
 \quad(V\ne0,\ \eta^{2}<4).
 \end{aligned}
 $$
@@ -39,11 +39,11 @@ Vが非零でη²＜4なら、半径微分は負から正へ一度だけ変化�
 
 $$
 \begin{aligned}
-H_{rr}&=\frac{2c_{S^{3}}L V^{2}r_{*}}{\kappa^{2}}>0,
+H_{rr}&=\frac{2c_{S^{3}}L V^{2}r_{\ast}}{\kappa^{2}}>0,
 \qquad H_{r\varepsilon}=0,\\
 H_{\varepsilon\varepsilon}
 &=\frac{c_{S^{3}}L}{3\kappa^{2}}
-\left(64r_{*}+\frac{8192\kappa^{2}\lvert\alpha\rvert}{r_{*}}\right)>0.
+\left(64r_{\ast}+\frac{8192\kappa^{2}\lvert\alpha\rvert}{r_{\ast}}\right)>0.
 \end{aligned}
 $$
 
