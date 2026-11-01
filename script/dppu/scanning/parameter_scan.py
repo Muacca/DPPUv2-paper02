@@ -1,119 +1,58 @@
-"""
-Parameter Space Scanning
-========================
-
-Systematic scanning of (V, η, θ) parameter space.
-"""
-
+"""Sample joint and fixed-shape classifications without rounding inputs."""
 import csv
-import os
 from datetime import datetime
-from multiprocessing import Pool, cpu_count
-from typing import Dict, List, Optional
-
+from multiprocessing import Pool
+from pathlib import Path
 import numpy as np
-
-from .potentials import POTENTIAL_FUNCTIONS
-from ..action.stability import analyze_stability, StabilityType
+from .classification import classify_configuration
 
 
-def calculate_single_point(args) -> Dict:
-    """Calculate stability for single parameter point."""
-    topology, ny_variant, V_param, eta, theta = args
-    V_param = round(V_param, 2)
-    eta = round(eta, 2)
-    theta = round(theta, 2)
-
-    potential_func = POTENTIAL_FUNCTIONS[(topology, ny_variant)]
-    r0, delta_V, stability_type = analyze_stability(
-        potential_func, V_param, eta, theta
-    )
-
-    return {
-        'topology': topology,
-        'ny_variant': ny_variant,
-        'V': V_param,
-        'eta': eta,
-        'theta': theta,
-        'r0': r0,
-        'delta_V': delta_V,
-        'stability_type': stability_type.value if stability_type else 'type-III',
-    }
+def calculate_single_point(args):
+    """Five-item inputs select alpha=epsilon=0 and MX; eight include them."""
+    if len(args) == 5:args = (*args, 0., 0., 'MX')
+    if len(args) == 8:args = (*args, 'EC_IRR')
+    topology, variant, V, eta, theta, alpha, epsilon, mode, curvature_model = args
+    return classify_configuration(topology, V, eta, alpha, epsilon,
+                                  mode=mode, ny_variant=variant, theta=theta, curvature_model=curvature_model)
 
 
-def generate_parameter_grid(V_range, eta_range, theta_range, topologies, ny_variants):
-    """Generate all parameter combinations."""
-    grid = []
-    for topology in topologies:
-        for ny_variant in ny_variants:
-            for V_param in V_range:
-                for eta in eta_range:
-                    for theta in theta_range:
-                        grid.append((topology, ny_variant, V_param, eta, theta))
-    return grid
+def generate_parameter_grid(V_range, eta_range, theta_range, topologies,
+                            ny_variants, alphas=(0.,), epsilon=0., mode='MX', curvature_model='EC_IRR'):
+    return [(top, ny, V, eta, theta, alpha, epsilon, mode, curvature_model)
+            for top in topologies for ny in ny_variants for V in V_range
+            for eta in eta_range for theta in theta_range for alpha in alphas]
 
 
-def run_scan(
-    V_points: int = 6,
-    eta_points: int = 11,
-    theta_points: int = 6,
-    V_min: float = 0.0,
-    V_max: float = 5.0,
-    eta_min: float = -5.0,
-    eta_max: float = 5.0,
-    theta_min: float = 0.0,
-    theta_max: float = 5.0,
-    topologies: Optional[List[str]] = None,
-    ny_variants: Optional[List[str]] = None,
-    output_dir: str = 'output',
-    output_filename: Optional[str] = None,
-    n_workers: Optional[int] = None
-) -> List[Dict]:
-    """Run full parameter scan."""
-    if topologies is None:
-        topologies = ['S3', 'T3', 'Nil3']
-    if ny_variants is None:
-        ny_variants = ['FULL', 'TT', 'REE']
-    if n_workers is None:
-        n_workers = max(1, cpu_count() - 1)
+def run_scan(V_points=6, eta_points=11, theta_points=1, V_min=0., V_max=5.,
+             eta_min=-5., eta_max=5., theta_min=1., theta_max=1.,
+             topologies=None, ny_variants=None, output_dir='output',
+             output_filename=None, n_workers=1, alphas=(0.,), epsilon=0., mode='MX', curvature_model='EC_IRR'):
+    """Write full-precision inputs and separate global/radial CSV fields.
 
-    V_range = np.linspace(V_min, V_max, V_points)
-    eta_range = np.linspace(eta_min, eta_max, eta_points)
-    theta_range = np.linspace(theta_min, theta_max, theta_points)
-
-    print(f"Generating grid: {V_points}×{eta_points}×{theta_points} × "
-          f"{len(topologies)} × {len(ny_variants)}")
-
-    grid = generate_parameter_grid(
-        V_range, eta_range, theta_range, topologies, ny_variants
-    )
-    total_points = len(grid)
-    print(f"Total points: {total_points:,}")
-
-    os.makedirs(output_dir, exist_ok=True)
-
-    results = []
-    with Pool(n_workers) as pool:
-        chunk_size = 10000
-        for i in range(0, total_points, chunk_size):
-            chunk = grid[i:i + chunk_size]
-            chunk_results = pool.map(calculate_single_point, chunk)
-            results.extend(chunk_results)
-            print(f"Progress: {(i + len(chunk)) / total_points * 100:.1f}%")
-
-    # Save results
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    fname = output_filename if output_filename is not None else f'dppu_scan_all_{timestamp}.csv'
-    combined_file = os.path.join(output_dir, fname)
-
-    with open(combined_file, 'w', newline='') as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=['topology', 'ny_variant', 'V', 'eta', 'theta',
-                        'r0', 'delta_V', 'stability_type']
-        )
-        writer.writeheader()
-        writer.writerows(results)
-
-    print(f"Results saved to: {combined_file}")
+    FULL is the default and has no theta dependence. Explicit TT/REE rows
+    have NOT_APPLICABLE classifications. No plot bounds enter classification.
+    """
+    for n in (V_points, eta_points, theta_points):
+        if not np.isfinite(n) or int(n) != n or n < 1:
+            raise ValueError('Grid counts must be positive integers')
+    bounds=(V_min,V_max,eta_min,eta_max,theta_min,theta_max)
+    if not all(np.isfinite(v) for v in bounds):raise ValueError('Grid limits must be finite')
+    if V_min>V_max or eta_min>eta_max or theta_min>theta_max:raise ValueError('Grid limits must be ordered')
+    topologies = ['S3','T3','Nil3'] if topologies is None else topologies
+    ny_variants = ['FULL'] if ny_variants is None else ny_variants
+    args=generate_parameter_grid(np.linspace(V_min,V_max,int(V_points)),
+        np.linspace(eta_min,eta_max,int(eta_points)),np.linspace(theta_min,theta_max,int(theta_points)),
+        topologies,ny_variants,alphas,epsilon,mode,curvature_model)
+    if not args:raise ValueError('The parameter grid is empty')
+    if n_workers is None:n_workers=1
+    if int(n_workers)!=n_workers or n_workers<1:raise ValueError('Workers must be a positive integer')
+    if n_workers == 1:results=[calculate_single_point(a) for a in args]
+    else:
+        with Pool(int(n_workers)) as pool:results=pool.map(calculate_single_point,args)
+    folder=Path(output_dir);folder.mkdir(parents=True,exist_ok=True)
+    name=output_filename or ('dppu_scan_'+datetime.now().strftime('%Y%m%d_%H%M%S_%f')+'.csv')
+    if Path(name).name!=name:raise ValueError('output_filename must be a filename')
+    with (folder/name).open('x',newline='',encoding='utf-8') as f:
+        writer=csv.DictWriter(f,fieldnames=list(results[0]));writer.writeheader();writer.writerows(results)
+    print(f'{len(results)} classifications saved to {folder/name}')
     return results

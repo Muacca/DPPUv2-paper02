@@ -4,7 +4,8 @@ S³×S¹ Topology Implementation
 
 3-sphere (SU(2)) × circle.
 Structure constants: C^i_jk = (4/r)ε_ijk
-Volume: V = 2π²Lr³
+Round physical radius: r/2. Circle circumference: L.
+Volume: π²Lr³/4 (unchanged by volume-preserving squashing).
 """
 
 from sympy import symbols, Matrix, S, pi, Rational
@@ -56,27 +57,27 @@ class S3S1Engine(BaseFrameEngine):
         # Frame metric (identity)
         self.data['metric_frame'] = Matrix.eye(dim)
 
-        # Volume: 2π²Lr³ (Preserved by ansatz)
-        self.data['total_volume'] = 2 * pi**2 * L * r**3
+        # C=4*epsilon/r fixes the round radius to r/2; circle period is 1.
+        self.data['total_volume'] = pi**2 * L * r**3 / 4
 
-        # Structure constants: 
+        # Structure constants:
         # Base: C^i_jk = (4/r)ε_ijk
         # Squashed:
         # C^0_12 -> (1+eps)^(2/3) * C_base
         # C^1_20 -> (1+eps)^(2/3) * C_base
         # C^2_01 -> (1+eps)^(-4/3) * C_base
-        
+
         C = MutableDenseNDimArray.zeros(dim, dim, dim)
-        
+
         # Factors for C^a_{bc} where a,b,c are permutation of 0,1,2
         # If a=0 (bc=12 or 21): factor (1+eps)^(2/3)
         # If a=1 (bc=20 or 02): factor (1+eps)^(2/3)
         # If a=2 (bc=01 or 10): factor (1+eps)^(-4/3)
-        
+
         factor_0 = (1 + epsilon)**Rational(2, 3)
         factor_1 = (1 + epsilon)**Rational(2, 3)
         factor_2 = (1 + epsilon)**Rational(-4, 3)
-        
+
         factors = [factor_0, factor_1, factor_2]
 
         for i in range(3):

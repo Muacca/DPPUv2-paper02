@@ -2,7 +2,8 @@
 Contortion Tensor
 =================
 
-Computes the contortion tensor from the torsion tensor.
+Computes contortion from the signed input array tau (legacy argument T).
+With de=+Cee/2 and omega=Gamma*e, the geometric torsion is -tau.
 
 Mathematical Background:
     The contortion tensor K_{abc} relates the Einstein-Cartan connection
@@ -14,11 +15,12 @@ Mathematical Background:
 
     K_{abc} = (1/2)(T_{abc} + T_{bca} - T_{cab})
 
-    This formula ensures that the EC connection has the correct torsion.
+    Here T denotes the input array tau. For geometric torsion use
+    K_abc = -(T_geom_abc + T_geom_bca - T_geom_cab)/2.
 
 Properties:
     - K_{abc} = -K_{bac} (antisymmetric in first two indices)
-    - The torsion of the EC connection equals the input torsion
+    - The geometric torsion of the EC connection is minus the input array
 
 Author: Muacca
 """
@@ -40,8 +42,7 @@ def compute_contortion(
     Formula:
         K_{abc} = (1/2)(T_{abc} + T_{bca} - T_{cab})
 
-    This is the standard definition ensuring that the EC connection
-    ω = Γ + K has torsion T.
+    T is the input array tau; omega = Gamma_LC + K has geometric torsion -T.
 
     Args:
         T: Torsion tensor T_{abc} as MutableDenseNDimArray

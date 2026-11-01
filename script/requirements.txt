@@ -3,18 +3,13 @@
 
 # Core scientific computing
 numpy>=1.24
-scipy>=1.11
 sympy>=1.12
-pandas>=2.0
-
-# Progress bar
-tqdm>=4.65
 
 # Plotting
 matplotlib>=3.7
-seaborn>=0.12
 
 # Jupyter interactive viewer (scripts/visualize/ only)
 # Required for DPPUv2_interactive_viewer_v4.py (%matplotlib widget)
 ipywidgets>=8.0
+ipympl>=0.9
 IPython>=8.0

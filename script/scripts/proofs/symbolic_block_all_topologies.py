@@ -204,9 +204,9 @@ print()
 all_verified = all(r['verified'] for r in results)
 if all_verified:
     print("=" * 70)
-    print("THEOREM VERIFIED FOR ALL TOPOLOGIES:")
-    print("  P = <R, *R> = 0 is an algebraic identity for M^3 x S^1 with")
-    print("  minisuperspace ansatz and EC connection, regardless of M^3.")
+    print("BLOCK IDENTITY VERIFIED FOR THE THREE SPECIFIED GEOMETRIES:")
+    print("  P = <R, *R> = 0 for S3 x S1, T3 x S1, and Nil3 x S1 with")
+    print("  the specified static homogeneous ansatz and EC connection.")
     print("=" * 70)
 else:
     print("WARNING: Not all topologies verified. Check results above.")

@@ -1,202 +1,31 @@
-%==============================================================================
-% Section 8: Topology Comparison under Weyl Extension
-%==============================================================================
-\section{Topology Comparison under Weyl Extension}
-\label{sec:topology}
+\section{Comparison with the torus and Nil families}
+\label{sec:revised8}
 
-We now verify that the topology-selection principle of paper~I---the
-energetic dominance of $\Sthree$---is preserved under the Weyl
-extension. The three topologies $\Sthree$, $\Tthree$, and $\Nilthree$
-are compared systematically.
+For $T^3$ both LC-Weyl and complete NY vanish. $U$ is independent of $\alpha,\theta$, and shape. The shape independence relies on the shape-independent axial coefficient in (T), not on flatness alone. If either torsion amplitude is nonzero, it increases strictly with radius and has unattained infimum zero. If both vanish it is zero throughout, selecting neither a radius nor a shape.
 
-\subsection{\texorpdfstring{$\alpha\le 0$}{α≤0}: Preservation of
-  \texorpdfstring{$\Sthree$}{S³} Dominance}
-\label{sec:topo-neg-alpha}
-
-For $\alpha\le 0$, the lowest-energy vacua of the three topologies are:
-
-\begin{table}[ht]
+For Nil and $\alpha\le0$,
+\begin{equation}
+\frac{\partial U_{\mathrm{Nil}^3}}{\partial x}
+=\frac{c_{\mathrm{Nil}^3}L}{3\kappa^2}
+\left(3x^3r+\frac{32\kappa^2\beta x^7}{r}\right)>0
+\qquad (\alpha=-\beta\le0).
+\tag{NIL}\label{eq:NIL}
+\end{equation}
+There is no minimum at finite shape in the two-variable problem. The positive potential approaches infimum zero along $r=\ell t,x=t$, $t\to0^+$, with fixed positive length $\ell$. A separate radial minimum exists for negative $\alpha$ when shape is fixed:
+\begin{equation}
+\begin{aligned}
+A&=V^2,\quad B=9\eta^2+\frac34x^4,\quad D=4\kappa^2\beta x^8,\\
+r_{\mathrm{slice}}^2
+&=\frac{2D}{B+\sqrt{B^2+12AD}}
+\qquad (\beta>0).
+\end{aligned}
+\tag{SLICE}\label{eq:SLICE}
+\end{equation}
+This expression includes $A=0$ but requires $\beta>0$. Releasing shape always lowers the potential in the direction specified by (NIL), so this radial minimum is not a two-variable minimum. Positive $\alpha$ is covered by Theorem 2.
+\begin{figure}[htbp]
 \centering
-\caption{Topology comparison for $\alpha\le 0$ (reference parameters).}
-\label{tab:topo-neg}
-\begin{tabularx}{\textwidth}{@{}lrrlX@{}}
-\toprule
-Topology & $V_{\min}$ & $r^*$ & $\varepsilon^*$ & Status \\
-\midrule
-$\Sthree$   & $-421$   & $2.000$ & $0$
-  & Deep stable vacuum (lowest energy) \\
-$\Tthree$   & $\approx 0$ ($5.5\times 10^{-12}$) & $1.500$ & $-0.642$
-  & Effectively flat \\
-$\Nilthree$ & $\approx 5$ (flat-limit asymptote) & $1.500$
-  & $\to\infty$ (flat limit) & Energetically unfavourable \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-$\Sthree$ achieves $V_{\min}=-421$, significantly the lowest energy,
-confirming that the topology-selection principle is preserved under the
-Weyl extension.
-
-By Theorem~\ref{thm:stability}, $V_{\min}$ of $\Sthree$ is constant
-(independent of~$\alpha$) for all $\alpha\le 0$. $\Tthree$ also has
-$V_{\min}\approx 0$ independent of $\alpha$ (confirmed by the null
-test below). $\Nilthree$ asymptotes to $V_{\min}\approx 5$ with weak
-$\alpha$-dependence (see Appendix~\ref{app:nil3}).
-
-\subsection{\texorpdfstring{$\alpha>0$}{α>0}: Loss of the Dominance
-  Concept}
-\label{sec:topo-pos-alpha}
-
-For $\alpha>0$, the situation changes qualitatively:
-
-\begin{table}[ht]
-\centering
-\caption{Topology comparison for $\alpha>0$.}
-\label{tab:topo-pos}
-\begin{tabularx}{\textwidth}{@{}llX@{}}
-\toprule
-Topology & $V_{\min}$ ($\alpha>0$) & Behaviour \\
-\midrule
-$\Sthree$ & $\to -\infty$ (linear divergence) & Unstable ($r\to 0$,
-  $\varepsilon\to -1$) \\
-$\Tthree$ & $\approx 0$ ($\alpha$-independent) & Stable but
-  $V_{\min}\approx 0$ ($C^2=0$ $\Rightarrow$ Weyl term vanishes) \\
-$\Nilthree$ & $\to -\infty$ (slower divergence than $\Sthree$)
-  & Unstable \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-Both $\Sthree$ and $\Nilthree$ become unstable ($\Veff\to -\infty$).
-$\Tthree$ remains stable but with $V_{\min}\approx 0$, offering no
-deep stable vacuum. For $\alpha>0$ the concept of ``topology
-selection'' itself becomes vacuous: no topology provides a physically
-viable stable vacuum.
-
-\subsection{\texorpdfstring{$\Tthree$}{T³} Null Test}
-\label{sec:null-test}
-
-$\Tthree\times\Sone$ provides a null test for all values of $\alpha$.
-Since $\Tthree$ is flat, $C^2=0$ identically, and the Weyl term
-$\alpha\,C^2$ vanishes; consequently, the effective potential should
-exhibit no $\alpha$-dependence whatsoever.
-
-\paragraph{Numerical verification.}
-At all 201 points ($\alpha\in[-1,1]$, step~0.01):
-
-\begin{table}[ht]
-\centering
-\caption{$\Tthree$ null-test results.}
-\label{tab:null-test}
-\begin{tabular}{@{}llc@{}}
-\toprule
-Quantity & Value & $\alpha$-dependence \\
-\midrule
-$r^*$ & $1.500$ & None (identical at all points) \\
-$\varepsilon^*$ & $-0.642$ & None (identical at all points) \\
-$V_{\min}$ & $5.54\times 10^{-12}$ & None (machine precision) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The maximum deviation
-$\max|\Veff(\alpha)-\Veff(0)| = 0.00$ (machine precision) confirms the
-null test. This serves a dual purpose:
-\begin{enumerate}
-  \item \textbf{Engine validation}: the $\alpha$ implementation is
-    correct---$C^2=0$ topologies produce exactly zero Weyl contribution.
-  \item \textbf{Theoretical consistency}: the flatness of $\Tthree$ and
-    the conformal invariance of the Weyl term are correctly coupled.
-\end{enumerate}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\textwidth]{figures/fig07_t3_null_test.png}
-\caption{$\Tthree$ null-test visualisation, confirming
-  $\alpha$-independence of the $\Tthree$ effective potential at machine
-  precision.}
-\label{fig:null-test}
+\includegraphics[width=\textwidth]{figures/revised/nil_torus.png}
+\caption{Left: values of Nil radial slice minima approaching the unattained infimum ($\alpha=-1$). Right: toroidal alpha independence. $V_\tau=4$, $\eta_\tau=-2$, $L=\kappa=1$.}
+\label{fig:nil_torus}
 \end{figure}
-
-\paragraph{On the non-zero $\varepsilon^*$ of $\Tthree$.}
-The optimal anisotropy $\varepsilon^*\approx -0.642$ is non-isotropic,
-but the potential landscape is extremely flat
-($V_{\min}\approx 0$), so this ``minimum'' carries limited physical
-significance. The near-zero energy cost for deformation reflects
-the structural flexibility of~$\Tthree$.
-
-\subsection{\texorpdfstring{$\Nilthree$}{Nil³} Behaviour: Asymptotic
-  Approach to the Flat Limit}
-\label{sec:nil3-behaviour}
-
-$\Nilthree$ exhibits qualitatively distinct behaviour from the other
-two topologies. An extended search over $\varepsilon\in[-0.95,5.0]$
-(see Appendix~\ref{app:nil3}) reveals:
-\begin{itemize}
-  \item \textbf{No global minimum at finite $\varepsilon^*$}:
-    For each fixed $\varepsilon$, $\Veff(r)$ possesses a local minimum
-    in $r$ ($\Tthree$-like profile), but the minimised value
-    $V_{\min}(\varepsilon)\equiv\min_r\Veff(r,\varepsilon)$ decreases
-    monotonically in $\varepsilon$ with no interior minimum at finite
-    $\varepsilon$; it asymptotes to the flat limit ($\Tthree$-like
-    behaviour) as $\varepsilon\to\infty$.
-
-  \item \textbf{Asymptotic $V_{\min}\approx 5 > 0$}: weakly
-    $\alpha$-dependent, and energetically unfavourable compared to
-    $\Sthree$ ($V_{\min}=-421$).
-
-  \item \textbf{Physical interpretation}: the $\Nilthree$ structure
-    constants contain the squashing factor $(1{+}\varepsilon)^{-4/3}$,
-    which vanishes as $\varepsilon\to\infty$. The effective potential
-    minimises the curvature cost ($C^2>0$) arising from the Heisenberg
-    group structure by driving the structure constants to zero.
-\end{itemize}
-
-This result is consistent with the central theme of this paper:
-conformally flat configurations ($C^2=0$) are energetically favoured.
-$\Sthree$ achieves $C^2=0$ exactly at the finite deformation
-$\varepsilon=0$, while $\Nilthree$ can only approach $C^2\to 0$
-asymptotically in the $\varepsilon\to\infty$ limit---a fundamental
-geometric asymmetry.
-
-The universality of the $\alpha=0$ stability boundary for $\Nilthree$
-is confirmed by high-resolution scans (Appendix~\ref{app:nil3-alpha}).
-
-\subsection{Summary of the Topology Comparison}
-\label{sec:topo-summary}
-
-\begin{table}[ht]
-\centering
-\caption{Three-topology comparison summary (representative values at
-  $\alpha\le 0$).}
-\label{tab:topo-summary}
-\begin{tabularx}{\textwidth}{@{}lllX@{}}
-\toprule
-Quantity & $\Sthree$ & $\Tthree$ & $\Nilthree$ \\
-\midrule
-$V_{\min}$ & $-421$ & $\approx 0$ & $\approx 5$ (flat-limit asymptote) \\
-$r^*$ & $2.000$ & $1.500$ & $1.500$ \\
-$\varepsilon^*$ & $0$ & $-0.642$ & $\to\infty$ (flat limit) \\
-$C^2(\varepsilon^*)$ & $0$ & $0$ & $\to 0$ (asymptotically) \\
-$\alpha$-dependence & None (Thm~1) & None ($C^2=0$) & Weak \\
-Paper~I dominance & \textbf{Lowest energy} & Neutral & Unfavourable \\
-Weyl-extended dominance & \textbf{Preserved} & Unchanged
-  & No global minimum at finite $\varepsilon^*$ (asymptotes to flat limit) \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-The topology-selection principle of paper~I is preserved under the Weyl
-extension for $\alpha\le 0$. $\Sthree$ achieves $C^2=0$ exactly at
-$\varepsilon^*=0$ and forms a stable isotropic vacuum, whereas
-$\Nilthree$ has no global minimum at finite $\varepsilon^*$ and can
-only approach the flat limit asymptotically. $\Tthree$ is unaffected by the Weyl term ($C^2=0$
-identically) but has $V_{\min}\approx 0$.
-
-The mathematical root $\varepsilon=-2$ of $C^2=0$ lies beyond the
-physical singularity at $\varepsilon=-1$ and is therefore excluded from
-discussion as physically inaccessible. Note that $\Tthree$ has
-$C^2=0$ identically everywhere, and $\Nilthree$ approaches $C^2\to 0$
-only in the asymptotic limit $\varepsilon\to\infty$; hence the existence
-of a finite root of $C^2=0$ in the region $\varepsilon<-1$ is a
-peculiarity of the parametric representation of~$\Sthree$.
+At the common API amplitudes $V_\tau=4,\eta_\tau=-2$ and nonpositive $\alpha$, all three infima are zero and none is attained at an interior point. These inputs illustrate comparison among three unattained infima. For $V\ne0,\eta^2<4$, the negative attained spherical minimum can be compared with the two zero infima, but only for these specified quotients and fixed-amplitude paths, not as a universal topology-selection law. Vanishing local Nil curvature in a shape limit does not turn the fixed compact quotient into a torus.

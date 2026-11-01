@@ -8,12 +8,12 @@ designed for publication-quality computations.
 Package Structure:
 - geometry/    : Metric, volume forms, structure constants
 - connection/  : Levi-Civita, contortion, EC connection
-- curvature/   : Riemann, Ricci, Hodge dual, self-duality
+- curvature/   : Riemann, Ricci, Levi-Civita Weyl
 - torsion/     : Mode enum, ansatz, Nieh-Yan density
-- action/      : Lagrangian, effective potential, stability
+- action/      : Lagrangian and effective potential
 - topology/    : S3xS1, T3xS1, Nil3xS1 implementations
 - engine/      : Computation pipeline, logging, checkpoints
-- scanning/    : Parameter scans, Phase 1 integration
+- scanning/    : Joint and fixed-shape classifications and parameter scans
 - utils/       : Shared utilities
 
 Author: Muacca

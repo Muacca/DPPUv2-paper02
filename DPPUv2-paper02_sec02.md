@@ -1,106 +1,117 @@
-## 2. Framework
+# 2. 作用・幾何・固定量
 
-本節では、paper01 の EC+NY 理論に Weyl 二乗項を加えた拡張ラグランジアンを定式化し、異方性パラメータ $\varepsilon$ を含む squashed ansatz を導入する。
+Euclidean正規直交計量と向き0123正を用い、 $\kappa,L$ は正、 $\alpha,\theta$ は実数とする。宇宙項、物質源、境界は加えない。主対象は既約EC-Weylテンソルの二乗ノルム $`I_{\mathrm{W}}=(C_{\mathrm{EC}})_{abcd}(C_{\mathrm{EC}})^{abcd}`$ を含む作用であり、これを既約EC-Weyl作用と呼ぶ。テンソルの射影は第4.2節で定義する。LC-Weyl作用はこの二乗項だけを $`I_{\mathrm{LC}}=(C_{\mathrm{LC}})_{abcd}(C_{\mathrm{LC}})^{abcd}`$ へ置き換えた比較基準であり、ECのRicciスカラーと完全NYは共通である。第4.4節ではRicciトレース除去EC曲率作用を比較する。これらの名称は曲率二乗項の選択を表し、接続全体をLCへ変更する意味ではない。Weyl部分だけを二乗項に含めることは模型上の選択である。以下、比較を明示する箇所以外のUは既約EC-Weyl作用の縮約ポテンシャルを表す。
 
-### 2.1 EC+NY+Weyl ラグランジアン
+**式(A)**
 
-本論文で扱う拡張ラグランジアンは以下の通りである:
+$$
+S=\int_{M}\left[\left(\frac{R_{\mathrm{EC}}}{2\kappa^{2}}
++\alpha I_{\mathrm{W}}\right)\mathrm{vol}_{4}+\theta N\right],
+\qquad U=-S\big|_{\mathrm{ansatz}}.
+$$
 
-$$\mathcal{L} = \frac{R_{\rm EC}}{2\kappa^2} + \theta_{\rm NY}\, N + \alpha\, C^2$$
 
-各項の意味は以下の通り:
+Uはこの符号で定義した作用の負値であり、Lorentzian Hamiltonianを意味しない。局所規約は次のとおりである。
 
-- **$R_{\rm EC}/(2\kappa^2)$**: Einstein-Cartan 接続（トーション含む）による Ricci スカラー。 $\kappa$ は重力結合定数。
-- **$\theta_{\rm NY}\, N$**: Nieh-Yan 項。 $N = d(e^a \wedge T_a)$ は Nieh-Yan 密度（4-形式）、 $\theta_{\rm NY}$ はその結合定数。paper01 [1] で導入された記法を踏襲する。
-- **$\alpha\, C^2$**: Weyl 二乗項。 $C^2 = C_{abcd}C^{abcd}$ は Weyl テンソルの Kretschner 型スカラー（Levi-Civita 接続から計算）。 $\alpha$ は無次元結合定数。
+**式(C)**
 
-Weyl テンソルは Levi-Civita 接続から定義する。これは、EC 接続から構成した Weyl テンソルではトーションの寄与が入り混じるため、一般には共形不変性が損なわれうることに基づく。一方、 $R_{\rm EC}$ と $N$ は EC 接続から計算する。
+$$
+\begin{aligned}
+de^{a}&=\frac12 C^{a}{}_{bc}e^{b}\wedge e^{c},
+&\omega^{a}{}_{b}&=\Gamma^{a}{}_{bc}e^{c},\\
+T^{a}&=de^{a}+\omega^{a}{}_{b}\wedge e^{b},
+&R^{a}{}_{b}&=d\omega^{a}{}_{b}+\omega^{a}{}_{c}\wedge\omega^{c}{}_{b},\\
+T^{a}&=\frac12 T^{a}{}_{bc}e^{b}\wedge e^{c},
+&R_{ab}&=\frac12 R_{abcd}e^{c}\wedge e^{d}.
+\end{aligned}
+$$
 
-#### 符号規約
 
-paper01 と同一の規約を採用する:
+NYの曲率項は2形式一個と1形式二個の積なので係数1/2、捩率の積は2形式二個の積なので1/4である。[Chandía–Zanelli](https://arxiv.org/abs/hep-th/9702025)の形式定義と対応する。
 
-- Frame metric: $\eta_{ab} = \mathrm{diag}(+1, +1, +1, +1)$（ユークリッド署名）
-- Riemann テンソル: $R^{a}{}\_{bcd} = \partial_c \Gamma^{a}{}\_{bd} - \partial_d \Gamma^{a}{}\_{bc} + \Gamma^{a}{}\_{ec}\Gamma^{e}{}\_{bd} - \Gamma^{a}{}\_{ed}\Gamma^{e}{}\_{bc}$
-- Contortion: $K_{abc} = \frac{1}{2}(T_{abc} + T_{bca} - T_{cab})$（Hehl et al. 1976）[2]
-- Levi-Civita 記号: $\varepsilon_{0123} = +1$
+**式(NY)**
 
-### 2.2 $M^3 \times S^1$ Minisuperspace Ansatz の復習
+$$
+\begin{aligned}
+N&=d(e^{a}\wedge T_{a})=T^{a}\wedge T_{a}-R_{ab}\wedge e^{a}\wedge e^{b},\\
+\frac{N}{\mathrm{vol}_{4}}
+&=\frac14\epsilon^{abcd}T^{e}{}_{ab}T_{ecd}
+-\frac12\epsilon^{abcd}R_{abcd}.
+\end{aligned}
+$$
 
-paper01 と同様に、4次元ユークリッド多様体を $\mathcal{M}_4 = \mathcal{M}_3 \times S^1$ に分解する。 $\mathcal{M}_3$ は左不変 coframe $\{\sigma^i\}$（ $i = 0, 1, 2$）を許容する3次元 Lie 群のコンパクト商である。 $S^1$ 方向の周長を $L$ とする。
 
-paper01 では等方的な coframe $e^a = r\, \sigma^a$（ $a = 0, 1, 2$）、 $e^3 = L\, d\tau$ を用いた。ここで $r$ はスケール変数であり、当時の ansatz では有効ポテンシャル $V_{\rm eff}(r)$ の主たる引数であった。
+二つの4形式の体積係数を次で定義する。
 
-### 2.3 Squashed Ansatz の導入
+**式(NYD)**
 
-Weyl 項の効果を診断するためには、等方性からの変形を記述するパラメータが必要である。本論文では、 $S^3$ 上の軸対称な体積保存変形（squashing）を導入する:
+$$
+\begin{aligned}
+\mathcal T\thinspace\mathrm{vol}_{4}&=T^{a}\wedge T_{a},\\
+\mathcal R\thinspace\mathrm{vol}_{4}&=R_{ab}\wedge e^{a}\wedge e^{b},\\
+N&=(\mathcal T-\mathcal R)\mathrm{vol}_{4}.
+\end{aligned}
+$$
 
-$$e^0 = r\,(1+\varepsilon)^{1/3}\,\sigma^0, \quad e^1 = r\,(1+\varepsilon)^{1/3}\,\sigma^1, \quad e^2 = r\,(1+\varepsilon)^{-2/3}\,\sigma^2, \quad e^3 = L\,d\tau$$
+ここで $\mathcal R$ は曲率とcoframeの収縮の体積係数であり、Ricciスカラーではない。コードのNY選択との対応は付録Bに示す。
 
-ここで:
+体積保存変形を次で与える。Nil³でもrを共通記号として使い、コードのRに対応させる。等方はS³の $`x=1`$ を指す。
 
-- **$r > 0$**: スケール変数（paper01 と同一）
-- **$\varepsilon$**: 異方性パラメータ。 $\varepsilon = 0$ が等方点であり、 $\varepsilon > -1$ の範囲で物理的に有意
-  - $\varepsilon > 0$: oblate 変形（ $e^0, e^1$ 方向に膨張、 $e^2$ 方向に収縮）
-  - $\varepsilon < 0$: prolate 変形（ $e^2$ 方向に膨張、 $e^0, e^1$ 方向に収縮）
-  - $\varepsilon = -1$: 特異点（1方向の完全縮退）
+**式(F)**
 
-#### 体積の保存
+$$
+\begin{aligned}
+e^{0}&=r s^{1/3}\sigma^{0},&e^{1}&=r s^{1/3}\sigma^{1},\\
+e^{2}&=r s^{-2/3}\sigma^{2},&e^{3}&=L\,du,\\
+s&=1+\varepsilon>0,&x&=s^{-2/3}>0.
+\end{aligned}
+$$
 
-Squashing 因子 $(1+\varepsilon)^{1/3} \times (1+\varepsilon)^{1/3} \times (1+\varepsilon)^{-2/3} = 1$ のため、体積は $\varepsilon$ に依存しない:
 
-$$\mathrm{Vol}(\mathcal{M}_4) = 2\pi^2 L r^3 \quad (\varepsilon \text{非依存})$$
+**式(G)**
 
-これは、 $\varepsilon$ が「形」のみを変え、「サイズ」（ $r$）を変えない変形パラメータであることを保証する。
+$$
+\begin{aligned}
+de^{0}&=n_{0} e^{1}\wedge e^{2},&de^{1}&=n_{1} e^{2}\wedge e^{0},\\
+de^{2}&=n_{2} e^{0}\wedge e^{1},&de^{3}&=0,\\
+(n_{0},n_{1},n_{2})_{S^{3}}&=\frac1r(4/x,4/x,4x^{2}),\\
+(n_{0},n_{1},n_{2})_{T^{3}}&=(0,0,0),
+\qquad (n_{0},n_{1},n_{2})_{\mathrm{Nil}^{3}}=\frac1r(0,0,-x^{2}).
+\end{aligned}
+$$
 
-#### Squashed 構造定数
 
-Squashing により、 $S^3$ の構造定数は $\varepsilon$ 依存の因子を持つ:
+S³はSU(2)そのものを使い、等方球面の実半径はr/2である。T³の空間角は各2π周期、S¹のuは周期1、したがってLは実円周長である。Nil³は $`\sigma^{0}=dy^{0}`$ 、 $`\sigma^{1}=dy^{1}`$ 、 $`\sigma^{2}=dz-y^{0}dy^{1}`$ を用い、周期を(2π,2π,4π²)、 $`y^{0}`$ 面の貼合せを $`z\mapsto z+2\pi y^{1}`$ とする。この商をr・形状変分で固定する。
 
-$$C^i{}_{jk}(\varepsilon) = \frac{4}{r}\,\varepsilon_{ijk} \times f_i(\varepsilon)$$
+**式(VOL)**
 
-ただし:
+$$
+\mathrm{Vol}_{4}=c_{M} Lr^{3},
+\qquad c_{S^{3}}=\frac{\pi^{2}}{4},\quad
+c_{T^{3}}=(2\pi)^{3},\quad c_{\mathrm{Nil}^{3}}=(2\pi)^{4}.
+$$
 
-$$f_0(\varepsilon) = f_1(\varepsilon) = (1+\varepsilon)^{2/3}, \qquad f_2(\varepsilon) = (1+\varepsilon)^{-4/3}$$
 
-等方点 $\varepsilon = 0$ では $f_0 = f_1 = f_2 = 1$ となり、paper01 の構造定数に帰着する。
+幾何学的捩率を次で定義する。空間epsilon項は添字がすべて0,1,2のときだけ含める。
 
-### 2.4 記号の定義
+**式(T)**
 
-本論文で用いる主要な記号を以下にまとめる:
+$$
+T_{abc}=\frac{2\eta}{r}\epsilon_{abc}\big|_{a,b,c<3}
++\frac13(\delta_{ac}V_{b}-\delta_{ab}V_{c}),
+\qquad V_{b}=V\delta_{b3}.
+$$
 
-| 記号 | 意味 | 走査範囲（数値計算） |
-|---|---|---|
-| $r$ | スケール変数 | $[0.01, 10]$ |
-| $\varepsilon$ | 異方性パラメータ | $[-0.95, 5.0]$ |
-| $\alpha$ | Weyl 結合定数 | $[-1, 1]$ |
-| $V$ | ベクトル torsion 振幅 | 固定（ $V = 4$） |
-| $\eta$ | 軸性 torsion 振幅 | 固定（ $\eta = -2$, ほか） |
-| $\theta_{\rm NY}$ | Nieh-Yan 結合定数 | 固定（ $\theta_{\rm NY} = 1$） |
-| $\kappa$ | 重力結合定数 | 固定（ $\kappa = 1$） |
-| $L$ | $S^1$ 周長 | 固定（ $L = 1$） |
 
-paper01 パラメータ $(V, \eta, \theta_{\rm NY})$ は §7 において走査するが、§4-6 では上記の参照値を用いる。
+固定するのは符号付きη・Vであり、軸性成分2η/rそのものを半径変分で固定するのではない。この軸性成分は空間の3方向で等しく、形状に依存しない。これは族の定義の一部である。先行研究の異方的トーラス経路のように、形状に依存する一つの長さを基準にすると、x＝1でのみ式(T)と一致する別の族になる。主な変分量はrと形状である。公開コード入力の符号対応は式(D)を用い、本文のTと入力配列を同一視しない。
 
-### 2.5 有効ポテンシャルの分離
+**式(D)**
 
-Squashed ansatz の下で、有効ポテンシャルは以下のように $\alpha$ に関して**厳密に線形**に分離する:
-
-$$V_{\rm eff}(r, \varepsilon; \alpha) = V_{\rm EC}(r, \varepsilon) - \alpha\, C^2(r, \varepsilon) \cdot \mathrm{Vol}(r)$$
-
-ここで、Weyl 項の符号に注意されたい。ユークリッド署名における有効ポテンシャルは $V_{\rm eff} = -\mathcal{L} \times \mathrm{Vol}$ と定義されるため（Appendix A §A.2 参照）、ラグランジアン（§2.1）に $+\alpha C^2$ として現れる Weyl 項は、有効ポテンシャルでは $-\alpha C^2 \cdot \mathrm{Vol}$ と符号が反転して現れる。
-
-各項の定義:
-
-- **$V_{\rm EC}(r, \varepsilon)$**: EC+NY 部分の有効ポテンシャル。 $\alpha$ に依存しない。
-  $$V_{\rm EC} = -\left(\frac{R_{\rm EC}}{2\kappa^2} + \theta_{\rm NY}\, N\right) \times \mathrm{Vol}$$
-
-- **$C^2(r, \varepsilon) \cdot \mathrm{Vol}(r)$**: Weyl スカラーと体積の積。純粋に幾何学的な量であり、paper01 パラメータ $(V, \eta, \theta_{\rm NY})$ に依存しない。
-
-この分離構造は、本論文の中心的な解析の基盤となる。特に:
-
-1. $V_{\rm EC}$ は paper01 の結果をそのまま含む
-2. $C^2 \cdot \mathrm{Vol}$ は幾何的量であり、torsion パラメータと独立
-3. 本稿の範囲では、 $\alpha$ の符号により安定性が分類される
-
-計算エンジン（DPPUv2 Engine v4）の詳細——Levi-Civita 接続の導出、EC 接続の構成、Weyl テンソルの計算手順——は Appendix A に記載する。
+$$
+\begin{aligned}
+T_{\mathrm{geom}}&=-\tau_{\mathrm{code}},
+& (\eta,V)&=(-\eta_{\tau},-V_{\tau}),\\
+K_{abc}[T]&=-\frac12(T_{abc}+T_{bca}-T_{cab}),
+&K_{abc}[\tau]&=+\frac12(\tau_{abc}+\tau_{bca}-\tau_{cab}).
+\end{aligned}
+$$

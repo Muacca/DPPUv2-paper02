@@ -1,205 +1,160 @@
-%==============================================================================
-% Section 4: Weyl Extension
-%==============================================================================
-\section{Weyl Extension: Squashed Ansatz}
-\label{sec:weyl}
+\section{Weyl projections, curvature identities, and reduced potentials}
+\label{sec:revised4}
 
-In this section we derive the closed-form expression for the Weyl scalar
-$C^2(r,\varepsilon)$ under the squashed ansatz of \S\ref{sec:squashed}
-and elucidate the structure of the effective potential.
-
-\subsection{Computation of the Weyl Tensor}
-\label{sec:weyl-computation}
-
-The Weyl tensor is computed from the Levi-Civita connection via the
-following standard procedure:
-
-\begin{enumerate}
-  \item \textbf{Levi-Civita connection} in the orthonormal frame
-    (generalised Koszul formula):
-    \begin{equation}
-      \Gamma^{a}{}_{bc}
-      = \tfrac{1}{2}\bigl(C^{a}{}_{bc} + C^{c}{}_{ba}
-      - C^{b}{}_{ac}\bigr)\,.
-    \end{equation}
-
-  \item \textbf{Riemann tensor} in the frame basis:
-    \begin{equation}
-      R^{a}{}_{bcd}
-      = \Gamma^{a}{}_{ec}\,\Gamma^{e}{}_{bd}
-      - \Gamma^{a}{}_{ed}\,\Gamma^{e}{}_{bc}
-      + \Gamma^{a}{}_{be}\,C^{e}{}_{cd}\,.
-    \end{equation}
-
-  \item \textbf{Ricci tensor and scalar}:
-    $R_{bd} = R^a{}_{bad}$, $\;R = R^a{}_a$.
-
-  \item \textbf{Weyl tensor} (4-dimensional definition):
-    \begin{equation}
-      C_{abcd} = R_{abcd}
-      - \tfrac{1}{2}\bigl(g_{ac}R_{bd} - g_{ad}R_{bc}
-      - g_{bc}R_{ad} + g_{bd}R_{ac}\bigr)
-      + \tfrac{R}{6}\bigl(g_{ac}g_{bd} - g_{ad}g_{bc}\bigr)\,.
-      \label{eq:weyl-def}
-    \end{equation}
-
-  \item \textbf{Weyl scalar}:
-    $C^2 = C_{abcd}\,C^{abcd}$ (with $g^{ab}=\delta^{ab}$ in the
-    orthonormal frame).
-\end{enumerate}
-
-\subsection{Lemma~1: Closed-Form Weyl Scalar}
-\label{sec:lemma1}
-
-\begin{lemma}
-\label{lem:weyl-scalar}
-The four-dimensional Weyl scalar of the squashed $\Sthree\times\Sone$
-metric, computed from the Levi-Civita connection, is
+\subsection{LC curvature as a reference}
+Solving the torsion-free Cartan equations with metric compatibility yields the LC connection and the following scalar for arbitrary $n_i$ in (G). Changing from input-array signs to geometric torsion signs does not change these quadratic scalar terms.
 \begin{equation}
-  C^2(r,\varepsilon)
-  = \frac{1024\,\varepsilon^2(\varepsilon{+}2)^2}
-         {3\,r^4\,(1{+}\varepsilon)^{16/3}}\,.
-  \label{eq:C2}
+\begin{aligned}
+R_{\mathrm{LC}}&=n_0n_1+n_1n_2+n_2n_0
+-\frac12(n_0^2+n_1^2+n_2^2),\\
+R_{\mathrm{EC}}&=R_{\mathrm{LC}}-\frac{6\eta^2}{r^2}-\frac23V^2.
+\end{aligned}
+\tag{R}\label{eq:R}
 \end{equation}
-\end{lemma}
-
-\begin{proof}
-By symbolic algebraic computation following the procedure of
-\S\ref{sec:weyl-computation}, with the squashed structure
-constants~\eqref{eq:squashed-structure} as input. All components of the
-Weyl tensor are computed, and the sum of squares is simplified and
-factored to yield~\eqref{eq:C2}. Full details are given in
-Appendix~\ref{app:symbolic}.
-\end{proof}
-
-\subsection{Key Properties of Lemma~1}
-\label{sec:C2-properties}
-
-\paragraph{(i) Vanishing at the isotropic point: $C^2(r,0)=0$.}
-The factor $\varepsilon^2$ in the numerator ensures $C^2=0$ at
-$\varepsilon=0$. Physically, the round $\Sthree$ is a space of
-constant curvature and hence conformally flat; the product metric
-$\Sthree\times\Sone$ is therefore conformally flat in four dimensions,
-with identically vanishing Weyl tensor.
-
-\paragraph{(ii) Non-negativity: $C^2(r,\varepsilon)\ge 0$
-  $(\varepsilon>-1)$.}
-As a sum of squares in the orthonormal frame, $C^2\ge 0$ by
-definition. The only zero (for $\varepsilon>-1$) is $\varepsilon=0$;
-the other root $\varepsilon=-2$ lies beyond the singularity at
-$\varepsilon=-1$.
-
-\paragraph{(iii) Quadratic behaviour at the isotropic point.}
+Using the four-dimensional LC identity $C^2=R_{abcd}R^{abcd}-2R_{ab}R^{ab}+R^2/3$ gives
 \begin{equation}
-  \frac{\partial C^2}{\partial\varepsilon}\bigg|_{\varepsilon=0}=0,
-  \qquad
-  \frac{\partial^2 C^2}{\partial\varepsilon^2}\bigg|_{\varepsilon=0}
-  = \frac{8192}{3r^4} > 0\,.
-\end{equation}
-Hence $C^2$ has a quadratic minimum at the isotropic point:
-\begin{equation}
-  C^2(r,\varepsilon)
-  \approx \frac{8192}{3r^4}\,\varepsilon^2
-  \qquad (|\varepsilon|\ll 1)\,.
+\begin{aligned}
+f(x)&=4x-x^4,\\
+R_{\mathrm{LC},S^3}&=\frac{8f(x)}{r^2},
+&C_{\mathrm{LC},S^3}^2&=\frac{1024x^2(1-x^3)^2}{3r^4},\\
+R_{\mathrm{LC},T^3}&=0,&C_{\mathrm{LC},T^3}^2&=0,\\
+R_{\mathrm{LC},\mathrm{Nil}^3}&=-\frac{x^4}{2r^2},
+&C_{\mathrm{LC},\mathrm{Nil}^3}^2&=\frac{4x^8}{3r^4}.
+\end{aligned}
+\tag{W}\label{eq:W}
 \end{equation}
 
-\paragraph{(iv) Divergence as $r\to 0$.}
-For fixed $\varepsilon\neq 0$, $C^2\sim 1/r^4$. The product with the
-volume~\eqref{eq:volume} gives
+\subsection{Irreducible EC-Weyl curvature and the LC identity}
+\label{sec:ecweyl}
+For a metric-compatible connection, curvature is antisymmetric in each
+index pair, but pair-exchange symmetry and the torsion-free algebraic
+Bianchi identity need not hold. We select the Weyl part of the standard
+Riemann--Cartan decomposition.\cite{McNutt2024} In four Euclidean dimensions
+this part has ten components, splitting into two five-dimensional Hodge
+sectors. Define the following linear operations on the full EC curvature:
 \begin{equation}
-  C^2\cdot\Vol
-  = \frac{2048\pi^2 L\,\varepsilon^2(\varepsilon{+}2)^2}
-         {3\,r\,(1{+}\varepsilon)^{16/3}}
-  \sim \frac{1}{r}
-  \qquad (r\to 0)\,.
-  \label{eq:C2Vol}
+\begin{aligned}
+S_{abcd}&=\tfrac12(R^{\mathrm{EC}}_{abcd}+R^{\mathrm{EC}}_{cdab}),\\
+F_{abcd}&=\tfrac13(S_{abcd}+S_{acdb}+S_{adbc}),\qquad Q=S-F,\\
+q_{bd}&=\delta^{ac}Q_{abcd},\qquad s=\delta^{bd}q_{bd},\\
+(C_{\mathrm{EC}})_{abcd}&=Q_{abcd}-\tfrac12(\delta_{ac}q_{bd}-\delta_{ad}q_{bc}
+-\delta_{bc}q_{ad}+\delta_{bd}q_{ac})
++\tfrac{s}{6}(\delta_{ac}\delta_{bd}-\delta_{ad}\delta_{bc}).
+\end{aligned}\tag{WP}\label{eq:WP}
 \end{equation}
-This unboundedness is the key to the instability proof in
-\S\ref{sec:instability}.
+Here $F$ is a four-form, and $Q$ has algebraic Riemann symmetries. The last
+line is the unique orthogonal removal of the part reconstructed from its
+Ricci tensor using the metric: contraction gives
+$q_{bd}-(2q_{bd}+s\delta_{bd})/2+s\delta_{bd}/2=0$.
+This defines a curvature sector without imposing torsion-free field equations.
 
-\subsection{Structure of Non-Vanishing Weyl Components}
-\label{sec:weyl-components}
-
-For general $\varepsilon$, there are 24 non-vanishing Weyl-tensor
-components, all sharing the common factor
+\paragraph{Proposition 2 (identity on the prescribed family).}
+For all $r,x>0$ and all signed $\eta,V$ in (T),
 \begin{equation}
-  C_{abcd} \propto
-  \frac{\varepsilon(\varepsilon{+}2)}{r^2\,(1{+}\varepsilon)^{8/3}}\,.
+C_{\mathrm{EC}}=C_{\mathrm{LC}},\qquad I_{\mathrm{W}}=I_{\mathrm{LC}}.
+\tag{ID}\label{eq:ID}
 \end{equation}
-Representative independent components:
-
-\begin{table}[ht]
-\centering
-\caption{Representative non-vanishing Weyl-tensor components.}
-\label{tab:weyl-components}
-\begin{tabular}{@{}ll@{}}
-\toprule
-Component & Value \\
-\midrule
-$C_{0101}$
-  & $+\dfrac{16\,\varepsilon(\varepsilon{+}2)}
-            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
-$C_{0202}$, $C_{0303}$
-  & $-\dfrac{8\,\varepsilon(\varepsilon{+}2)}
-            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
-$C_{2323}$
-  & $+\dfrac{16\,\varepsilon(\varepsilon{+}2)}
-            {3r^2(1{+}\varepsilon)^{8/3}}$ \\[8pt]
-$C_{1212}$, $C_{1313}$
-  & $-\dfrac{8\,\varepsilon(\varepsilon{+}2)}
-            {3r^2(1{+}\varepsilon)^{8/3}}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-All components contain $\varepsilon(\varepsilon{+}2)$ as a factor and
-vanish at $\varepsilon=0$. A complete listing is provided in
-Appendix~\ref{app:symbolic}.
-
-\subsection{Effective Potential with Explicit Weyl Contribution}
-\label{sec:Veff-explicit}
-
-Substituting the result of Lemma~1 into the
-separation~\eqref{eq:Veff-separation} yields
+\emph{Proof.} Set $h=\eta/r$ and $q_0=h^2+V^2/9$.
+Using the Cartan connection and contortion in Appendix A, for arbitrary
+$n_0,n_1,n_2$ in (G) the independent components of
+$\Delta R=R_{\mathrm{EC}}-R_{\mathrm{LC}}$ are
 \begin{equation}
-  \Veff(r,\varepsilon;\alpha)
-  = \VEC(r,\varepsilon)
-  - \alpha\cdot
-    \frac{2048\pi^2 L\,\varepsilon^2(\varepsilon{+}2)^2}
-         {3\,r\,(1{+}\varepsilon)^{16/3}}\,.
-  \label{eq:Veff-explicit}
+\begin{aligned}
+\Delta R_{ijkl}&=-q_0(\delta_{ik}\delta_{jl}-\delta_{il}\delta_{jk}),\\
+\Delta R_{i3jk}&=-\tfrac{2hV}{3}\epsilon_{ijk},\\
+\Delta R_{ijk3}&=0,\qquad\Delta R_{i3j3}=0,
+\qquad i,j,k,l\in\{0,1,2\}.
+\end{aligned}\tag{CD}\label{eq:CD}
+\end{equation}
+Other components follow from antisymmetry within each pair. The first line
+is entirely Ricci/scalar curvature: its spatial Ricci tensor is
+$-2q_0\delta_{ij}$, its $33$ component is zero, and its scalar is $-6q_0$;
+substitution in the last line of (WP) gives zero. The pair-symmetric part
+of the second line is the four-form $-hV\epsilon_{abcd}/3$, removed in $F$.
+Its pair-antisymmetric part is removed in $S$. Thus the Weyl projection of
+$\Delta R$ vanishes. The LC curvature is unchanged by the first two
+operations in (WP), proving the tensor identity. No division by $h,V$ or
+$x-1$ is used. Since (CD) is independent of the structure constants, the
+proof covers every positive shape in all three geometries.\hfill$\square$
+
+The identity concerns this static homogeneous family. It does not assert
+equality of the LC-Weyl and irreducible EC-Weyl actions for general fields, of their unrestricted
+variations, or of their time-dependent perturbation operators.
+
+\subsection{Common reduced potentials for the two Weyl actions}
+
+Substituting the volume and the vanishing complete NY density gives
+\begin{equation}
+U_{S^3}=\frac{c_{S^3}L}{3\kappa^2}
+\left[V^2r^3+(9\eta^2-12f(x))r
+-\frac{1024\kappa^2\alpha x^2(1-x^3)^2}{r}\right].
+\tag{S3}\label{eq:S3}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+U_{T^3}&=\frac{c_{T^3}L}{3\kappa^2}(V^2r^3+9\eta^2r),\\
+U_{\mathrm{Nil}^3}&=\frac{c_{\mathrm{Nil}^3}L}{3\kappa^2}
+\left[V^2r^3+\left(9\eta^2+\frac34x^4\right)r
+-\frac{4\kappa^2\alpha x^8}{r}\right].
+\end{aligned}
+\tag{TN}\label{eq:TN}
+\end{equation}
+Near the round slice, the Weyl term starts at quadratic order in the shape deformation. Distinguishing the quadratic coefficient from the second derivative gives the following local expansion.
+\begin{equation}
+\begin{aligned}
+C_{\mathrm{LC},S^3}^2
+&=\frac{1024\varepsilon^2(\varepsilon+2)^2}{3r^4(1+\varepsilon)^{16/3}}
+=\frac{4096}{3r^4}\varepsilon^2+O(\varepsilon^3),\\
+\left.\frac{\partial^2 C^2}{\partial\varepsilon^2}\right|_0
+&=\frac{8192}{3r^4}.
+\end{aligned}
+\tag{DERIV}\label{eq:DERIV}
 \end{equation}
 
-The effect of the Weyl term depends on the sign of~$\alpha$:
 
-\begin{table}[ht]
-\centering
-\caption{Effect of the Weyl term $-\alpha\,C^2\cdot\Vol$ on
-  $\varepsilon\neq 0$ configurations.}
-\label{tab:alpha-sign}
-\begin{tabular}{@{}lll@{}}
-\toprule
-Sign of $\alpha$ & Weyl contribution $-\alpha\,C^2\cdot\Vol$
-  & Effect on $\varepsilon\neq 0$ \\
-\midrule
-$\alpha=0$ & $0$ & None (paper~I recovered) \\
-$\alpha<0$ & $+|\alpha|\,C^2\cdot\Vol > 0$ & Positive penalty (stabilises isotropy) \\
-$\alpha>0$ & $-\alpha\,C^2\cdot\Vol < 0$ & Negative reward (promotes anisotropy) \\
-\bottomrule
-\end{tabular}
-\end{table}
+Equation (W) shows that the Weyl term vanishes on the round spherical slice and throughout the torus family, whereas Nil has positive Weyl curvature squared at every finite positive shape. This distinction governs the shape minimization and small-radius behaviour developed below.
 
-\subsection{Effective Potential Contour Maps}
-\label{sec:contour}
+\subsection{Comparison with the Ricci-tracefree EC curvature action}
+\label{sec:ricci-tracefree}
+Define $\widehat R_{\mathrm{EC}}$ by applying only the last, Ricci-removal operation of (WP)
+directly to $R_{\mathrm{EC}}$, with its own Ricci tensor and scalar.
+This is a valid projection onto the twenty-dimensional Ricci-tracefree
+subspace, whereas $C_{\mathrm{EC}}$ has ten components. The hat denotes Ricci-trace removal, not the Weyl projection. Define its squared norm as $I_{\mathrm{tf}}=(\widehat R_{\mathrm{EC}})_{abcd}(\widehat R_{\mathrm{EC}})^{abcd}$, where tf denotes zero Ricci contraction. In the standard decomposition,
+\begin{equation}
+\widehat R_{\mathrm{EC}}=C_{\mathrm{EC}}+R^{(2)}+R^{(3)},\qquad
+I_{\mathrm{tf}}=I_{\mathrm{W}}+\lVert R^{(2)}\rVert^2+\lVert R^{(3)}\rVert^2.
+\tag{TF}\label{eq:TF}
+\end{equation}
+Here $R^{(2)}$ is pair-antisymmetric and Ricci-tracefree (nine components),
+and $R^{(3)}$ is the four-form part (one component). Orthogonality gives the
+norm sum. The Ricci-tracefree EC curvature action replaces $I_{\mathrm{W}}$ in (A) by $I_{\mathrm{tf}}$; it assigns the same
+quadratic coupling to all three sectors. The irreducible EC-Weyl action sets the latter two
+couplings to zero. Neither choice follows from the decomposition alone.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{figures/fig02_landscape.png}
-\caption{Contour maps of $\Veff$ in the $(r,\varepsilon)$ plane for
-  $\Sthree$ at $\alpha=-10$, $0$, and $+10$. For $\alpha\le 0$ the
-  isotropic vacuum ($\varepsilon=0$) forms a stable valley, while for
-  $\alpha>0$ the valley is destroyed and the potential landscape
-  collapses. The analytic foundations of this qualitative change are
-  established in \S\ref{sec:stability} and \S\ref{sec:instability}.}
-\label{fig:landscape}
-\end{figure}
+Let $U_{\mathrm{W}}$ and $U_{\mathrm{tf}}$ be the reduced potentials of the irreducible EC-Weyl and Ricci-tracefree EC curvature actions, respectively. On the specified family, (CD) gives
+\begin{equation}
+\begin{aligned}
+\lVert R^{(2)}\rVert^2=\lVert R^{(3)}\rVert^2&=\frac{8V^2\eta^2}{3r^2},\\
+I_{\mathrm{tf}}-I_{\mathrm{W}}&=\frac{16V^2\eta^2}{3r^2},\\
+U_{\mathrm{tf}}-U_{\mathrm{W}}&=-\frac{16}{3}\alpha c_M L V^2\eta^2 r.
+\end{aligned}\tag{SHIFT}\label{eq:SHIFT}
+\end{equation}
+The additional term is independent of shape and of the NY coupling. It
+vanishes for $V=0$ or $\eta=0$, and the potentials also agree at $\alpha=0$.
+This contribution is determined by the selected curvature sectors and is
+independent of the NY coefficient correction discussed in Appendix D.
+
+All three Ricci-tracefree EC curvature potentials follow from (S3),(TN) by replacing $9\eta^2$ by
+$\gamma=\eta^2(9-16\kappa^2\alpha V^2)$. The spherical shape difference is
+unchanged: at $\alpha\leq0$ the finite round minimum condition becomes
+$V\ne0,\gamma<36$, with $r^2=(36-\gamma)/(3V^2)$; the remaining cases follow
+from $U_{\mathrm{tf},\mathrm{round}}=c_{S^3}L[V^2r^3+(\gamma-36)r]/(3\kappa^2)$.
+At positive coupling the spherical potential is unbounded below over radius and shape.
+Nil has the same classification over radius and shape because (SHIFT) has no shape dependence:
+at nonpositive coupling $\gamma\geq0$, its zero infimum is unattained;
+at positive coupling its inverse-radius term is unbounded below.
+For the torus, $\gamma<0$ produces a finite radial minimum at
+$r^2=-\gamma/(3V^2)$ for every shape, a degenerate minimum set in radius and shape.
+Otherwise the toroidal infimum is zero and unattained unless both torsion
+amplitudes vanish, when every radius and shape minimizes. These comparisons
+concern a different action; Theorems 1--3 below describe the irreducible EC-Weyl and LC-Weyl actions.

@@ -1,142 +1,29 @@
-# Structural Robustness of Isotropic S³ Vacua in Einstein-Cartan Minisuperspace via Chiral Equilibrium and Weyl Stability
-カイラル平衡とワイル安定性によるアインシュタイン-カルタンMinisuperspaceにおける等方性S³真空の構造的堅牢性
+# 既約EC-Weyl補正を持つEinstein–Cartan–Nieh–Yan minisuperspaceの曲率恒等式と縮約ポテンシャルの有界性
 
-## Abstract
+Muacca — v2、2026-11-01
 
-本論文は私たちの研究成果である "Topology-Dependent Phase Classification of Effective Potentials in Einstein–Cartan + Nieh–Yan Minisuperspace" （以降 "paper01" と呼称）[1] において確立された Einstein-Cartan + Nieh-Yan (EC+NY) minisuperspace の $S^3 \times S^1$ 等方真空に対し、位相的（自己双対経路）および力学的（高次曲率補正）に独立な2つの拡張を行い、その頑健性（Robustness）を解析的・数値的に示す。
+## 要旨
 
-第一に、 $M^3 \times S^1$ minisuperspace ansatz の下でポントリャーギン密度 $P = \langle R, *R \rangle$ が恒等的にゼロとなること（これを「カイラル均衡（Chiral Equilibrium）」と呼ぶ）を示し、この ansatz の下で自己双対インスタントンを通じた真空崩壊経路が閉鎖されることを示す（Proposition 1）。
+本稿は、Einstein–Cartan（EC）作用に定数係数の完全Nieh–Yan（NY）項と既約EC-Weyl二乗項を加え、S³×S¹、T³×S¹、固定したコンパクトNil³×S¹上の静的一様族で評価する。半径と体積保存の形状変形（shape）を変分し、捩率（torsion）パラメータと円周長を固定した縮約ポテンシャルの有界性と最小値の達成を分類する。採用接続では完全NY密度と形式添字Pontryagin密度が消失し、Weyl項の効果は空間幾何の形状依存によって決まる。指定族の全形状で既約EC-WeylとLevi-Civita（LC）Weylがテンソルとして一致することを証明し、縮約ポテンシャルと分類の同値性を示す。Ricciトレースを除いたEC曲率の二乗項を持つ作用との短い比較では、追加の曲率成分の寄与を分離する。S³では非正Weyl結合の下でポテンシャルの形状差を厳密に因数分解でき、二変数の大域最小化は等方的な球面（round sphere）の断面へ帰着する。V≠0かつη²＜4なら一意な有限半径最小を持ち、その半径と値はWeyl結合に依存しない。残るパラメータ領域では非達成下限、退化した最小集合、大半径への非有界性を区別する。正のWeyl結合では非等方なS³とNil³に小半径非有界性が現れる。T³の形状非依存性とNil³の形状単調性との比較により、幾何と変分経路が極値構造をどう決めるかを示す。結果の適用範囲は、指定した固定量の下での静的一様な縮約問題である。
 
-第二に、Weyl 二乗項 $\alpha C^2$ による力学的拡張を行い、結合定数 $\alpha$ の符号に依存した安定性構造を体系的に整理する。 $\alpha \leq 0$ では、 $S^3 \times S^1$ の等方真空が共形的平坦性（ $C^2 = 0$）により Weyl 項の影響を受けず、paper01 の大域的極小が解析的に保護されることを示す（Theorem 1）。 $\alpha > 0$ では、Weyl 項の漸近的支配により有効ポテンシャルが下に非有界となることを示す（Theorem 2）。さらに、 $\alpha = 0$ が paper01 パラメータ $(V, \eta, \theta_{\rm NY})$ に依存しない安定性境界であることを、幾何学と力学の分離に基づいて示す（Theorem 3）。
+# 1. 序論
 
-3つのトポロジー（ $S^3$, $T^3$, $Nil^3$）の比較により、paper01 のトポロジー選択原理（ $S^3$ の優位性）が Weyl 拡張下でも保存されることを確認する。
+### 1.1 問題設定
 
----
+曲率二乗項が一様幾何の縮約ポテンシャルへ与える効果を理解するには、全体の大きさを変える半径方向と、体積を保存する形状方向を分けて調べる必要がある。とくに、等方断面でWeyl項が消えることと、その断面が変形に対して最小を与えることは異なる問いである。本稿はこの関係を、閉じた積多様体上のEinstein–Cartan（EC）作用に完全Nieh–Yan（NY）項と既約EC-Weyl二乗項を加えて解析する。形状は体積を保存する変形を、等方断面は球面の変形量が零の断面を指す。
 
-## 1. Introduction
+[先行研究「Geometry-Dependent Classification of Reduced Potentials in Einstein–Cartan Gravity」](https://doi.org/10.5281/zenodo.18213677)では、捩率パラメータと円周長を固定したEC＋完全NYの半径ポテンシャルを、幾何と変分経路に応じて分類した。本稿では体積保存形状を変分に加え、Levi-Civita（LC）と既約EC-Weylの補正がその分類にどう対応するかを問う。対象はS³、T³、固定したコンパクトHeisenberg商Nil³であり、局所接続と大域積分域を別々に指定する。
 
-### 1.1 背景：paper01 の成果と残された2つの問い
+### 1.2 主な結果
 
-Einstein-Cartan（EC）重力に Nieh-Yan（NY）項 [4] を加えた EC+NY 理論をユークリッド署名の minisuperspace で解析したpaper01 において、有効ポテンシャル $V_{\rm eff}(r)$ の系統的な相分類が確立された。特に、空間トポロジーとして $S^3$（SU(2)）、 $T^3$（平坦）、 $Nil^3$（Heisenberg 群）を同一の還元手続きで比較した結果、 $S^3 \times S^1$ がパラメータ空間の広い領域において最もエネルギー的に有利な安定真空を形成すること——すなわち、トポロジー選択原理——が明らかになった。
+採用したEC接続の曲率は空間2形式だけからなり、形式添字Pontryagin密度が消失する。完全NY密度も零となるので、縮約ポテンシャルの形はECの曲率・捩率項とWeyl項から決まる。指定族の全ての正の半径・形状で、既約EC-WeylテンソルはLC-Weylテンソルと一致する。したがって両者の二乗項を用いた作用は、この族上で同じ縮約ポテンシャルと最小値の分類を与える。一般の理論の同値性を意味するものではない。EC曲率のRicciトレースを除いたテンソルの二乗を用いる別の作用を第4.4節で比較し、追加の曲率成分の寄与を示す。
 
-しかしながら、paper01 の結果の物理的な堅牢性については、以下の2つの自然な問いが残されていた:
+中心となる結果は、S³のポテンシャルを同じ半径の等方値と非負の形状差に厳密に分解できることである。非正Weyl結合では形状差の等号条件が等方に限られ、全半径・形状の最小化が一変数の三次多項式へ帰着する。これにより最小値の存在条件、位置、値、制限されたHessianを解析的に定める。Weyl項は等方の半径と最小値を保ちながら、形状方向の曲率を増す。
 
-1. **位相的安定性**: $S^3 \times S^1$ 上に自己双対インスタントン解が存在し、それを経由した量子トンネル効果により真空が崩壊する可能性はないか？ [3]
-2. **力学的安定性**: 一般相対性理論の高次曲率補正（特に Weyl 二乗項 $\alpha C^2$）を加えた場合、等方真空の安定性は保たれるか？
+正結合側では、非等方なS³とNil³の逆半径項が小半径非有界性を与える。一方、T³ではWeyl項が消え、Nil³の非正結合側では形状に関する単調性が有限形状最小の不存在を決める。これらを同じ局所・大域規約で比較し、達成された最小と退化極限で近づく下限を区別する。
 
-### 1.2 本研究のアプローチ
+### 1.3 構成と適用範囲
 
-本論文では、上記2つの問いに対して、それぞれ独立な解析を行い、 $S^3 \times S^1$ 等方真空の頑健性を包括的に論証する。
+第2節で作用・幾何・固定量を定義し、第3–4節で曲率恒等式と縮約ポテンシャルを導く。第5–7節でS³の形状下限、正結合の漸近、パラメータ分類を示し、第8節でT³・Nil³と比較する。第9節で変分範囲と物理的な問いとの関係を整理し、第10節で結論を述べる。接続の詳細、再現手順、証明の補足、旧版との関係は付録にまとめる。
 
-**位相的安定性**に対しては、 $M^3 \times S^1$ minisuperspace ansatz と EC 接続の下でポントリャーギン密度（Pontryagin density） $P = \langle R, *R \rangle$ が恒等的にゼロとなることを示す。これは自己双対/反自己双対成分の（本稿の分解における）規範的な拮抗（カイラル均衡）を意味し、この枠組みでは自己双対インスタントン解が許されないことを示す。
-
-**力学的安定性**に対しては、EC+NY ラグランジアンに Weyl 二乗項 $\alpha C^2$ を加えた拡張理論を考え、squashed（体積保存変形）ansatz を導入して異方性パラメータ $\varepsilon$ を含む2変数有効ポテンシャル $V_{\rm eff}(r, \varepsilon; \alpha)$ を構成する。 $\alpha$ の符号に応じて以下の分類を与える:
-
-- **$\alpha \leq 0$**: 等方 $S^3$（ $\varepsilon = 0$）の共形的平坦性（ $C^2 = 0$）により、Weyl 項は等方真空に影響しない。さらに $\alpha < 0$ では、 $\varepsilon \neq 0$ 方向への Weyl ペナルティにより等方性がさらに安定化される。
-- **$\alpha > 0$**: Weyl 項が $r \to 0$ において $V_{\rm EC}$ を漸近的に支配し、有効ポテンシャルが下に非有界（ $V_{\rm eff} \to -\infty$）となる。これは Weyl 重力の Ostrogradsky ゴースト不安定性の minisuperspace 版として理解される。
-
-### 1.3 本論文の主要結果（4つの理論的支柱）
-
-本論文の主要結果は、以下の4つの命題・定理に集約される:
-
-1. **Proposition 1（カイラル均衡 $P = 0$）**
-   $M^3 \times S^1$ minisuperspace + EC 接続の下で、ポントリャーギン密度 $P = \langle R, *R \rangle = 0$ が恒等的にゼロとなる。この ansatz の下では、自己双対インスタントン崩壊経路は閉鎖される。
-
-2. **Theorem 1（等方真空の Weyl 安定性）**
-   $\alpha \leq 0$ において、 $S^3 \times S^1$ の等方真空は共形的平坦性により Weyl 項の影響を受けず、 $V_{\rm EC}$ の大域的極小が保護される。
-
-3. **Theorem 2（ $\alpha > 0$ の非有界不安定性）**
-   $\alpha > 0$ において、 $V_{\rm eff}$ は下に非有界（ $\inf V_{\rm eff} = -\infty$）となる。 $\alpha \leq 0$ では下に有界であり、 $\alpha = 0$ が正確な安定性境界（sharp stability boundary）である。
-
-4. **Theorem 3（安定性境界のパラメータ独立性）**
-   $\alpha = 0$ の安定性境界は、paper01 パラメータ $(V, \eta, \theta_{\rm NY})$ に依存しない。これは $C^2$ が純粋に幾何学的な量であり、paper01 パラメータと分離（Geometric Decoupling）していることに起因する。
-
-### 1.4 論旨のフロー
-
-```mermaid
-flowchart TD
-    classDef phase   fill:#f3e8ff,stroke:#9333ea,stroke-width:2px
-    classDef question fill:#fef9c3,stroke:#ca8a04,stroke-width:1px
-    classDef theorem fill:#dcfce7,stroke:#16a34a,stroke-width:2px
-    classDef result  fill:#dbeafe,stroke:#2563eb,stroke-width:2px
-
-    P1(["EC+NY,  S³×S¹ 等方真空"]):::phase
-
-    P1 --> Q1 & Q2
-
-    Q1["**Question 1: 位相的安定性**<br>自己双対インスタントン崩壊の可能性"]:::question
-    Q2["**Question 2: 力学的安定性**<br>Weyl 補正 αC² の影響"]:::question
-
-    Q1 --> PROP1
-    PROP1["**sec3: Proposition 1**<br>P = ⟨R, *R⟩ ≡ 0<br>（カイラル均衡）"]:::theorem
-
-    PROP1 --> CLOSE
-    CLOSE(["自己双対崩壊経路を閉鎖<br>位相的脅威を排除"]):::result
-
-    Q2 --> WEYL
-    WEYL["**sec4: Weyl 拡張の定式化**<br>Squashed ansatz<br>V_eff = V_EC − α·C²·Vol"]:::question
-
-    WEYL --> ANEG & APOS
-    ANEG["α ≤ 0"]:::question
-    APOS["α > 0"]:::question
-
-    ANEG --> THM1
-    THM1["**sec5: Theorem 1**<br>等方真空 (ε=0) は C² = 0<br>Weyl 項の影響を受けない<br>大域極小を解析的に保護"]:::theorem
-
-    APOS --> THM2
-    THM2["**sec6: Theorem 2**<br>V_eff → −∞  (r → 0)<br>有効ポテンシャルが<br>下に非有界"]:::theorem
-
-    THM1 & THM2 --> THM3
-    THM3["**sec7: Theorem 3**<br>α = 0 が正確な安定性境界<br>パラメータ独立<br>（幾何と力学の分離）"]:::theorem
-
-    CLOSE & THM3 --> TOPO
-    TOPO["**sec8: Topology Comparison (S³, T³, Nil³)**<br>S³ の優位性は Weyl 拡張下でも保存"]:::result
-
-    TOPO --> PHASE3
-    PHASE3(["**sec9: Discussion**<br>斥力芯 (α < 0), Lorentz 拡張, 完全場の理論"]):::phase
-```
-
-### 1.5 論文構成
-
-本論文の構成は以下の通りである。
-
-- **§2 Framework**: EC+NY+Weyl ラグランジアンと squashed ansatz の定式化
-- **§3 Chiral Equilibrium**: $P = 0$ の解析的証明（Proposition 1）
-- **§4 Weyl Extension**: Weyl スカラー $C^2(r, \varepsilon)$ の閉じた式と有効ポテンシャルの構造
-- **§5 Stability ($\alpha \leq 0$)**: 等方真空の Weyl 安定性の証明（Theorem 1）
-- **§6 Instability ($\alpha > 0$)**: 非有界不安定性の証明（Theorem 2）
-- **§7 Universality**: 安定性境界のパラメータ独立性の証明（Theorem 3）
-- **§8 Topology Comparison**: Weyl 拡張下でのトポロジー選択原理の頑健性
-- **§9 Discussion**: 斥力芯としての $\alpha < 0$、今後の展望、本研究の限界
-- **§10 Conclusion**: 結論
-
-DPPUv2 計算エンジン v4の仕様は Appendix A、数値検証の詳細は Appendix B、記号計算の詳細は Appendix C にそれぞれ記載する。
-
----
-
-## 本文
-
-- [2. Framework](DPPUv2-paper02_sec02.md)
-- [3. Chiral Equilibrium: P = 0](DPPUv2-paper02_sec03.md)
-- [4. Weyl Extension: Squashed Ansatz](DPPUv2-paper02_sec04.md)
-- [5. Stability of the Isotropic Vacuum (α ≤ 0)](DPPUv2-paper02_sec05.md)
-- [6. Instability for α > 0](DPPUv2-paper02_sec06.md)
-- [7. Universality across paper01 Parameters](DPPUv2-paper02_sec07.md)
-- [8. Topology Comparison under Weyl Extension](DPPUv2-paper02_sec08.md)
-- [9. Discussion](DPPUv2-paper02_sec09.md)
-- [10. Conclusion](DPPUv2-paper02_sec10.md)
-
-## 付録
-
-- [Appendix A: DPPUv2 Engine v4  Specification](DPPUv2-paper02_appA.md)
-- [Appendix B: Numerical Verification Log & Nil³ Edge Case](DPPUv2-paper02_appB.md)
-- [Appendix C: Symbolic Computation Details](DPPUv2-paper02_appC.md)
-- [Appendix D: Phase Atlas: Effective Potential and Phase Diagram in the (αW , ε) Parameter Space](DPPUv2-paper02_appD.md)
-
-## 参考文献
-
-1. Muacca, “Topology-Dependent Phase Classification of Effective Potentials in Einstein–Cartan + Nieh–Yan Minisuperspace,” Zenodo. 10.5281/zenodo.18213677 (2026)
-2. F. W. Hehl, P. von der Heyde, G. D. Kerlick, and J. M. Nester, “General relativity with spin and torsion: Foundations and prospects,” Rev. Mod. Phys. 48, 393 (1976).
-3. O. Chandia and J. Zanelli, "Topological invariants, instantons, and the chiral anomaly on spaces with torsion," Phys. Rev. D 55, 7580 (1997).
-4. H. T. Nieh and M. L. Yan, “An identity in Riemann-Cartan geometry,” J. Math. Phys. 23, 373 (1982).
-5. R. P. Woodard,“Ostrogradsky's theorem on Hamiltonian instability,” Scholarpedia, 10(8), 32243 (2015).
+本稿の最小化は正の半径・形状を持つ静的一様族に制限される。固定するのは符号付き捩率パラメータと円周長であり、全場真空や動的安定性の判定は第9節で区別する。

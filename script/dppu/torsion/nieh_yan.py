@@ -6,11 +6,11 @@ Defines the Nieh-Yan topological term variants.
 
 Physical Background:
     The Nieh-Yan term is a topological invariant in 4D manifolds with torsion:
-        N = dT^a ∧ e_a - T^a ∧ T_a ∧ e^b ∧ e_b  (differential form notation)
+        N = d(e^a ∧ T_a) = T^a ∧ T_a - R_ab ∧ e^a ∧ e^b
 
     In our framework, we decompose it into two parts:
     - TT term: (1/4) ε^{abcd} T^e_{ab} T_{ecd}
-    - Ree term: (1/4) ε^{abcd} R_{abcd}
+    - Ree term: (1/2) ε^{abcd} R_{abcd}
 
     The full Nieh-Yan is: N_full = N_TT - N_Ree
 
@@ -34,8 +34,8 @@ class NyVariant(Enum):
             Physical: Pure torsion-torsion coupling
 
         REE: Ree-only variant.
-            Uses only the Ree term: (1/4) ε^{abcd} R_{abcd}
-            Physical: Curvature contribution (Euler density related)
+            Uses only the Ree term: (1/2) ε^{abcd} R_{abcd}
+            Physical: Curvature-coframe contraction; not the Euler density
 
         FULL: Full Nieh-Yan variant.
             Uses N = N_TT - N_Ree
@@ -49,7 +49,7 @@ class NyVariant(Enum):
         <NyVariant.TT: 'TT'>
     """
     TT = "TT"      # TT-only: (1/4) ε^{abcd} T^e_{ab} T_{ecd}
-    REE = "REE"    # Ree-only: (1/4) ε^{abcd} R_{abcd}
+    REE = "REE"    # Ree-only: (1/2) ε^{abcd} R_{abcd}
     FULL = "FULL"  # Full: N_TT - N_Ree
 
     def __str__(self) -> str:
@@ -59,9 +59,9 @@ class NyVariant(Enum):
     def description(self) -> str:
         """Human-readable description of the variant."""
         descriptions = {
-            NyVariant.TT: "TT-only (torsion-torsion)",
-            NyVariant.REE: "Ree-only (curvature)",
-            NyVariant.FULL: "Full Nieh-Yan (TT - Ree)",
+            NyVariant.TT: "Positive torsion-product term (TT)",
+            NyVariant.REE: "Positive curvature-coframe term (REE)",
+            NyVariant.FULL: "Complete Nieh-Yan (TT - REE)",
         }
         return descriptions[self]
 

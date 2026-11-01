@@ -1,12 +1,12 @@
 """
-Analytical Proof - S³ Isotropic Vacuum Stability under Weyl Extension
+Analytical Proof - S³ LC-Weyl Shape Penalty
 ==========================================================================
 
 This script verifies analytically (via SymPy) that:
 1. C²(S³, ε=0) = 0 (Weyl scalar vanishes for isotropic S³×S¹)
 2. ∂C²/∂ε|_{ε=0} = 0 (ε=0 is a critical point of C²)
 3. ∂²C²/∂ε²|_{ε=0} > 0 (ε=0 is a local minimum of C²)
-4. For α ≤ 0, the Weyl term reinforces stability of the isotropic vacuum
+4. For α ≤ 0, the Weyl contribution to restricted U is nonnegative
 
 Author: Muacca
 Date: 2026-02-19
@@ -157,8 +157,11 @@ def main():
     from datetime import datetime
     from sympy import Matrix
 
+    # Escape characters the console encoding cannot show; log files stay UTF-8.
+    for stream in (sys.stdout, sys.stderr):
+        stream.reconfigure(errors='backslashreplace')
     parser = argparse.ArgumentParser(
-        description='Analytical Proof: S³ Isotropic Vacuum Stability under Weyl Extension')
+        description='Analytical Proof: S³ LC-Weyl Shape Penalty')
     parser.add_argument('--output-dir', default='output',
                         help='Output directory for log file (default: output)')
     args = parser.parse_args()
@@ -182,7 +185,7 @@ def main():
     metric = Matrix.eye(dim)
 
     print("=" * 70)
-    print("C3: Analytical Proof - S³ Isotropic Vacuum Stability")
+    print("C3: Analytical Proof - S³ LC-Weyl Shape Penalty")
     print("=" * 70)
 
     # =====================================================
@@ -319,16 +322,15 @@ def main():
 4. C²(r, ε) ≥ 0 for all ε (sum of squares)
    → Combined with C²(ε=0) = 0, ε = 0 is the GLOBAL minimum of C²(ε)
 
-5. THEOREM: For α ≤ 0, V_Weyl = -α·C²·Vol = |α|·C²·Vol ≥ 0
-   with equality iff ε = 0. The Weyl term adds a non-negative
-   penalty to V_eff that vanishes at and only at the isotropic point.
+5. For α ≤ 0, U_Weyl = -α·C²·Vol ≥ 0.
+   If α < 0, equality holds only at ε=0 in the admissible domain ε>-1.
+   At α=0, the Weyl penalty is zero at every shape.
 
-6. COROLLARY: If V_EC (the α=0 effective potential) has its global
-   minimum at ε = 0 (numerically verified: V_min = -421.1 at r*=2.0,
-   ε*=0), then for all α ≤ 0:
-   - V_eff has the same global minimum value (-421.1)
-   - The minimum is achieved at the same point (r*=2.0, ε*=0)
-   - The minimum is strictly reinforced (deeper well in ε direction)
+6. This preserves a round global minimum only when the corrected base
+   potential has one. For complete NY on S3, fixed V != 0 and eta² < 4
+   give r*=sqrt(12-3eta²)/abs(V). The old V=4, eta=-2 point has no
+   positive stationary radius. A fixed-torsion minimum is not a full vacuum.
+   The complete classification and the shape-factor proof are in the paper.
 """)
 
     sys.stdout = _orig_stdout

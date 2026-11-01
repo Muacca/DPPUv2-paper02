@@ -2,23 +2,25 @@
 Torsion Ansatz Construction
 ===========================
 
-Constructs the torsion tensor T_{abc} based on the chosen mode.
+Constructs the signed input array tau (legacy variable T) for each mode.
+For the documented connection convention, geometric torsion is T_geom=-tau.
+Thus (eta_geom,V_geom)=(-eta_code,-V_code); retain this signed domain map.
 
 Physical Background:
     The torsion tensor can be decomposed into three irreducible parts:
-    1. T1 (Axial/Antisymmetric): Totally antisymmetric part
+    1. T_axial (Axial/Antisymmetric): Totally antisymmetric part
        - Parameterized by axial vector S^μ
        - T_{abc} = (2η/r) ε_{abc} for spatial indices
 
-    2. T2 (Vector-Trace): Trace part
+    2. T_vector (Vector-Trace): Trace part
        - Parameterized by vector V_μ
        - T_{abc} = (1/3)(η_{ac} V_b - η_{ab} V_c)
 
     3. T3 (Tensor): Traceless hook-symmetric part (not used in our ansatz)
 
 Our M³×S¹ Ansatz:
-    - T1: S^μ = (η/r)(0, 0, 0, 1) in frame basis
-    - T2: V_μ = V · δ^3_μ (only τ-component)
+    - T_axial: S^μ = (η/r)(0, 0, 0, 1) in frame basis
+    - T_vector: V_μ = V · δ^3_μ (only τ-component)
 
 Author: Muacca
 """
@@ -57,27 +59,27 @@ def construct_torsion_tensor(
         Torsion tensor T_{abc} as MutableDenseNDimArray
 
     Notes:
-        - For AX mode: Only T1 component is non-zero
-        - For VT mode: Only T2 component is non-zero
-        - For MX mode: Both T1 and T2 are non-zero
+        - For AX mode: Only the axial component is allowed; its amplitude may vanish
+        - For VT mode: Only the vector-trace component is allowed; its amplitude may vanish
+        - For MX mode: Both components are allowed, including zero amplitudes
     """
     if logger:
         logger.info(f"Constructing Torsion T_abc (Mode: {mode.value})...")
 
     T_tensor = MutableDenseNDimArray.zeros(dim, dim, dim)
 
-    # T1: Totally Antisymmetric (Axial)
+    # T_axial: Totally Antisymmetric (Axial)
     if mode.has_axial:
         if eta != S.Zero:
             if logger:
-                logger.info("  Adding T1 (Axial/Antisymmetric)...")
+                logger.info("  Adding T_axial (Axial/Antisymmetric)...")
             T_tensor = _add_axial_torsion(T_tensor, r, eta, dim)
 
-    # T2: Vector Trace
+    # Vector-trace component:
     if mode.has_vector_trace:
         if V != S.Zero:
             if logger:
-                logger.info("  Adding T2 (Vector Trace)...")
+                logger.info("  Adding Vector-trace component...")
             T_tensor = _add_vector_trace_torsion(T_tensor, V, metric, dim)
 
     if logger:
@@ -100,7 +102,7 @@ def _add_axial_torsion(
     dim: int
 ) -> MutableDenseNDimArray:
     """
-    Add axial (T1) torsion component.
+    Add axial torsion component.
 
     Formula for M³×S¹:
         T_{ijk} = (2η/r) ε_{ijk} for i,j,k ∈ {0,1,2}
@@ -124,7 +126,7 @@ def _add_vector_trace_torsion(
     dim: int
 ) -> MutableDenseNDimArray:
     """
-    Add vector-trace (T2) torsion component.
+    Add vector-trace torsion component.
 
     Formula:
         T_{abc} = (1/3)(η_{ac} V_b - η_{ab} V_c)

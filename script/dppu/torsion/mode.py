@@ -11,13 +11,13 @@ Physical Background:
     3. Tensor part (traceless, hook-symmetric)
 
     For our M³×S¹ ansatz, we consider only the first two:
-    - T1 (Axial): S^μ = (η/r)(0,0,0,1) in frame basis
-    - T2 (Vector-trace): T_μ = V·δ^3_μ
+    - Axial component: S^μ = (η/r)(0,0,0,1) in frame basis
+    - Vector-trace component: T_μ = V·δ^3_μ
 
 Modes:
-    - AX: Axial-only (S^μ ≠ 0, T_μ = 0)
-    - VT: Vector-trace-only (T_μ ≠ 0, S^μ = 0)
-    - MX: Mixed (both non-zero)
+    - AX: Axial-only (S^μ allowed, T_μ = 0)
+    - VT: Vector-trace-only (T_μ allowed, S^μ = 0)
+    - MX: Mixed (both components allowed, including zero amplitudes)
 
 Author: Muacca
 """
@@ -31,16 +31,16 @@ class Mode(Enum):
 
     Attributes:
         AX: Axial-only mode.
-            Only the totally antisymmetric (axial) component is non-zero.
-            Parameters: η ≠ 0, V = 0
+            Only the totally antisymmetric (axial) component is allowed.
+            Parameters: η real, V = 0
 
         VT: Vector-trace-only mode.
-            Only the vector-trace component is non-zero.
-            Parameters: η = 0, V ≠ 0
+            Only the vector-trace component is allowed.
+            Parameters: η = 0, V real
 
         MX: Mixed mode.
-            Both axial and vector-trace components are non-zero.
-            Parameters: η ≠ 0, V ≠ 0
+            Both axial and vector-trace components are allowed, including zero amplitudes.
+            Parameters: η and V real
 
     Examples:
         >>> mode = Mode.MX
@@ -49,29 +49,29 @@ class Mode(Enum):
         >>> Mode['AX']
         <Mode.AX: 'AX'>
     """
-    AX = "AX"    # Axial-only (S^μ ≠ 0, T_μ = 0)
-    VT = "VT"    # Vector-trace-only (T_μ ≠ 0, S^μ = 0)
-    MX = "MX"    # Mixed (both non-zero)
+    AX = "AX"    # Axial-only (S^μ allowed, T_μ = 0)
+    VT = "VT"    # Vector-trace-only (T_μ allowed, S^μ = 0)
+    MX = "MX"    # Mixed (both components allowed, including zero amplitudes)
 
     def __str__(self) -> str:
         return self.value
 
     @property
     def has_axial(self) -> bool:
-        """True if this mode includes axial (T1) component."""
+        """True if this mode includes axial component."""
         return self in (Mode.AX, Mode.MX)
 
     @property
     def has_vector_trace(self) -> bool:
-        """True if this mode includes vector-trace (T2) component."""
+        """True if this mode includes vector-trace component."""
         return self in (Mode.VT, Mode.MX)
 
     @property
     def description(self) -> str:
         """Human-readable description of the mode."""
         descriptions = {
-            Mode.AX: "Axial-only (T1)",
-            Mode.VT: "Vector-trace-only (T2)",
-            Mode.MX: "Mixed (T1 + T2)",
+            Mode.AX: "Axial only",
+            Mode.VT: "Vector trace only",
+            Mode.MX: "Axial and vector trace (zero amplitudes allowed)",
         }
         return descriptions[self]

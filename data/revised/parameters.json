@@ -1,0 +1,46 @@
+{
+  "manuscript_version": "v2",
+  "action": "EC + complete NY + LC-Weyl squared",
+  "inputs": {
+    "V_code": 4.0,
+    "eta_code_default": -2.0,
+    "theta_NY": 1.0,
+    "L": 1.0,
+    "kappa": 1.0
+  },
+  "dictionary": "eta_geometric=-eta_code; V_geometric=-V_code; x=(1+epsilon)^(-2/3)",
+  "volumes": {
+    "S3": "pi^2*L*r^3/4",
+    "T3": "(2*pi)^3*L*r^3",
+    "Nil3": "(2*pi)^4*L*r^3"
+  },
+  "domains": {
+    "round_r": [
+      0.001,
+      3.0,
+      301
+    ],
+    "shape_x": [
+      0.3,
+      1.7,
+      281
+    ],
+    "small_radius_r": [
+      0.001,
+      1.0,
+      241
+    ],
+    "nil_x": [
+      0.02,
+      1.6,
+      241
+    ],
+    "torus_r": [
+      0.001,
+      2.0,
+      201
+    ]
+  },
+  "old_ny_curve": "Historical incorrect NY expression, rescaled to the current spherical volume.",
+  "interpretation": "Fixed signed amplitudes and circle length. Finite samples illustrate the analytic proofs; slice extrema are not full-field vacua."
+}

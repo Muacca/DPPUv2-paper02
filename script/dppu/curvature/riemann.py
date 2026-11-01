@@ -9,7 +9,8 @@ Antisymmetry Properties:
     R_{abcd} must satisfy:
     - R_{abcd} = -R_{bacd}  (antisymmetric in first pair)
     - R_{abcd} = -R_{abdc}  (antisymmetric in second pair)
-    - R_{abcd} = R_{cdab}   (pair exchange symmetry)
+    Pair exchange R_{abcd} = R_{cdab} holds for LC curvature;
+    it is not assumed for a metric-compatible connection with torsion.
 
 Verification Strategy (3-level):
     1. Symbolic: Try to prove residual = 0 using simplification

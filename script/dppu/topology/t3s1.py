@@ -4,7 +4,8 @@ T³×S¹ Topology Implementation
 
 Flat 3-torus × circle.
 Structure constants: All zero (Abelian)
-Volume: V = (2π)⁴LR₁R₂R₃
+Spatial angle periods: 2π. Circle circumference: L (coordinate period 1).
+Volume: (2π)³LR₁R₂R₃.
 """
 
 from sympy import symbols, Matrix, S, pi
@@ -56,8 +57,8 @@ class T3S1Engine(BaseFrameEngine):
         # Frame metric (identity)
         self.data['metric_frame'] = Matrix.eye(dim)
 
-        # Volume (isotropic): (2π)⁴L r³
-        self.data['total_volume'] = (2 * pi)**4 * L * r**3
+        # Spatial angles have period 2π; L is the actual circle length.
+        self.data['total_volume'] = (2 * pi)**3 * L * r**3
 
         # Structure constants: All zero (Abelian/flat)
         self.data['structure_constants'] = MutableDenseNDimArray.zeros(dim, dim, dim)

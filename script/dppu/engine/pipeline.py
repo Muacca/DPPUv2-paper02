@@ -37,13 +37,18 @@ class BaseFrameEngine:
         mode: Mode,
         ny_variant: NyVariant,
         logger: Optional[Any] = None,
-        checkpoint_mgr: Optional[CheckpointManager] = None
+        checkpoint_mgr: Optional[CheckpointManager] = None,
+        *, curvature_model: str = 'EC_IRR'
     ):
         if not isinstance(mode, Mode):
             raise TypeError(f"mode must be Mode enum, got {type(mode)}")
         if not isinstance(ny_variant, NyVariant):
             raise TypeError(f"ny_variant must be NyVariant enum")
 
+        from ..curvature.rc_weyl import CURVATURE_MODELS
+        if curvature_model not in CURVATURE_MODELS:
+            raise ValueError(f'Unknown curvature model: {curvature_model}')
+        self.curvature_model = curvature_model
         self.mode = mode
         self.ny_variant = ny_variant
         self.logger = logger or NullLogger()
@@ -61,6 +66,7 @@ class BaseFrameEngine:
             ("E4.6", self.step_E4_6_ec_connection_frame),
             ("E4.7", self.step_E4_7_riemann_tensor_frame),
             ("E4.8", self.step_E4_8_ricci_scalar_frame),
+            ("E4.8a", self.step_E4_8a_curvature_quadratic),
             ("E4.9", self.step_E4_9_torsion_scalar_frame),
             ("E4.10", self.step_E4_10_nieh_yan_frame),
             ("E4.11", self.step_E4_11_lagrangian),
@@ -73,6 +79,7 @@ class BaseFrameEngine:
     def run(self, start_step: str = "E4.1"):
         """Execute computation pipeline."""
         self.logger.info(f"Mode: {self.mode.value}, NY Variant: {self.ny_variant.value}")
+        self.logger.info(f"Curvature quadratic action: {self.curvature_model}")
 
         try:
             start_idx = next(
@@ -150,25 +157,46 @@ class BaseFrameEngine:
         from ..curvature.weyl import compute_weyl_tensor, compute_weyl_scalar
 
         dim = self.data['dim']
-        
+
         # Inputs from LC step
         R_abcd = self.data['riemann_abcd_LC']
         Ricci = self.data['ricci_LC']
         R_scalar = self.data['ricci_scalar_LC']
         metric = self.data['metric_frame']
-        
+
         # Compute Weyl Tensor
         C_abcd = compute_weyl_tensor(
             R_abcd, Ricci, R_scalar, metric, dim, self.logger
         )
         self.data['weyl_tensor'] = C_abcd
-        
+
         # Compute Weyl Scalar
         # Note: frame metric inverse is same as metric if diag(1,1,1,1)
         # But generally we should invoke inverse.
-        metric_inv = metric.inv() 
+        metric_inv = metric.inv()
         C_sq = compute_weyl_scalar(C_abcd, metric_inv, dim, self.logger)
         self.data['weyl_scalar'] = C_sq
+        self.data['weyl_tensor_LC'] = C_abcd
+        self.data['weyl_scalar_LC'] = C_sq
+
+    def step_E4_8a_curvature_quadratic(self):
+        """Select LC-Weyl, irreducible EC-Weyl, or Ricci-tracefree EC curvature."""
+        from ..curvature.rc_weyl import irreducible_weyl_curvature, ricci_tracefree_curvature
+        from ..curvature.weyl import compute_weyl_scalar
+        metric = self.data['metric_frame']
+        if self.curvature_model == 'LC':
+            tensor = self.data['weyl_tensor_LC']
+            norm = self.data['weyl_scalar_LC']
+        else:
+            project = (irreducible_weyl_curvature if self.curvature_model == 'EC_IRR'
+                       else ricci_tracefree_curvature)
+            tensor = project(self.data['riemann_abcd'], metric)
+            norm = compute_weyl_scalar(tensor, metric.inv(), self.data['dim'], self.logger)
+        self.data['curvature_model'] = self.curvature_model
+        self.data['quadratic_tensor'] = tensor
+        self.data['quadratic_scalar'] = norm
+        # These legacy keys always mean LC; Ricci-tracefree EC curvature is not labelled Weyl.
+        self.logger.info(f"Selected quadratic scalar = {norm}")
 
     def step_E4_4_torsion_ansatz_frame(self):
         """Construct torsion tensor."""
@@ -267,7 +295,7 @@ class BaseFrameEngine:
                     for d in range(dim):
                         eps = levi_civita_4d(a, b, c, d)
                         if eps != 0:
-                            N_Ree += Rational(1, 4) * eps * R_abcd[a, b, c, d]
+                            N_Ree += Rational(1, 2) * eps * R_abcd[a, b, c, d]
         self.data['ny_density_Ree'] = simplify(N_Ree)
 
         # Full
@@ -287,12 +315,15 @@ class BaseFrameEngine:
         """Construct Lagrangian."""
         from ..action.lagrangian import compute_lagrangian
 
+        if self.data.get('curvature_model') != self.curvature_model:
+            raise ValueError('Recompute E4.8a for the selected curvature model before constructing the action')
+
         L = compute_lagrangian(
             self.data['ricci_scalar'],
             self.data['nieh_yan_density'],
             self.data['params']['kappa'],
             self.data['params']['theta_NY'],
-            weyl_scalar=self.data.get('weyl_scalar', S.Zero),
+            weyl_scalar=self.data['quadratic_scalar'],
             alpha=self.data['params'].get('alpha', S.Zero),
             logger=self.logger
         )
@@ -335,9 +366,11 @@ class BaseFrameEngine:
             raise RuntimeError("Run engine first.")
 
         params = self.data['params']
-        args = [params['r'], params['V'], params['eta'],
-                params['theta_NY'], params['L'], params['kappa'],
-                params['epsilon'], params['alpha']]
+        # Keep the same callable signature when AX/VT store inactive zeros.
+        from sympy import Dummy
+        args = [params[name] if getattr(params[name], 'is_Symbol', False)
+                else Dummy(name) for name in
+                ['r', 'V', 'eta', 'theta_NY', 'L', 'kappa', 'epsilon', 'alpha']]
         return lambdify(args, self.data['potential'], modules='numpy')
 
     def get_potential_decomposition(self) -> Dict:

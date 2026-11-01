@@ -1,78 +1,67 @@
-# DPPUv2 paper02: Structural Robustness of Isotropic S³ Vacua in Einstein-Cartan Minisuperspace via Chiral Equilibrium and Weyl Stability
+# Curvature Identities and Restricted Potential Bounds in Einstein–Cartan–Nieh–Yan Minisuperspace with Irreducible EC-Weyl Corrections
 
-[10.5281/zenodo.18815498](https://doi.org/10.5281/zenodo.18815498)
-
-[日本語 README](README_ja.md)
-
-![Potential landscape example](LaTeX/figures/fig02_landscape.png "Potential landscape example")
+EC denotes Einstein–Cartan, LC denotes Levi-Civita, and NY denotes Nieh–Yan.
 
 
-## Paper Contents
+[日本語](README_ja.md)
 
-- [Official PDF (English, built from LaTeX)](DPPUv2-paper02.pdf)
-- [Draft in Japanese Markdown](DPPUv2-paper02_sec01.md)
+Manuscripts, code, and figure data for a study of how irreducible EC-Weyl and LC-Weyl terms affect radius and shape dependence in static homogeneous spherical, toroidal, and Nil reductions. An exact spherical shape factorization leads to a classification of minima and their attainment at fixed torsion parameters and circle circumference.
 
-## Directory Structure
+**v2 — revised 2026-11-01.** Changes to the action, conventions, and conclusions are documented in the [CHANGELOG](CHANGELOG.md); the preceding reference expression is discussed in Appendix D of the paper.
 
-- `LaTeX/` — LaTeX manuscript and compiled PDF
-  - `main.tex` — Main file
-  - `sections/` — TeX files for each section
-  - `appendices/` — TeX files for appendices
-  - `figures/` — Figures
-- `data/` — Data files for the paper
-- `script/` — Data processing and visualization scripts
-  - For script details, see [script/README](script/README.md)
+Zenodo records: v1 (2026-02-28) is [10.5281/zenodo.18815499](https://doi.org/10.5281/zenodo.18815499); the all-versions DOI [10.5281/zenodo.18815498](https://doi.org/10.5281/zenodo.18815498) resolves to the latest deposited version. Identify the manuscript version and date when citing results.
 
-## Building the LaTeX PDF
+| Resource | Contents |
+|---|---|
+| [English PDF](DPPUv2-paper02.pdf) | v2 text, proofs, figures, and appendices |
+| [LaTeX](LaTeX/main.tex) | English sources |
+| [Code](script/README.md) | Calculation, figure reproduction, and viewer |
+| [Conventions](script/docs/CONVENTIONS.md) | Local/global conventions and fixed data |
+| [Data](data/revised/README.md) | Revised figures 1–4 and table data |
 
-### Basic Build Command
+- [Section 1 (Japanese)](DPPUv2-paper02_sec01.md)
+- [Section 2 (Japanese)](DPPUv2-paper02_sec02.md)
+- [Section 3 (Japanese)](DPPUv2-paper02_sec03.md)
+- [Section 4 (Japanese)](DPPUv2-paper02_sec04.md)
+- [Section 5 (Japanese)](DPPUv2-paper02_sec05.md)
+- [Section 6 (Japanese)](DPPUv2-paper02_sec06.md)
+- [Section 7 (Japanese)](DPPUv2-paper02_sec07.md)
+- [Section 8 (Japanese)](DPPUv2-paper02_sec08.md)
+- [Section 9 (Japanese)](DPPUv2-paper02_sec09.md)
+- [Section 10 (Japanese)](DPPUv2-paper02_sec10.md)
 
-Navigate to the LaTeX directory and run pdflatex.
-**At least two compilation passes are required** to resolve cross-references (`\ref`, `\label`, etc.) correctly.
+[Appendix A](DPPUv2-paper02_appA.md) / [Appendix B](DPPUv2-paper02_appB.md) / [Appendix C](DPPUv2-paper02_appC.md) / [Appendix D](DPPUv2-paper02_appD.md)
 
-- **First pass**: writes label information to the `.aux` file
-- **Second pass**: reads and resolves references from the `.aux` file
+## Action and classification
 
-If references appear as `??`, run the compilation once more.
+The main action contains the squared norm of irreducible EC-Weyl curvature. Its tensor equals LC-Weyl on the prescribed static family, so the reduced potentials and radius/shape classifications coincide. Section 4 compares the action built from Ricci-tracefree EC curvature. [Definitions and code selection](script/docs/WEYL_MODELS.md).
 
-```bash
-cd LaTeX
-pdflatex -interaction=nonstopmode main.tex
-pdflatex -interaction=nonstopmode main.tex
+The scan and viewer share [joint and fixed-shape classifications](script/docs/CLASSIFICATION.md), including unattained and degenerate minima.
+
+## Reproduce the figures
+
+Run from the repository root. Render uses supplied data; recompute explicitly recalculates them with the current engine. Specify a new output directory.
+
+```powershell
+python -m pip install -r script/requirements.txt
+python -B script/scripts/paper02/reproduce_figures.py render --output-dir rendered_figures
+python -B script/scripts/paper02/reproduce_figures.py recompute --output-dir recomputed_figures
 ```
 
-### Output Files
+The repository contains the current paper, datasets, engine, runners, symbolic supplements, and viewer. Earlier outputs and exploratory code remain in Git history and are excluded from the attached supplement. Code torsion amplitudes have the opposite signs to geometric torsion; restart notebook kernels after changing code versions.
 
-A successful build produces:
+## Build the PDF
 
-- `main.pdf` — Final PDF file (approx. 3.5 MB, 79 pages)
-- `main.aux` — Auxiliary file (cross-reference data)
-- `main.log` — Compilation log
-- `main.out` — hyperref outline information
-
-### Troubleshooting
-
-#### On Error
-
-Check the log file:
-```bash
-grep -i "error\|warning" main.log | tail -20
+```powershell
+Push-Location LaTeX
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+Pop-Location
 ```
 
-#### Clean Build
+The output is LaTeX/main.pdf; these commands do not replace the root PDF.
 
-Delete all auxiliary files and rebuild from scratch:
-```bash
-cd LaTeX
-rm -f *.aux *.log *.out *.synctex.gz *.fdb_latexmk *.fls
-pdflatex -interaction=nonstopmode main.tex
-pdflatex -interaction=nonstopmode main.tex
-```
+## Author and license
 
-## Author
-
-Muacca
-
-## License
-
-See the LICENSE file in the repository root.
+Muacca. [LICENSE](LICENSE.txt).

@@ -19,9 +19,19 @@ Usage:
 Author: Muacca
 """
 
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
+
+
+def _echo(message: str) -> None:
+    """Print to the console, escaping characters its encoding cannot show."""
+    try:
+        print(message)
+    except UnicodeEncodeError:
+        encoding = getattr(sys.stdout, 'encoding', None) or 'ascii'
+        print(message.encode(encoding, 'backslashreplace').decode(encoding))
 
 
 class NullLogger:
@@ -117,9 +127,9 @@ class ComputationLogger:
         desc_str = description.strip() if description else "No description"
 
         msg = f"[{timestamp}] STEP {step_id}: {desc_str}"
-        print("=" * 70)
-        print(msg)
-        print("=" * 70)
+        _echo("=" * 70)
+        _echo(msg)
+        _echo("=" * 70)
         self._log(msg + "\n")
 
         return step_id
@@ -134,7 +144,7 @@ class ComputationLogger:
         """
         prefix = " " * indent
         msg = f"{prefix}{message}"
-        print(msg)
+        _echo(msg)
         self._log(msg + "\n")
 
     def warning(self, message: str) -> None:
@@ -145,7 +155,7 @@ class ComputationLogger:
             message: The warning message
         """
         msg = f"  [WARNING] {message}"
-        print(msg)
+        _echo(msg)
         self._log(msg + "\n")
 
     def error(self, message: str) -> None:
@@ -156,7 +166,7 @@ class ComputationLogger:
             message: The error message
         """
         msg = f"  [ERROR] {message}"
-        print(msg)
+        _echo(msg)
         self._log(msg + "\n")
 
     def success(self, message: str) -> None:
@@ -167,7 +177,7 @@ class ComputationLogger:
             message: The success message
         """
         msg = f"  [SUCCESS] {message}"
-        print(msg)
+        _echo(msg)
         self._log(msg + "\n")
 
     def _log(self, message: str) -> None:
@@ -189,5 +199,5 @@ class ComputationLogger:
         total_duration = (datetime.now() - self.total_start_time).total_seconds()
         msg = f"\nCompleted: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
         msg += f"Total runtime: {total_duration:.1f}s ({total_duration/60:.1f} min)\n"
-        print(msg)
+        _echo(msg)
         self._log(msg)

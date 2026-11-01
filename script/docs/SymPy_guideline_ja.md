@@ -1,265 +1,236 @@
-# SymPy 実装ガイドライン — dppu エンジン
+# SymPy 実装ガイドライン — Paper02
 
-- **Target:** AI Coding Assistants & Contributors
-- **Context:** Einstein-Cartan Theory on Curved Spacetime (S³×S¹, T³×S¹, Nil³×S¹)
+ECはEinstein–Cartan、LCはLevi-Civita、NYはNieh–Yanの略記です。
 
-本ドキュメントは、`dppu` パッケージにおける数式処理（SymPy）の実装指針、および理論物理学的規約（Convention）を定めるものである。以下のルールを厳守すること。
 
-⇒ [English version](SymPy_guideline.md) | [幾何規約](CONVENTIONS_ja.md)
+E4.3やE4.8aなどは公開計算・checkpointの段階IDであり、研究工程ではない。以下ではIDと処理内容を対応付けて説明する。
 
------
 
-## 1\. 高速化エンジニアリング指針 (Optimization Rules)
+対象は公開engineを利用・拡張する読者。共通の幾何規約は[CONVENTIONS](CONVENTIONS_ja.md)、本文では第2〜4節と付録Aに記載する。計算は静的一様な3幾何のEC＋完全NY＋既約EC-Weyl作用を主とし、LCと別のRicciトレースなし作用も比較対象とする。
 
-SymPyを用いた積分計算における「処理時間爆発（2時間以上）」を防ぎ、数秒で完了させるための鉄則。
+[English](SymPy_guideline.md) / [規約](CONVENTIONS_ja.md) / [分類仕様](CLASSIFICATION_ja.md)
 
-### Rule 1.1: `expand()` + `cancel()` 戦略の徹底
+## 1. 記号計算と簡約
 
-積分（`integrate`）を行う直前に、被積分関数に対して高コストな `simplify()` を使用してはならない。代わりに「展開と約分」を行うこと。
+係数はSymPyの整数と`Rational`を使い、記号計算へfloatを混ぜない。成分loop内の簡約を必要箇所へ集約し、式に応じて`factor`・`cancel`・`simplify`を選ぶ。`expand`は式を増大させる場合もあり、計算速度を一律には保証しない。
 
-  * **Don't:**
-    ```python
-    density = simplify(density)  # NG 禁止：巨大な式の因数分解は計算コストが極大
-    result = integrate(density, x)
-    ```
-  * **Do:**
-    ```python
-    density = cancel(expand(density))  # OK 推奨：多項式の和にすることで項別積分を誘発
-    result = integrate(density, x)
-    ```
+E4.12は一様密度に大域体積を掛ける。明示的な多重積分を導入する場合は、既知の積分と比較しながら中間式と所要時間を確認する。形状の領域はepsilon > -1である。正のsymbol xと`epsilon = x**Rational(-3, 2) - 1`への置換を使い、許容branchを保つ。無条件の`powdenest(force=True)`などで仮定を飛び越えない。
 
-### Rule 1.2: 積分後の中間簡約の抑制
+## 2. テンソル成分の実装指針
 
-多重積分（例： $\phi$ 積分 → $\theta$ 積分）の際、中間結果に対して過度な `simplify` を行わない。`cancel` 程度に留め、最終的な積分直前で再度 `expand` する方が高速である。
+### Rule 2.1: フレーム成分を所定の添字順で扱う
 
------
+エンジンはEuclidean計量 $`g_{ab}=\delta_{ab}`$ （`metric_frame`、既定は `Matrix.eye(dim)`）の正規直交フレームで計算する。このときフレーム添字の上げ下げは恒等操作であり、成分を直接用いてよい。ただし配列の位置は[CONVENTIONS 第2節](CONVENTIONS_ja.md)の順序に従う。
 
-## 2\. 理論実装指針 (Theoretical Implementation Rules)
+* `C[a,b,c]` $`=C^a{}_{bc}`$
+* `Gamma[a,b,c]` $`=\Gamma^a{}_{bc}`$ 。最後の添字が微分方向
+* `Riemann[a,b,c,d]` $`=R^a{}_{bcd}`$
 
-曲がった時空（Curved Spacetime）において、テンソル演算の整合性を保つための鉄則。
+非正規直交基底や別の計量では、全ての添字を計量で下げてから入れ替え、必要に応じて上げ直す。配列の転置だけでは添字操作にならない。
 
-### Rule 2.1: 配列インデックス操作の禁止 (Robust Method)
+### Rule 2.2: 入力配列 $\tau$ と幾何学的捩率 $T$ を区別する
 
-非対角計量や $g_{\mu\nu} \neq 1$ の環境下では、`T[mu, nu, lam]` のように配列のインデックスを入れ替える操作は、物理的なテンソルの添字操作（上げ下げ）と等価ではない。
-
-  * **Don't:**
-    ```python
-    # NG 禁止：物理的に誤った成分を参照する恐れがある
-    term = T_tensor[mu, nu, lam]
-    ```
-  * **Do:** 必ず計量 $g_{\mu\nu}$ を介して操作する。
-    1.  全ての添字を下げて完全共変形 $T_{\lambda\mu\nu}$ を作る。
-    2.  添字の入れ替え（Permutation）を行う。
-    3.  必要に応じて計量で添字を上げる。
-
-#### 正規直交フレーム基底での最適化
-
-正規直交フレーム基底においては、計量が単位行列（ $g_{ab} = \eta_{ab} = \text{diag}(1,1,1,1)$ または $\text{diag}(-1,1,1,1)$）であるため、添字の上げ下げ計算を省略し、直接成分計算を行うことで高速化する。
-
-ただし、物理的定義（Hehl 1976）の符号パターン $(+1, +1, -1)$ は厳守すること。
+`torsion_tensor` には入力配列 $\tau$ を格納する。Cartan方程式から得られる幾何学的捩率は $T=-\tau$ であり、保存された入力配列と接続から再構成する。contortionのステップ `E4.5` はコードの式を $\tau$ に適用する。
 
 ```python
-# ============================================================
-# Golden Logic for Contortion (Frame Basis / DPPUv2 Standard)
-# ============================================================
-# Assumption: Metric is diagonal/identity (Orthonormal Frame)
-# Therefore T^a_bc and T_abc behave identically in code logic.
-
-K_tensor = MutableDenseNDimArray.zeros(dim, dim, dim)
-
+# Step E4.5: 入力配列tauのcontortion
 for a in range(dim):
     for b in range(dim):
         for c in range(dim):
-            # Formula: K_abc = (1/2)(T_abc + T_bca - T_cab)
-            # Note: Using T[a,b,c] directly as T_abc
-            
-            term = (T_tensor[a, b, c] + T_tensor[b, c, a] - T_tensor[c, a, b])
-            
-            val = term * Rational(1, 2)
-            
-            if val != 0:
-                K_tensor[a, b, c] = cancel(expand(val))
+            val = (tau[a, b, c] + tau[b, c, a] - tau[c, a, b]) * Rational(1, 2)
 ```
 
-### Rule 2.2: 自己無撞着性の検証 (Consistency Check)
+幾何学的捩率で書くと、同じcontortionは $`K_{abc}[T]=-\frac12(T_{abc}+T_{bca}-T_{cab})`$ である（論文の式(D)）。配列と二つのパラメータを $`\tau=-T`$ 、 $`\eta_{\tau}=-\eta`$ 、 $`V_{\tau}=-V`$ と同時に変換する。 $K$ だけ、または一方の捩率パラメータだけの符号を反転しない。
 
-EC接続 ($\Gamma_{\text{EC}}$) を構築した後、必ず以下の検証コードを実行し、ミスマッチが **0** であることを確認しなければならない。
+### Rule 2.3: 構造係数を含む捩率の整合性検証
+
+非座標フレームでは、捩率成分に構造係数が入る。
+
+$$
+T^a{}_{bc}=C^a{}_{bc}+\Gamma^a{}_{cb}-\Gamma^a{}_{bc}.
+$$
+
+EC接続を構築した後、これが $-\tau$ を再現し、ミスマッチが **0** であることを確認する。
 
 ```python
-# Torsion Consistency Check
-T_verify = Gamma_EC[lam, mu, nu] - Gamma_EC[lam, nu, mu] # Hehl定義
-mismatch = count(simplify(T_verify - T_original) != 0)
+dim = engine.data['dim']
+C = engine.data['structure_constants']
+Gamma_EC = engine.data['connection_EC']
+tau = engine.data['torsion_tensor']
+mismatch = sum(
+    1
+    for a in range(dim) for b in range(dim) for c in range(dim)
+    if simplify(C[a, b, c] + Gamma_EC[a, c, b] - Gamma_EC[a, b, c] + tau[a, b, c]) != 0
+)
 assert mismatch == 0
 ```
 
+`Gamma_EC[a,b,c] - Gamma_EC[a,c,b]` だけでは $C$ が抜ける。 $C\ne0$ の $S^3$ やNilでは有効な検証にならない。
+
+### Rule 2.4: エンジン内蔵の検証
+
+* E4.3は計量適合性検査を呼び、結果をログへ記録する。検査関数の返値は `(passed, violations)` であり、この呼出箇所は自動例外化しない。拡張時は `assert passed` などで判定を確認する。
+* E4.3a（LC）とE4.7（EC）は $`R_{abcd}=-R_{bacd}`$ と $`R_{abcd}=-R_{abdc}`$ を `PROVED_ZERO`・`WITNESS_NONZERO`・`UNPROVED` の判定で検証する。証明されていない残差を零として扱わない。
+* 捩率を持つ接続では、対交換 $`R_{abcd}=R_{cdab}`$ は要求しない（論文の式(P)）。
+
 -----
 
-## 3\. 理論的規約 (Standard Conventions)
+## 3. エンジンが用いる規約
 
-論文執筆時の混乱を防ぐため、**Hehl (1976) 標準** に準拠する。
+### 3.1 Torsionと曲率
 
-### 3.1 Torsion Definition
+捩率と曲率は2-formで定義し、 $`\omega^a{}_{b}=\Gamma^a{}_{bc}e^c`$ とする（[CONVENTIONS 第6節](CONVENTIONS_ja.md)）。
 
-捩れテンソル $T^\lambda_{\ \mu\nu}$ の定義：
-$$T^\lambda_{\ \mu\nu} \equiv \Gamma^\lambda_{\ \mu\nu} - \Gamma^\lambda_{\ \nu\mu}$$
-（注：本エンジンのフレーム基底での捩れ成分は、CONVENTIONS の第6節で定義された捩れ2-form $T^a = de^a + \omega^{a}{}\_b\wedge e^b$ から $T^a = \frac{1}{2}T^{a}{}\_{bc}\,e^b\wedge e^c$ の係数比較により抽出される）
+$$
+\begin{aligned}
+T^a&=de^a+\omega^a{}_{b}\wedge e^b=\frac12T^a{}_{bc}\thinspace e^b\wedge e^c,\\
+R^a{}_{b}&=d\omega^a{}_{b}+\omega^a{}_{c}\wedge\omega^c{}_{b}=\frac12R^a{}_{bcd}\thinspace e^c\wedge e^d.
+\end{aligned}
+$$
 
-### 3.2 Contortion Formula
+### 3.2 接続
 
-上記のTorsion定義と整合するContortion $K^\lambda_{\ \mu\nu}$ の公式（Verified Formula）：
+$$
+\begin{aligned}
+\Gamma^{\mathrm{EC}}_{abc}&=\Gamma^{\mathrm{LC}}_{abc}+K_{abc},\qquad
+\Gamma^{\mathrm{LC}}_{abc}=\frac12\left(C_{abc}+C_{cba}-C_{bac}\right),\\
+K_{abc}[T]&=-\frac12\left(T_{abc}+T_{bca}-T_{cab}\right)
+=\frac12\left(\tau_{abc}+\tau_{bca}-\tau_{cab}\right).
+\end{aligned}
+$$
 
-$$K_{\lambda\mu\nu} = \frac{1}{2} \left( T_{\lambda\mu\nu} + T_{\mu\nu\lambda} - T_{\nu\lambda\mu} \right)$$
+Levi–Civita部分は[CONVENTIONS 第5節](CONVENTIONS_ja.md)の一般Koszul公式であり、両側不変計量を仮定しない。
 
-  * 符号パターン: **$(+1, +1, -1)$**
-  * 注意: この式は $T_{\lambda\mu\nu}$（全ての添字を下げたもの）に対して適用すること。
+### 3.3 曲率成分
 
-### 3.3 Einstein-Cartan Connection
+各runnerではフレーム成分が一定なので、ステップ `E4.7` は次の式を用いる。
 
-$${\Gamma_{\text{EC}}}^\lambda_{\ \mu\nu} = {\Gamma_{\text{LC}}}^\lambda_{\ \mu\nu} + K^\lambda_{\ \mu\nu}$$
+$$
+R^a{}_{bcd}=\Gamma^a{}_{ec}\Gamma^e{}_{bd}-\Gamma^a{}_{ed}\Gamma^e{}_{bc}+\Gamma^a{}_{be}C^e{}_{cd}.
+$$
 
-  * $\Gamma_{\text{LC}}$: Levi-Civita接続（Christoffel記号）
-  * $K$: Contortion
+最後の項は非座標フレームの $de^c$ に由来し、省略してはならない（論文付録A）。
 
 -----
 
 ## 4. Torsion Ansatz と Mode 分解規約
 
-$M^3 \times S^1$ ミニスーパースペース・アンサーツでの捩れテンソルは、以下の3モードで指定する。
-
 ### 4.1 モード定義
 
-| Mode | 物理的成分 | パラメータ |
-|---|---|---|
-| `Mode.AX` | 軸対称成分（T1）のみ | $\eta \neq 0$, $V = 0$ |
-| `Mode.VT` | ベクトル跡部分（T2）のみ | $\eta = 0$, $V \neq 0$ |
-| `Mode.MX` | T1 + T2 の両成分 | $\eta \neq 0$, $V \neq 0$ |
+| Mode | 入力成分 |
+|---|---|
+| `Mode.AX` | axial成分のみ（ $`V_{\tau}=0`$ ） |
+| `Mode.VT` | vector-trace成分のみ（ $`\eta_{\tau}=0`$ ） |
+| `Mode.MX` | 両成分 |
 
-### 4.2 物理的対応
+### 4.2 成分
 
-- **T1（軸対称成分）**: 軸性ベクトル $S^\mu = (\eta/r)(0,0,0,1)$ の双対。空間添字 $a,b,c \in \{0,1,2\}$ に対して $T_{abc} = (2\eta/r)\,\varepsilon_{abc}$。
-- **T2（ベクトル跡部分）**: ベクトル $V_\mu = V\,\delta^3_\mu$（$\tau$ 成分のみ）の双対。 $T_{abc} = \frac{1}{3}(\delta_{ac}V_b - \delta_{ab}V_c)$。
+ステップ `E4.4` は、runnerのパラメータ `eta` $`=\eta_{\tau}`$ 、`V` $`=V_{\tau}`$ とスケール `r` から入力配列を構成する。3幾何とも`params['r']`を用いる。Nilの内部symbol名Rも同じscaleを表す。
 
-### 4.3 実装ルール
+$$
+\begin{aligned}
+\tau^{\mathrm{ax}}_{ijk}&=\frac{2\eta_{\tau}}{r}\varepsilon_{ijk}\quad(i,j,k\in\lbrace 0,1,2\rbrace ),\\
+\tau^{\mathrm{vec}}_{abc}&=\frac13\left(\delta_{ac}(V_{\tau})_{b}-\delta_{ab}(V_{\tau})_{c}\right),\qquad
+(V_{\tau})_{a}=(0,0,0,V_{\tau}).
+\end{aligned}
+$$
 
-`dppu/torsion/ansatz.py` の `construct_torsion_tensor(mode, r, eta, V, metric, dim)` を使用すること。
-$T_{abc}$ を手打ちで構築してはならない。
+幾何学的捩率 $T=-\tau$ は、 $`\eta=-\eta_{\tau}`$ 、 $`V=-V_{\tau}`$ として同じ形を持つ（論文の式(T)）。runnerはステップ `E4.1`〜`E4.2` で計量・構造定数・体積・パラメータを与え、捩率配列を自前で構成しない。
 
 -----
 
-## 5. Nieh-Yan トポロジカル項のバリアント
+## 5. Nieh–Yan 密度と作用のバリアント
 
-### 5.1 Nieh-Yan 分解
+### 5.1 密度
 
-完全な Nieh-Yan 密度：
-$$N = N_{\mathrm{TT}} - N_{\mathrm{Ree}},$$
-$$N_{\mathrm{TT}} = \frac{1}{4}\varepsilon^{abcd}T^{e}{}\_{ab}T_{ecd},\qquad N_{\mathrm{Ree}} = \frac{1}{4}\varepsilon^{abcd}R_{abcd}.$$
+Euclideanフレームで $`\varepsilon_{0123}=+1`$ とし、ステップ `E4.10` は次を計算する。
+
+$$
+N_{\mathrm{TT}}=\frac14\varepsilon^{abcd}T^e{}_{ab}T_{ecd},\qquad
+N_{\mathrm{REE}}=\frac12\varepsilon^{abcd}R_{abcd},\qquad
+N_{\mathrm{FULL}}=N_{\mathrm{TT}}-N_{\mathrm{REE}}.
+$$
+
+TTの係数 $1/4$ は二つの捩率 2-formから、REEの係数 $1/2$ は一つの曲率2-formから生じる。 $`N_{\mathrm{TT}}`$ は捩率の二次式なので、 $\tau$ で評価しても同じ値になる。三つのrunnerのansatzでは
+
+$$
+N_{\mathrm{TT}}=N_{\mathrm{REE}}=-\frac{4V\eta}{r}=-\frac{4V_{\tau}\eta_{\tau}}{r},\qquad N_{\mathrm{FULL}}=0
+$$
+
+である。
 
 ### 5.2 バリアント選択
 
-| `NyVariant` | 使用する密度 |
-|---|---|
-| `NyVariant.TT` | $N_{\mathrm{TT}}$ のみ |
-| `NyVariant.REE` | $N_{\mathrm{Ree}}$ のみ |
-| `NyVariant.FULL` | $N_{\mathrm{TT}} - N_{\mathrm{Ree}}$（標準） |
+| `NyVariant` | ラグランジアンのNY項 | 役割 |
+|---|---|---|
+| `NyVariant.FULL` | $`\theta N_{\mathrm{FULL}}`$ | 完全NY作用 |
+| `NyVariant.TT` | $`\theta N_{\mathrm{TT}}`$ | 診断用作用 |
+| `NyVariant.REE` | $`+\theta N_{\mathrm{REE}}`$ | 正符号で加える診断用作用。FULLの負の成分ではない |
+
+このansatzではTTとREEが同じポテンシャルを与える。それらの障壁や $\theta$ 依存性は、完全NY作用の結果ではない。
 
 ### 5.3 実装
 
-パイプラインステップ `E4.10` で全バリアントが計算される。バリアント選択は engine の `__init__` で `ny_variant` 引数を指定する。`dppu/torsion/nieh_yan.py` を参照。
+`step_E4_10_nieh_yan_frame` は `ny_density_TT`・`ny_density_Ree`・`ny_density_full` を格納し、`BaseFrameEngine` の引数 `ny_variant` で採用する密度を選ぶ。
 
 -----
 
-## 6. 拡張ラグランジアンと Weyl 結合定数 $\alpha$
+## 6. 作用と縮約ポテンシャル
 
-### 6.1 作用の形式
+### 6.1 曲率二乗と作用
 
-$$S = \int L \times \mathrm{Vol},\qquad
-L = \frac{R}{2\kappa^2} + \theta_{\mathrm{NY}}\times N + \alpha\times C^2.$$
+E4.3aはLC曲率・Ricci、E4.3bはLC-Weylテンソルとその二乗を構成する。E4.7でEC曲率を構成し、E4.8aで選択テンソルを射影してノルムIをquadratic_scalarへ保存する。E4.11〜E4.13は次の作用を評価する。
 
-| パラメータ | 意味 |
-|---|---|
-| $\kappa$ | Einstein-Cartan 重力結合定数 |
-| $\theta_{\mathrm{NY}}$ | Nieh-Yan 結合定数（トポロジカル） |
-| $\alpha$ | Weyl 結合定数（共形不変項） |
+$$
+\mathcal L=\frac{R_{\mathrm{EC}}}{2\kappa^2}+\theta N+\alpha I,
+\qquad S=\mathcal L\thinspace\mathrm{Vol}_{4},\qquad U=-S.
+$$
 
-$\alpha \leq 0$ では定理1により安定真空が保護される。 $\alpha > 0$ では定理2により有効ポテンシャルが非有界となる。
+`total_volume`は各幾何の固定商と体積保存形状に対応する。保存キーは`riemann_LC`、`ricci_scalar_LC`、`weyl_tensor`、`weyl_scalar`、`riemann`、`ricci_scalar`、`lagrangian`、`action`、`potential`である。
 
-### 6.2 有効ポテンシャルの取得
+### 6.2 ポテンシャルの取得
+
+リポジトリ直下からの例：
 
 ```python
+import sys
+sys.path.insert(0, 'script')  # from the repository root
+from dppu.torsion import Mode, NyVariant
+from dppu.topology import S3S1Engine
+
+engine = S3S1Engine(Mode.MX, NyVariant.FULL)
 engine.run()
-V_func = engine.get_effective_potential_function()
-# 呼び出しシグネチャ：
-# V_func(r, V_param, eta, theta_NY, L, kappa, epsilon, alpha) -> float
+U = engine.get_effective_potential_function()
+# (r, V_tau, eta_tau, theta_NY, L, kappa, epsilon, alpha)
+print(U(1.0, 4.0, 0.0, 1.0, 1.0, 1.0, 0.3, -0.1))
 ```
 
-$V_{\rm eff} = -S$。パイプラインステップ `E4.13` で抽出される。
+3幾何で8引数を共有する。AXはV引数、VTはeta引数を無視する。FULLではthetaに依存しない。本文の幾何学的振幅を渡すときはV・etaをともに符号反転する。T3ではepsilonにより体積保存経路が指定され、方向別の独立半径の代入は不要である。
 
-### 6.3 実装位置
+`get_potential_decomposition()`は`r^3`、`r^2`、`r^1`、`r^0`、`total`を返す。逆半径項の独立したキーはなく、その項は`total`に保持される。係数は、たとえば`expand(engine.data['potential']).coeff(engine.data['params']['r'], -1)`で取得する。LC-Weylが非零ならこの項を保ち、4個の多項式係数だけから一般のポテンシャルを再構成しない。
 
-`dppu/action/lagrangian.py` の `compute_lagrangian()`、`dppu/action/potential.py` を参照。
+## 7. 半径と形状の分類
 
------
-
-## 7. 数値最適化戦略（Phase Atlas 探索）
-
-### 7.1 2段階戦略
-
-**Stage 1：Brute-force グリッド探索**
-
-`scipy.optimize.brute`（`Ns` 点/軸）で $(r, \varepsilon)$ 2D グリッドを粗く探索し、大域極小の領域を特定する。
-
-**Stage 2：Multi-start L-BFGS-B 精密化**
-
-Stage 1 の上位 $N$ 候補を初期点として `scipy.optimize.minimize`（L-BFGS-B、`ftol=1e-8`）を実行し、高精度最小値を得る。
-
-### 7.2 安定性分類
-
-$(r^\*, \varepsilon^\*)$ の最小値発見後、以下に分類する：
-
-| 分類 | 条件 | 物理的意味 |
-|---|---|---|
-| Type-I | $V(r)$ が $r \to 0$ で立ち上がる（障壁あり） | 安定真空（核生成障壁あり） |
-| Type-II | $V(r)$ が $r \to 0$ で単調減少（障壁なし） | 自発的核生成が可能 |
-| Type-III | 物理的領域に局所最小なし | 不安定配位 |
-
-`dppu/action/stability.py` の `analyze_stability()` を使用すること。
-
-### 7.3 注意事項
-
-- $\alpha > 0$ の場合、最適化が探索境界 $(r \to 0^+,\,\varepsilon \to -1^+)$ に張り付く（`converged = False`）。これは最適化の失敗ではなく、ポテンシャルが探索範囲内で非有界であることの正確な報告である。
-- $\mathrm{Nil}^3$ の平坦極限確認のため、探索範囲を通常より広く $\varepsilon_{\rm max} = 5.0$ に設定している（`scripts/paper02/` 参照）。
-
------
-
-## 8. Self-duality（SD）診断規約
-
-### 8.1 曲率の Hodge 双対
-
-$$(*R)^{ab}{}_{cd} = \frac{1}{2}\varepsilon_{cdef}\,R^{ab,ef},$$
-
-ここで $\varepsilon_{cdef}$ はフレーム基底の Levi-Civita 記号（`dppu/utils/levi_civita.py` の `levi_civita_4d()` を使用）。
-
-### 8.2 Pontryagin 内積と SD 残差
-
-$$E_{RR} = \langle R, R\rangle = R_{abcd}R^{abcd},\qquad
-P = \langle R, *R\rangle = R_{abcd}(*R)^{abcd}.$$
-
-| 条件 | 物理的状態 |
-|---|---|
-| SD 残差 $< \varepsilon_{\rm SD}$ かつ $\|R\| > \varepsilon_R$ | Self-dual |
-| ASD 残差 $< \varepsilon_{\rm SD}$ かつ $\|R\| > \varepsilon_R$ | Anti-self-dual |
-| $P = 0$（命題1） | Chiral equilibrium（ $M^3 \times S^1$ 上で代数的に成立） |
-
-### 8.3 使用方法
+E4.14は半径微分をログに記録する段階であり、`equilibria`は空のままである。分類にはscanとviewerで共有する公開APIを使う。
 
 ```python
-from dppu.curvature.self_duality import SDExtensionMixin
-SDExtensionMixin.attach_to(engine)          # メソッドを動的にアタッチ
-R = engine.get_R_ab_cd_numerical(params_dict)
-diag = engine.evaluate_sd_status(params_dict)
-# diag['P_RstarR'] で Pontryagin 値を確認（== 0 が期待値）
+from dppu.scanning import classify_configuration
+
+result = classify_configuration('Nil3', V=4, eta=-2, alpha=-1, epsilon=0)
+print(result['global_class'])  # UNATTAINED_INFIMUM
+print(result['radial_class'])  # FINITE_MINIMUM
 ```
 
-`dppu/curvature/self_duality.py`、`dppu/curvature/pontryagin.py` を参照。
+`global_*`は固定捩率・L・κで全r>0・x>0、`radial_*`は指定epsilonを固定した全r>0の結果である。有限最小、未達成下限、退化最小、非有界を区別する。TT/REEは曲線比較に使えるが、完全NY分類は適用外となる。引数、CSV、数値範囲の詳細は[CLASSIFICATION](CLASSIFICATION_ja.md)を参照する。
 
+入力の小数丸め、非零値の零への吸着、描画窓による根の除外は行わない。固定形状の解析式は80桁Decimalで評価する。数値的不確定やfloat範囲外は明示され、任意入力に対する区間保証は主張しない。分類の証明は本文第5〜8節、半径の判定式は付録Bにある。
 
+## 8. 実行環境と再現
+
+公開の依存は[requirements](../requirements.txt)。現行engine・分類器はSciPyを必要としない。notebookはipywidgets・ipymplを使う。式や規約の変更後は新しい出力／checkpoint先と再起動したkernelを使う。runnerのcheckpoint保存は明示的なオプションで、`engine.run()`は旧checkpointを自動読込しない。
+
+[図のrenderとrecompute](../README_ja.md)を分け、旧出力を現行結果として使わない。本文の主張は本文・付録で完結し、外部作業用コードは公開計算の依存先ではない。
+
+## 曲率モデルの選択
+
+E4.8aはEC曲率の計算後に二乗作用のテンソルを選択し、E4.11はquadratic_scalarを使う。以前からのweyl_scalar、weyl_tensorはLC基準の互換名であり、選択された作用を意味しない。[モデル定義とAPI](WEYL_MODELS_ja.md)を参照する。

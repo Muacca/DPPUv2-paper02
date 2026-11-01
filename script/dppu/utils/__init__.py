@@ -7,8 +7,6 @@ Provides common utility functions used across the package.
 Modules:
 - levi_civita: Levi-Civita symbols (3D and 4D)
 - symbolic: Symbolic computation helpers (prove_zero, witness search)
-- block_classifier: Curvature block classification
-- parameters: Unified parameter interface
 """
 
 from .levi_civita import epsilon_symbol, levi_civita_4d

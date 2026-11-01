@@ -267,3 +267,18 @@ latex.out/
 *.slo
 *.sls
 
+# Outputs of the documented commands and notebooks
+/output/
+/checkpoints/
+/rendered_figures/
+/recomputed_figures/
+/new_scan/
+/new_s3/
+/new_t3/
+/new_nil/
+/new_weyl/
+/new_blocks/
+paper02_rendered_figures/
+paper02_recomputed_figures/
+/LaTeX/main.pdf
+/LaTeX/main.log

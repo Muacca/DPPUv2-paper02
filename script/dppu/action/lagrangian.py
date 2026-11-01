@@ -19,23 +19,23 @@ def compute_lagrangian(
     logger: Optional[Any] = None
 ) -> Any:
     """
-    Compute the EC + NY + Weyl Lagrangian density.
+    Compute EC + NY + the selected quadratic-curvature density.
 
-    L = R/(2κ²) + θ_NY × N + α × C²
+    L = R/(2κ²) + θ_NY × N + α × I
 
     Args:
         ricci_scalar: Ricci scalar R
         nieh_yan_density: Nieh-Yan density N
         kappa: Gravitational coupling κ
         theta_NY: Nieh-Yan coupling θ_NY
-        weyl_scalar: Weyl scalar C² (default 0)
-        alpha: Weyl coupling α (default 0)
+        weyl_scalar: Selected quadratic scalar I (compatibility keyword; default 0)
+        alpha: Quadratic-curvature coupling α (default 0)
 
     Returns:
         Lagrangian density L
     """
     if logger:
-        logger.info("Constructing Lagrangian L = R/(2κ²) + θ_NY×N + αC²...")
+        logger.info("Constructing Lagrangian L = R/(2κ²) + θ_NY×N + αI...")
 
     L = ricci_scalar / (2 * kappa**2) + theta_NY * nieh_yan_density + alpha * weyl_scalar
     L = simplify(L)

@@ -102,13 +102,13 @@ def decompose_torsion_scalar(
     """
     Decompose torsion scalar into contributions from different parts.
 
-    For our M³×S¹ ansatz with T = T1 + T2:
-        T = T1·T1 + 2·T1·T2 + T2·T2
+    For our M³×S¹ ansatz with T = T_axial + T_vector:
+        T = T_axial·T_axial + 2·T_axial·T_vector + T_vector·T_vector
 
     Where:
-        T1·T1: Pure axial contribution
-        T2·T2: Pure vector-trace contribution
-        T1·T2: Cross term (often zero by symmetry)
+        T_axial·T_axial: Pure axial contribution
+        T_vector·T_vector: Pure vector-trace contribution
+        T_axial·T_vector: Cross term (often zero by symmetry)
 
     Args:
         T: Torsion tensor
@@ -117,7 +117,7 @@ def decompose_torsion_scalar(
     Returns:
         Dictionary with 'axial', 'vector', 'cross' contributions
     """
-    # This requires separating T into T1 and T2 first
+    # This requires separating T into T_axial and T_vector first
     # For now, return total scalar only
     total = compute_torsion_scalar(T, dim)
     return {

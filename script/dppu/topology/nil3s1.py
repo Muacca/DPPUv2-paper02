@@ -5,6 +5,9 @@ Nil³×S¹ Topology Implementation
 Heisenberg nilmanifold (Bianchi II) × circle.
 Structure constants: C²₀₁ = -1/R, C²₁₀ = +1/R
 Volume: V = (2π)⁴LR³
+Fixed Heisenberg lattice periods: (2π, 2π, 4π²).
+For sigma2=dz-x*dy, the x-face gluing shifts z by 2π*y.
+The circle has coordinate period 1 and physical circumference L.
 """
 
 from sympy import symbols, Matrix, S, pi, simplify, Rational
@@ -63,7 +66,7 @@ class Nil3S1Engine(BaseFrameEngine):
         # Structure constants (Squashed)
         # Base: C²₀₁ = -1/R, C²₁₀ = +1/R
         # Squashed: C^2_{01} -> (1+eps)^(-4/3) * C_base
-        
+
         factor = (1 + epsilon)**Rational(-4, 3)
         lam = (1 / R) * factor
 

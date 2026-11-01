@@ -130,7 +130,7 @@ def check_torsion_free(
     Verify that a connection is torsion-free.
 
     Torsion-free condition (frame basis):
-        T^a_{bc} = Γ^a_{bc} - Γ^a_{cb} + C^a_{bc} = 0
+        T^a_{bc} = C^a_{bc} + Γ^a_{cb} - Γ^a_{bc} = 0
 
     Args:
         Gamma: Connection coefficients Γ^a_{bc}
@@ -148,7 +148,7 @@ def check_torsion_free(
     for a in range(dim):
         for b in range(dim):
             for c in range(b + 1, dim):  # Only check b < c
-                torsion = Gamma[a, b, c] - Gamma[a, c, b] + C[a, b, c]
+                torsion = C[a, b, c] + Gamma[a, c, b] - Gamma[a, b, c]
                 torsion = simplify(torsion)
                 if torsion != S.Zero:
                     violations += 1
